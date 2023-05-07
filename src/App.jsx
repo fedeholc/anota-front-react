@@ -2,8 +2,8 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-//const API_URL = "https://todoapp-exp1-production.up.railway.app";
-const API_URL = "http://localhost:3025";
+const API_URL = "https://todoapp-exp1-production.up.railway.app";
+//const API_URL = "http://localhost:3025";
 
 function App() {
   const [notesData, setNotesData] = useState();
@@ -42,10 +42,14 @@ function App() {
       });
   }
 
-  // ?? con o sin a/a?
+  // TODO: ?? con o sin a/a?
   async function handleGuardar() {
     let nuevoId = uuidv4();
-    let resultado = await fetch(API_URL, {
+    setNotesData((prev) => {
+      return [{ id: nuevoId, tarea: newNote }, ...prev];
+    });
+
+    await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,22 +58,11 @@ function App() {
       body: JSON.stringify({ id: nuevoId, tarea: newNote }),
     })
       .then((res) => {
-        return res;
+        return res; // para ver el statustext usar: console.log(res.text());
       })
       .catch((error) => {
         console.error(error);
       });
-    console.log("resultado: ", resultado); // para ver el statustext usar: await resultado.text());
-    console.log("nuevoid:", nuevoId);
-    setNotesData((prev) => {
-      return [{ id: nuevoId, tarea: newNote }, ...prev];
-    });
-
-    //?? TODO: guardamos la nota con el nuevo id? definir
-    //?? el problema es que tarda si esperamos a tener el id
-    //?? para mostrar la nota guardada tarda un poco
-    // habría que ver cómo hacer para mostrar la nota y después actualizar el id
-    // creo que si uso el generador de ids ya de ese modo yo podría tener mi clave primaria
   }
 
   return (
