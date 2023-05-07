@@ -1,0 +1,17 @@
+POST https://todoapp-exp1-production.up.railway.app/ HTTP/1.1
+content-type: application/json
+
+{
+    "id": 0,
+    "tarea": "GMT"
+}
+
+###
+
+POST   http://localhost:3004/ HTTP/1.1
+content-type: application/json
+
+{
+    "id": 0,
+    "tarea": "2GMT"
+}

@@ -1,0 +1,219 @@
+:root {
+  --celeste: #00a1d3;
+  --violeta: #a92da3;
+  --naranja: #fd4d2e;
+  --verde: #769f52;
+  --rosa: #ff68a8;
+  --amarillo: #f8ca38;
+
+
+  --amarillo2: #FEC763;
+  --rosa2: #EA55B1;
+  --lila: #A992FA;
+  --azul: #00207F;
+
+  --linkNuevo: hsl(225, 80%, 45%);
+  --linkVisitado: hsl(225, 100%, 35%);
+}
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-size: 18px;
+  min-width: 400px;
+
+}
+
+body {
+  font-family: 'Roboto', Serif;
+  /* Antes tenía Roboto mono */
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+
+code,
+pre {
+  font-size: 0.85rem !important;
+}
+
+
+.layout__container {
+  min-height: 100vh;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+}
+
+a:visited {
+  color: var(--linkVisitado)
+}
+
+a {
+  color: var(--linkNuevo);
+}
+
+main {
+  margin: 0rem 0.5rem;
+  max-width: 700px;
+}
+
+header,
+footer {
+  min-width: 100%;
+}
+
+section {
+  margin-top: 2rem;
+}
+
+footer {
+  font-family: "Roboto mono", mono;
+  font-size: 0.7rem;
+  padding-bottom: 0.2rem;
+  margin-top: 2rem;
+  border-top: 1px dashed var(--amarillo2);
+  display: grid;
+  justify-content: center;
+}
+
+h2 {
+  font-family: "Karma", serif;
+  font-size: 1.6rem !important;
+  line-height: 1.5rem !important;
+}
+
+.volver {
+  display: grid;
+  justify-content: right;
+}
+
+.post__container {
+  font-family: "Karma", serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.post__container li {
+  margin-bottom: 0.5rem;
+}
+
+.post__container h1 {
+  font-size: 2rem;
+}
+
+.post__container h2 {
+  font-size: 1.6rem;
+  margin-top: 2.2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
+}
+
+.post__container h3 {
+  font-size: 1.4rem;
+  margin-top: 2.2rem;
+  margin-bottom: 0rem;
+  line-height: 1rem;
+}
+
+.post__container ul {
+  margin-top: 0px;
+}
+
+.post__container p {
+  margin-bottom: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.post__titulo {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 0rem;
+  margin-bottom: 1.5rem;
+  line-height: 2.2rem;
+}
+
+.post__tags {
+  font-family: 'Roboto mono', monospace;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  border-top: 1px dashed lightgray;
+  border-bottom: 1px dashed lightgray;
+  padding: 0.2rem 0rem;
+  display: flex;
+  justify-content: right;
+  margin-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.post__fecha {
+  display: flex;
+  justify-content: right;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+
+.apuntes__titulo {
+  font-family: 'Karma', serif;
+}
+
+.apuntes__item {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3rem;
+}
+
+.apuntes__item small {
+  font-size: 0.8rem;
+
+}
+
+
+@media only screen and (max-width: 750px) {
+
+
+
+  main,
+  header {
+    max-width: 600px;
+  }
+
+
+}
+
+@media only screen and (max-width: 650px) {
+
+  html,
+  body {
+    font-size: 15px;
+  }
+
+  main,
+  header {
+    max-width: 500px;
+  }
+
+}
+
+@media only screen and (max-width: 550px) {
+
+  html,
+  body {
+    font-size: 15px;
+  }
+
+  main,
+  header {
+    max-width: 380px;
+  }
+
+
+}
