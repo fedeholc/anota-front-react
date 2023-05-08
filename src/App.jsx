@@ -73,19 +73,42 @@ function App() {
       sino solo al componente 
       https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable
       */}
-      <input
-        name="newNote"
-        value={newNote}
-        onChange={(e) => setNewNote(e.target.value)}
-        type="text"
-      />
-      <button onClick={handleGuardar}>Guardar</button>
+      <div
+        style={{
+          display: "flex",
+          gap: "0.4rem",
+          justifyContent: "center",
+          margin: "1rem",
+        }}
+      >
+        <input
+          name="newNote"
+          value={newNote}
+          onChange={(e) => setNewNote(e.target.value)}
+          type="text"
+        />
+        <button onClick={handleGuardar}>Guardar</button>
+      </div>
 
-      <div style={{ display: "grid", gap: "1rem", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "grid",
+          gap: "0.4rem",
+          justifyContent: "center",
+          margin: "1rem",
+        }}
+      >
         {notesData &&
           notesData.map((note) => {
             return (
-              <div key={note.id}>
+              <div
+                key={note.id}
+                style={{
+                  border: "1px solid gray",
+                  borderRadius: "5px",
+                  padding: "0.4rem",
+                }}
+              >
                 {note.id} {note.tarea}{" "}
                 <button data-key={note.id} onClick={handleBorrar}>
                   borrar
