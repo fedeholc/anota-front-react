@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import ContentEditable from "react-contenteditable";
 
 const API_URL = "https://anotes1-production.up.railway.app";
 //const API_URL = "http://localhost:3025";
@@ -17,7 +18,7 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
-
+    console.log(data);
     setNotesData(data);
   }
 
@@ -46,7 +47,7 @@ function App() {
   async function handleGuardar() {
     let nuevoId = uuidv4();
     setNotesData((prev) => {
-      return [{ id: nuevoId, tarea: newNote }, ...prev];
+      return [{ id: nuevoId, note: newNote }, ...prev];
     });
 
     await fetch(API_URL, {
@@ -55,7 +56,7 @@ function App() {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ id: nuevoId, tarea: newNote }),
+      body: JSON.stringify({ id: nuevoId, note: newNote }),
     })
       .then((res) => {
         return res; // para ver el statustext usar: console.log(res.text());
@@ -63,6 +64,21 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  function handleEditable(event) {
+    console.log(event);
+  }
+
+  function handleGuardarEditable(event) {
+    //TODO: hacer que guarde!
+    //el event target tiene el dataset.key con el id
+    //y el innerhtml / innertxt
+    //hay que modificar el array y guardar
+    //ojo porque hay que tomar el html sino no guarda renglones
+    //o sea tal vez tener siempre texto y html
+    // para eso hay que sanitizar usando lo que usan
+    //acá: https://codesandbox.io/s/l91xvkox9l?file=/src/index.js
   }
 
   return (
@@ -99,7 +115,7 @@ function App() {
         }}
       >
         {notesData &&
-          notesData.map((note) => {
+          notesData.map((note, index) => {
             return (
               <div
                 key={note.id}
@@ -109,7 +125,16 @@ function App() {
                   padding: "0.4rem",
                 }}
               >
-                {note.id} {note.tarea}{" "}
+                <div>
+                  {note.id} {note.note}{" "}
+                </div>
+                <ContentEditable
+                  html={`fede ${notesData[index].note}`} // innerHTML of the editable div
+                  disabled={false} // use true to disable edition
+                  onChange={handleEditable} // handle innerHTML change
+                  data-key={note.id}
+                  onBlur={handleGuardarEditable} //TODO: hacer que guarde
+                />
                 <button data-key={note.id} onClick={handleBorrar}>
                   borrar
                 </button>
