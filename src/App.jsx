@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const API_URL = "https://todoapp-exp1-production.up.railway.app";
+const API_URL = "https://anotes1-production.up.railway.app";
 //const API_URL = "http://localhost:3025";
 
 function App() {
