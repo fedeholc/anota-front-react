@@ -81,11 +81,14 @@ function App() {
     //acá: https://codesandbox.io/s/l91xvkox9l?file=/src/index.js
 
     let updateId = event.target.dataset.key;
+    let contenidoNuevo = event.target.innerHTML;
+    //let contenidoNuevo = event.target.innerText;
 
     setNotesData((prev) => {
-      prev.map((e) => {
+      return prev.map((e) => {
+        console.log("t:", contenidoNuevo);
         if (e.id == updateId) {
-          return { id: e.id, note: event.target.innerText };
+          return { id: e.id, note: contenidoNuevo };
         } else {
           return { id: e.id, note: e.note };
         }
@@ -98,7 +101,7 @@ function App() {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ id: updateId, note: event.target.innerText }),
+      body: JSON.stringify({ id: updateId, note: contenidoNuevo }),
     })
       .then((res) => {
         return res; // para ver el statustext usar: console.log(res.text());
