@@ -79,6 +79,33 @@ function App() {
     //o sea tal vez tener siempre texto y html
     // para eso hay que sanitizar usando lo que usan
     //acá: https://codesandbox.io/s/l91xvkox9l?file=/src/index.js
+
+    let updateId = event.target.dataset.key;
+
+    setNotesData((prev) => {
+      prev.map((e) => {
+        if (e.id == updateId) {
+          return { id: e.id, note: event.target.innerText };
+        } else {
+          return { id: e.id, note: e.note };
+        }
+      });
+    });
+
+    fetch(API_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({ id: updateId, note: event.target.innerText }),
+    })
+      .then((res) => {
+        return res; // para ver el statustext usar: console.log(res.text());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -125,11 +152,10 @@ function App() {
                   padding: "0.4rem",
                 }}
               >
-                <div>
-                  {note.id} {note.note}{" "}
-                </div>
+                <div>{note.id}</div>
+                <div>Nota: </div>
                 <ContentEditable
-                  html={`fede ${notesData[index].note}`} // innerHTML of the editable div
+                  html={`${notesData[index].note}`} // innerHTML of the editable div
                   disabled={false} // use true to disable edition
                   onChange={handleEditable} // handle innerHTML change
                   data-key={note.id}
