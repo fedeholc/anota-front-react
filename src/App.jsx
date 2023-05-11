@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ContentEditable from "react-contenteditable";
 
-const API_URL = "https://anotes1-production.up.railway.app";
-//const API_URL = "http://localhost:3025";
+//const API_URL = "https://anotes1-production.up.railway.app";
+const API_URL = "http://localhost:3025";
 
 function App() {
   const [notesData, setNotesData] = useState();
@@ -18,7 +18,7 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
-    console.log(data);
+    console.log("data:",data);
     setNotesData(data);
   }
 
@@ -47,7 +47,8 @@ function App() {
   async function handleGuardar() {
     let nuevoId = uuidv4();
     setNotesData((prev) => {
-      return [{ id: nuevoId, note: newNote }, ...prev];
+      console.log("nn:", newNote);
+      return [{ id: nuevoId, noteText: newNote, noteHTML: newNote }, ...prev];
     });
 
     await fetch(API_URL, {
@@ -56,9 +57,14 @@ function App() {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ id: nuevoId, note: newNote }),
+      body: JSON.stringify({
+        id: nuevoId,
+        noteText: newNote,
+        noteHTML: newNote,
+      }),
     })
       .then((res) => {
+        
         return res; // para ver el statustext usar: console.log(res.text());
       })
       .catch((error) => {
@@ -81,16 +87,22 @@ function App() {
     //acá: https://codesandbox.io/s/l91xvkox9l?file=/src/index.js
 
     let updateId = event.target.dataset.key;
-    let contenidoNuevo = event.target.innerHTML;
+    let contenidoNuevoHTML = event.target.innerHTML;
+    let contenidoNuevoText = event.target.innerText;
+
     //let contenidoNuevo = event.target.innerText;
 
     setNotesData((prev) => {
       return prev.map((e) => {
-        console.log("t:", contenidoNuevo);
+        console.log("t:", contenidoNuevoHTML);
         if (e.id == updateId) {
-          return { id: e.id, note: contenidoNuevo };
+          return {
+            id: e.id,
+            noteText: contenidoNuevoText,
+            noteHTML: contenidoNuevoHTML,
+          };
         } else {
-          return { id: e.id, note: e.note };
+          return { id: e.id, noteText: e.noteText, noteHTML: e.noteHTML };
         }
       });
     });
@@ -101,7 +113,11 @@ function App() {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ id: updateId, note: contenidoNuevo }),
+      body: JSON.stringify({
+        id: updateId,
+        noteText: contenidoNuevoText,
+        noteHTML: contenidoNuevoHTML,
+      }),
     })
       .then((res) => {
         return res; // para ver el statustext usar: console.log(res.text());
@@ -158,7 +174,7 @@ function App() {
                 <div>{note.id}</div>
                 <div>Nota: </div>
                 <ContentEditable
-                  html={`${notesData[index].note}`} // innerHTML of the editable div
+                  html={`${notesData[index].noteHTML}`} // innerHTML of the editable div
                   disabled={false} // use true to disable edition
                   onChange={handleEditable} // handle innerHTML change
                   data-key={note.id}
