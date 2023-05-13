@@ -2,11 +2,9 @@
 import { useEffect } from "react";
 import { createContext, useContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
-
 import { v4 as uuidv4 } from "uuid";
 
-//TODO: esto tiene que ir a un .ENV
-const API_URL = "http://localhost:3025";
+const { API_URL } = import.meta.env.VITE_API_URL;
 
 const NotesContext = createContext(null);
 

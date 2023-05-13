@@ -5,10 +5,7 @@ import ContentEditable from "react-contenteditable"; */
 import { NotesProvider } from "./NotesContext";
 import NotesList from "./NotesList";
 import NotesInput from "./NoteInput";
-
-//const API_URL = "https://anotes1-production.up.railway.app";
-const API_URL = "http://localhost:3025";
-
+ 
 function App() {
   return (
     <>
