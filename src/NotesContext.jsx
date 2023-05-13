@@ -10,12 +10,14 @@ const NotesContext = createContext(null);
 const NotesDispatchContext = createContext(null);
 
 export function NotesProvider({ children }) {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [notes, dispatch] = useReducer(notesReducer, null);
 
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta
   async function cargarDatos() {
-    let data = await fetch(API_URL)
+     let data = await fetch(API_URL)
       .then((res) => res.json())
       .catch((error) => {
         console.error(error);
@@ -26,6 +28,7 @@ export function NotesProvider({ children }) {
 
   useEffect(() => {
     cargarDatos();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
