@@ -7,12 +7,7 @@ export default function NotesList() {
   const dispatch = useNotesDispatch();
 
   function handleBorrar(event) {
-    const deleteId = event.currentTarget.dataset.key;
-    dispatch({ type: "deleted", deleteId: deleteId });
-  }
-
-  function handleEditableChange(event) {
-    console.log(event);
+    dispatch({ type: "deleted", deleteId: event.currentTarget.dataset.key });
   }
 
   function handleGuardarEditable(event) {
@@ -35,11 +30,6 @@ export default function NotesList() {
     >
       {notes &&
         notes.map((note, index) => {
-          /* return (
-            <li key={note.id}>
-              <p>{note.noteText}</p>
-            </li>
-          ); */
           return (
             <div
               key={note.id}
@@ -54,9 +44,9 @@ export default function NotesList() {
               <ContentEditable
                 html={`${notes[index].noteHTML}`} // innerHTML of the editable div
                 disabled={false} // use true to disable edition
-                onChange={handleEditableChange} // handle innerHTML change
+                //onChange={handleEditableChange} // handle innerHTML change
                 data-key={note.id}
-                onBlur={handleGuardarEditable} //TODO: hacer que guarde
+                onBlur={handleGuardarEditable}
               />
               <button data-key={note.id} onClick={handleBorrar}>
                 borrar
@@ -67,63 +57,3 @@ export default function NotesList() {
     </div>
   );
 }
-
-/* function Task({ task }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useTasksDispatch();
-  let taskContent;
-  if (isEditing) {
-    taskContent = (
-      <>
-        <input
-          value={task.text}
-          onChange={(e) => {
-            dispatch({
-              type: "changed",
-              task: {
-                ...task,
-                text: e.target.value,
-              },
-            });
-          }}
-        />
-        <button onClick={() => setIsEditing(false)}>Save</button>
-      </>
-    );
-  } else {
-    taskContent = (
-      <>
-        {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
-      </>
-    );
-  }
-  return (
-    <label>
-      <input
-        type="checkbox"
-        checked={task.done}
-        onChange={(e) => {
-          dispatch({
-            type: "changed",
-            task: {
-              ...task,
-              done: e.target.checked,
-            },
-          });
-        }}
-      />
-      {taskContent}
-      <button
-        onClick={() => {
-          dispatch({
-            type: "deleted",
-            id: task.id,
-          });
-        }}
-      >
-        Delete
-      </button>
-    </label>
-  );
-} */

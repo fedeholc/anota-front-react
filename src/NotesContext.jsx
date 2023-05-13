@@ -7,14 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 const { API_URL } = import.meta.env.VITE_API_URL;
 
 const NotesContext = createContext(null);
-
 const NotesDispatchContext = createContext(null);
 
 export function NotesProvider({ children }) {
-  //le pongo algún valor inicial para que se vea algo o no de error hasta que cargue?
   const [notes, dispatch] = useReducer(notesReducer, null);
-
-  const API_URL = "http://localhost:3025";
 
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta
@@ -67,7 +63,6 @@ function notesReducer(notes, action) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         //TODO:acá hay que pasar un objeto no cada campo indiv
         body: JSON.stringify({
@@ -93,19 +88,17 @@ function notesReducer(notes, action) {
       ];
     }
     case "updated": {
-      //el event target tiene el dataset.key con el id
-      //y el innerhtml / innertxt
-      //hay que modificar el array y guardar
       //ojo porque hay que tomar el html sino no guarda renglones
       //o sea tal vez tener siempre texto y html
       // para eso hay que sanitizar usando lo que usan
       //acá: https://codesandbox.io/s/l91xvkox9l?file=/src/index.js
 
+      // TODO: separar de acá la parte de bd? poner async?
+
       fetch(API_URL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
           id: action.updateId,

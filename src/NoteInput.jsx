@@ -6,7 +6,6 @@ export default function NotesInput() {
 
   const [newNote, setNewNote] = useState("");
 
-  // TODO: ?? con o sin a/a?
   function handleGuardar() {
     dispatch({ type: "added", noteText: newNote, noteHTML: newNote });
   }
