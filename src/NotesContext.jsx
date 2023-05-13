@@ -4,31 +4,27 @@ import { createContext, useContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
-const { API_URL } = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const NotesContext = createContext(null);
 const NotesDispatchContext = createContext(null);
 
 export function NotesProvider({ children }) {
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const [notes, dispatch] = useReducer(notesReducer, null);
 
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta
   async function cargarDatos() {
-     let data = await fetch(API_URL)
+    let data = await fetch(API_URL)
       .then((res) => res.json())
       .catch((error) => {
         console.error(error);
       });
-    console.log("data:", data);
     dispatch({ type: "get", notesData: data });
   }
-
   useEffect(() => {
     cargarDatos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -56,39 +52,29 @@ export function useNotesDispatch() {
 function notesReducer(notes, action) {
   switch (action.type) {
     case "get": {
+      console.log("data:", action.notesData);
+
       return action.notesData;
     }
     case "added": {
       let nuevoId = uuidv4();
+      action.note.id = nuevoId; //FIXME: ojo, esto va solo por el strict mode
 
-      //con o sin async?
       fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        //TODO:acá hay que pasar un objeto no cada campo indiv
-        body: JSON.stringify({
-          id: nuevoId,
-          noteText: action.noteText,
-          noteHTML: action.noteHTML,
-        }),
+        body: JSON.stringify(action.note),
       })
         .then((res) => {
           return res; // para ver el statustext usar: console.log(res.text());
         })
         .catch((error) => {
-          console.error(error);
+          console.error("hay error", error);
         });
 
-      return [
-        {
-          id: nuevoId,
-          noteText: action.noteText,
-          noteHTML: action.noteHTML,
-        },
-        ...notes,
-      ];
+      return [action.note, ...notes];
     }
     case "updated": {
       //ojo porque hay que tomar el html sino no guarda renglones
