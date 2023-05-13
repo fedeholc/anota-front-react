@@ -1,6 +1,7 @@
 //import { useState } from "react";
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
+import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
 
 export default function NotesList() {
   const notes = useNotes();
@@ -8,15 +9,28 @@ export default function NotesList() {
 
   function handleBorrar(event) {
     dispatch({ type: "deleted", deleteId: event.currentTarget.dataset.key });
+    dbDeleteNote(event.currentTarget.dataset.key);
   }
 
   function handleGuardarEditable(event) {
-    dispatch({
-      type: "updated",
-      updateId: event.target.dataset.key,
-      contenidoNuevoHTML: event.target.innerHTML,
-      contenidoNuevoText: event.target.innerText,
-    });
+    //TODO: completar otros campos
+    const noteToUpdate = {
+      id: event.target.dataset.key,
+      noteText: event.target.innerText,
+      noteHTML: event.target.innerHTML,
+      noteTitle: "tttttit?",
+      tags: "bla, otra",
+      category: "caaat",
+      deleted: false,
+      archived: false,
+      reminder: "default",
+      rating: 0,
+      created: "1000-01-01 00:00:00",
+      modified: "1000-01-01 00:00:00",
+    };
+
+    dispatch({ type: "updated", note: noteToUpdate });
+    dbUpdateNote(noteToUpdate);
   }
 
   return (

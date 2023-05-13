@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNotesDispatch } from "./NotesContext.jsx";
 import { v4 as uuidv4 } from "uuid";
-
+import { dbAddNote } from "./dbHandler.jsx";
 export default function NotesInput() {
   const dispatch = useNotesDispatch();
 
@@ -23,8 +23,8 @@ export default function NotesInput() {
       modified: "1000-01-01 00:00:00",
     };
 
-    // dispatch({ type: "added", noteText: newNote, noteHTML: newNote });
     dispatch({ type: "added", note: noteToAdd });
+    dbAddNote(noteToAdd);
   }
 
   return (
