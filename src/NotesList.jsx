@@ -7,14 +7,14 @@ export default function NotesList() {
   const notes = useNotes();
   const dispatch = useNotesDispatch();
 
-  function handleBorrar(event) {
+  function handleDelete(event) {
     dispatch({ type: "deleted", deleteId: event.currentTarget.dataset.key });
     dbDeleteNote(event.currentTarget.dataset.key);
   }
 
-  function handleGuardarEditable(event) {
+  function handleUpdate(event) {
     //TODO: completar otros campos
-    const noteToUpdate = {
+    const updatedNote = {
       id: event.target.dataset.key,
       noteText: event.target.innerText,
       noteHTML: event.target.innerHTML,
@@ -29,8 +29,8 @@ export default function NotesList() {
       modified: "1000-01-01 00:00:00",
     };
 
-    dispatch({ type: "updated", note: noteToUpdate });
-    dbUpdateNote(noteToUpdate);
+    dispatch({ type: "updated", note: updatedNote });
+    dbUpdateNote(updatedNote);
   }
 
   return (
@@ -60,9 +60,9 @@ export default function NotesList() {
                 disabled={false} // use true to disable edition
                 //onChange={handleEditableChange} // handle innerHTML change
                 data-key={note.id}
-                onBlur={handleGuardarEditable}
+                onBlur={handleUpdate}
               />
-              <button data-key={note.id} onClick={handleBorrar}>
+              <button data-key={note.id} onClick={handleDelete}>
                 borrar
               </button>
             </div>
