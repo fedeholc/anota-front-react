@@ -18,7 +18,7 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
-    console.log("data:",data);
+    console.log("data:", data);
     setNotesData(data);
   }
 
@@ -64,7 +64,6 @@ function App() {
       }),
     })
       .then((res) => {
-        
         return res; // para ver el statustext usar: console.log(res.text());
       })
       .catch((error) => {
