@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createContext, useContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { v4 as uuidv4 } from "uuid";
@@ -22,6 +22,7 @@ export function NotesProvider({ children }) {
       });
     dispatch({ type: "get", notesData: data });
   }
+
   useEffect(() => {
     cargarDatos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,8 +58,7 @@ function notesReducer(notes, action) {
       return action.notesData;
     }
     case "added": {
-      let nuevoId = uuidv4();
-      action.note.id = nuevoId; //FIXME: ojo, esto va solo por el strict mode
+      //let nuevoId = uuidv4();
 
       fetch(API_URL, {
         method: "POST",
@@ -73,9 +73,9 @@ function notesReducer(notes, action) {
         .catch((error) => {
           console.error("hay error", error);
         });
-
       return [action.note, ...notes];
     }
+
     case "updated": {
       //ojo porque hay que tomar el html sino no guarda renglones
       //o sea tal vez tener siempre texto y html
