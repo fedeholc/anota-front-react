@@ -2,7 +2,7 @@
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
 import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
-import { getFormattedDateTime } from "./utilityFunctions.jsx";
+import { getFormattedDateTime, dateTimeJStoDB } from "./utilityFunctions.jsx";
 
 export default function NotesList() {
   const notes = useNotes();
@@ -29,14 +29,20 @@ export default function NotesList() {
       archived: notes[noteIndex].archived,
       reminder: notes[noteIndex].reminder,
       rating: notes[noteIndex].rating,
-      created: notes[noteIndex].created,
+      //FIXME: ojo, esto está porque cuando viene la fecha en formato JSON lo hace así 2023-05-14T14:32:50.000Z en lugar de como la pide para ser guardada. Ver si mejor cambiarla cuando se cargan los datos para que ya quede.
+      created: dateTimeJStoDB(notes[noteIndex].created),
       modified: getFormattedDateTime(),
     };
 
     dispatch({ type: "updated", note: updatedNote });
     dbUpdateNote(updatedNote);
   }
-   return (
+
+  notes &&
+    console.log(
+      notes[0].created.slice(0, 10) + " " + notes[0].created.slice(11, 19)
+    );
+  return (
     <div
       style={{
         display: "grid",

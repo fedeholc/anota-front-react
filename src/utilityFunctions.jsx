@@ -21,3 +21,7 @@ export function getFormattedDateTime() {
     seconds;
   return currentDateTime;
 }
+
+export function dateTimeJStoDB(dateTime) {
+  return dateTime.slice(0, 10) + " " + dateTime.slice(11, 19);
+}
