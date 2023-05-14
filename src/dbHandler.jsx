@@ -3,6 +3,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export function dbGetNotes() {
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta
+  //FIXME: ojo, los boolean los convierte a 0 y 1, typeof number
   let data = fetch(API_URL)
     .then((res) => res.json())
     .catch((error) => {

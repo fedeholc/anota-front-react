@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNotesDispatch } from "./NotesContext.jsx";
 import { v4 as uuidv4 } from "uuid";
 import { dbAddNote } from "./dbHandler.jsx";
+import { getFormattedDateTime } from "./utilityFunctions.jsx";
 export default function NotesInput() {
   const dispatch = useNotesDispatch();
 
@@ -31,11 +32,11 @@ export default function NotesInput() {
       tags: "bla, otra",
       category: "caaat",
       deleted: false,
-      archived: false,
+      archived: true,
       reminder: "default",
       rating: 0,
-      created: "1000-01-01 00:00:00",
-      modified: "1000-01-01 00:00:00",
+      created: getFormattedDateTime(),
+      modified: getFormattedDateTime(),
     };
 
     dispatch({ type: "added", note: noteToAdd });

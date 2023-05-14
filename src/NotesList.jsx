@@ -2,6 +2,7 @@
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
 import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
+import { getFormattedDateTime } from "./utilityFunctions.jsx";
 
 export default function NotesList() {
   const notes = useNotes();
@@ -14,26 +15,28 @@ export default function NotesList() {
 
   function handleUpdate(event) {
     //TODO: completar otros campos
+    let noteIndex = notes.findIndex(
+      (obj) => obj.id === event.target.dataset.key
+    );
     const updatedNote = {
       id: event.target.dataset.key,
       noteText: event.target.innerText,
       noteHTML: event.target.innerHTML,
-      noteTitle: "tttttit?",
-      tags: "bla, otra",
-      category: "caaat",
-      deleted: false,
-      archived: false,
-      reminder: "default",
-      rating: 0,
-      created: "1000-01-01 00:00:00",
-      modified: "1000-01-01 00:00:00",
+      noteTitle: notes[noteIndex].noteTitle,
+      tags: notes[noteIndex].tags,
+      category: notes[noteIndex].category,
+      deleted: notes[noteIndex].deleted,
+      archived: notes[noteIndex].archived,
+      reminder: notes[noteIndex].reminder,
+      rating: notes[noteIndex].rating,
+      created: notes[noteIndex].created,
+      modified: getFormattedDateTime(),
     };
 
     dispatch({ type: "updated", note: updatedNote });
     dbUpdateNote(updatedNote);
   }
-
-  return (
+   return (
     <div
       style={{
         display: "grid",
@@ -45,15 +48,14 @@ export default function NotesList() {
       {notes &&
         notes.map((note, index) => {
           return (
-            <div
-              key={note.id}
-              style={{
-                border: "1px solid gray",
-                borderRadius: "5px",
-                padding: "0.4rem",
-              }}
-            >
-              <div>
+            <div key={note.id}>
+              <div
+                style={{
+                  border: "1px solid gray",
+                  borderRadius: "5px",
+                  padding: "0.4rem",
+                }}
+              >
                 <div>
                   <strong>{note.noteTitle}</strong>
                 </div>
@@ -64,10 +66,29 @@ export default function NotesList() {
                   data-key={note.id}
                   onBlur={handleUpdate}
                 />
+                <button data-key={note.id} onClick={handleDelete}>
+                  borrar
+                </button>
               </div>
-              <button data-key={note.id} onClick={handleDelete}>
-                borrar
-              </button>
+
+              <div
+                style={{
+                  color: "gray",
+                  fontSize: "0.8rem",
+                }}
+              >
+                <div>
+                  tags: {note.tags} categ: {note.category}
+                </div>
+                <div>
+                  deleted: {note.deleted} archived: {note.archived}
+                </div>
+                <div>created: {note.created}</div>
+                <div>modified: {note.modified}</div>
+                <div>
+                  rating: {note.rating} reminder: {note.reminder}
+                </div>
+              </div>
             </div>
           );
         })}
