@@ -3,6 +3,8 @@ import { useNotesDispatch } from "./NotesContext.jsx";
 import { v4 as uuidv4 } from "uuid";
 import { dbAddNote } from "./dbHandler.jsx";
 import { getFormattedDateTime } from "./utilityFunctions.jsx";
+import ContentEditable from "react-contenteditable";
+
 export default function NotesInput() {
   const dispatch = useNotesDispatch();
 
@@ -10,8 +12,8 @@ export default function NotesInput() {
 
   const [newNoteObject, setNewNoteObject] = useState({
     id: "",
-    noteText: "",
-    noteHTML: "",
+    noteText: "fede",
+    noteHTML: "fede",
     noteTitle: "",
     tags: "",
     category: "",
@@ -23,11 +25,11 @@ export default function NotesInput() {
     modified: "",
   });
 
-  function handleGuardar() {
+  function handleGuardar(event) {
     const noteToAdd = {
       id: uuidv4(),
-      noteText: newNote,
-      noteHTML: newNote,
+      noteText: event.target.innerText,
+      noteHTML: event.target.innerHTML,
       noteTitle: newNoteObject.noteTitle,
       tags: "bla, otra",
       category: "caaat",
@@ -38,13 +40,15 @@ export default function NotesInput() {
       created: getFormattedDateTime(),
       modified: getFormattedDateTime(),
     };
-
+    console.log("guardar:", newNoteObject);
     dispatch({ type: "added", note: noteToAdd });
     dbAddNote(noteToAdd);
+    
   }
 
   //TODO: ojo, al ir agregando campos acá también hay que ponerlos en la consulta sql del back
   function handleChange(event) {
+    console.log(event.target.value);
     setNewNoteObject((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
@@ -55,24 +59,35 @@ export default function NotesInput() {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           gap: "0.4rem",
-          justifyContent: "center",
           margin: "1rem",
+          maxWidth: "500px",
         }}
       >
-        <input
-          name="noteTitle"
-          value={newNoteObject.Title}
-          onChange={handleChange}
-          type="text"
-        />
-        <input
-          name="newNote"
-          value={newNote}
-          onChange={(e) => setNewNote(e.target.value)}
-          type="text"
-        />
-        <button onClick={handleGuardar}>Guardar</button>
+        <div>
+          <input
+            name="noteTitle"
+            value={newNoteObject.Title}
+            onChange={handleChange}
+            type="text"
+          />
+          <ContentEditable
+            html={`${newNoteObject.noteHTML}`} // innerHTML of the editable div
+            disabled={false} // use true to disable edition
+            //onChange={handleEditableChange} // handle innerHTML change
+            //data-key={note.id}
+            onBlur={handleGuardar}
+            style={{
+              border: "1px solid gray",
+              height: "100px",
+              borderRadius: "5px",
+              padding: "0.5rem",
+              overflowY: "scroll",
+            }}
+          />
+        </div>
+        <button>Guardar</button>
       </div>
     </ul>
   );
