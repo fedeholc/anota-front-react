@@ -53,15 +53,18 @@ export default function NotesList() {
                 padding: "0.4rem",
               }}
             >
-              <div>{note.id}</div>
-              <div>Nota: </div>
-              <ContentEditable
-                html={`${notes[index].noteHTML}`} // innerHTML of the editable div
-                disabled={false} // use true to disable edition
-                //onChange={handleEditableChange} // handle innerHTML change
-                data-key={note.id}
-                onBlur={handleUpdate}
-              />
+              <div>
+                <div>
+                  <strong>{note.noteTitle}</strong>
+                </div>
+                <ContentEditable
+                  html={`${notes[index].noteHTML}`} // innerHTML of the editable div
+                  disabled={false} // use true to disable edition
+                  //onChange={handleEditableChange} // handle innerHTML change
+                  data-key={note.id}
+                  onBlur={handleUpdate}
+                />
+              </div>
               <button data-key={note.id} onClick={handleDelete}>
                 borrar
               </button>

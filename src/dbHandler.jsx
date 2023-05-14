@@ -12,6 +12,7 @@ export function dbGetNotes() {
 }
 
 export function dbAddNote(note) {
+  console.log(note);
   fetch(API_URL, {
     method: "POST",
     headers: {
@@ -28,13 +29,11 @@ export function dbAddNote(note) {
 }
 
 export function dbDeleteNote(noteId) {
-  // TODO: separar de acá la parte de bd? poner async?
-  // TODO: probar poner un settimeout
-
   fetch(`${API_URL}/del/${noteId}`, {
     method: "DELETE",
   })
     .then((res) => {
+      console.log("listo");
       return res;
     })
     .catch((error) => {

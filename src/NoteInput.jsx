@@ -7,12 +7,27 @@ export default function NotesInput() {
 
   const [newNote, setNewNote] = useState("");
 
+  const [newNoteObject, setNewNoteObject] = useState({
+    id: "",
+    noteText: "",
+    noteHTML: "",
+    noteTitle: "",
+    tags: "",
+    category: "",
+    deleted: false,
+    archived: false,
+    reminder: "",
+    rating: 0,
+    created: "",
+    modified: "",
+  });
+
   function handleGuardar() {
     const noteToAdd = {
       id: uuidv4(),
       noteText: newNote,
       noteHTML: newNote,
-      noteTitle: "tttttit?",
+      noteTitle: newNoteObject.noteTitle,
       tags: "bla, otra",
       category: "caaat",
       deleted: false,
@@ -27,6 +42,13 @@ export default function NotesInput() {
     dbAddNote(noteToAdd);
   }
 
+  //TODO: ojo, al ir agregando campos acá también hay que ponerlos en la consulta sql del back
+  function handleChange(event) {
+    setNewNoteObject((prev) => {
+      return { ...prev, [event.target.name]: event.target.value };
+    });
+    console.log(newNoteObject);
+  }
   return (
     <ul>
       <div
@@ -37,6 +59,12 @@ export default function NotesInput() {
           margin: "1rem",
         }}
       >
+        <input
+          name="noteTitle"
+          value={newNoteObject.Title}
+          onChange={handleChange}
+          type="text"
+        />
         <input
           name="newNote"
           value={newNote}
