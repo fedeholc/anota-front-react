@@ -14,7 +14,7 @@ export default function NotesInput() {
     id: "",
     noteText: "fede",
     noteHTML: "fede",
-    noteTitle: "",
+    noteTitle: "titulo",
     tags: "",
     category: "",
     deleted: false,
@@ -28,8 +28,8 @@ export default function NotesInput() {
   function handleGuardar(event) {
     const noteToAdd = {
       id: uuidv4(),
-      noteText: event.target.innerText,
-      noteHTML: event.target.innerHTML,
+      noteText: newNoteObject.noteText,
+      noteHTML: newNoteObject.noteHTML,
       noteTitle: newNoteObject.noteTitle,
       tags: "bla, otra",
       category: "caaat",
@@ -43,7 +43,6 @@ export default function NotesInput() {
     console.log("guardar:", newNoteObject);
     dispatch({ type: "added", note: noteToAdd });
     dbAddNote(noteToAdd);
-    
   }
 
   //TODO: ojo, al ir agregando campos acá también hay que ponerlos en la consulta sql del back
@@ -54,6 +53,18 @@ export default function NotesInput() {
     });
     console.log(newNoteObject);
   }
+
+  function handleEditableChange(event) {
+    console.log(event);
+    setNewNoteObject((prev) => {
+      return {
+        ...prev,
+        noteHTML: event.currentTarget.innerHTML,
+        noteText: event.currentTarget.innerText,
+      };
+    });
+  }
+
   return (
     <ul>
       <div
@@ -65,29 +76,28 @@ export default function NotesInput() {
           maxWidth: "500px",
         }}
       >
-        <div>
+        <div className="note_input_container">
           <input
             name="noteTitle"
+            placeholder="Título..."
             value={newNoteObject.Title}
             onChange={handleChange}
             type="text"
+            className="note_editable note_editable_title"
           />
           <ContentEditable
             html={`${newNoteObject.noteHTML}`} // innerHTML of the editable div
             disabled={false} // use true to disable edition
-            //onChange={handleEditableChange} // handle innerHTML change
+            onChange={handleEditableChange} // handle innerHTML change
             //data-key={note.id}
-            onBlur={handleGuardar}
+            //onBlur={handleGuardar}
             style={{
-              border: "1px solid gray",
               height: "100px",
-              borderRadius: "5px",
-              padding: "0.5rem",
-              overflowY: "scroll",
             }}
+            className="note_editable"
           />
         </div>
-        <button>Guardar</button>
+        <button onClick={handleGuardar}>Guardar</button>
       </div>
     </ul>
   );

@@ -35,20 +35,6 @@ body {
 }
 
 
-code,
-pre {
-  font-size: 0.85rem !important;
-}
-
-
-.layout__container {
-  min-height: 100vh;
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  grid-template-rows: auto 1fr auto;
-}
-
 a:visited {
   color: var(--linkVisitado)
 }
@@ -67,9 +53,7 @@ footer {
   min-width: 100%;
 }
 
-section {
-  margin-top: 2rem;
-}
+
 
 footer {
   font-family: "Roboto mono", mono;
@@ -87,99 +71,43 @@ h2 {
   line-height: 1.5rem !important;
 }
 
-.volver {
-  display: grid;
-  justify-content: right;
+
+.note_input_container:hover {
+  outline-style: solid;
+  outline-color: gray;
+  outline-width: 2px;
 }
 
-.post__container {
-  font-family: "Karma", serif;
-  font-size: 1.1rem;
-  font-weight: 500;
+.note_input_container {
+  border: 0px solid gray;
+  border-radius: 5px;
+  outline-style: solid;
+  outline-color: gray;
+  outline-width: 1px;
 }
 
-.post__container li {
-  margin-bottom: 0.5rem;
-}
-
-.post__container h1 {
-  font-size: 2rem;
-}
-
-.post__container h2 {
-  font-size: 1.6rem;
-  margin-top: 2.2rem;
-  margin-bottom: 0.5rem;
-  line-height: 1rem;
-}
-
-.post__container h3 {
-  font-size: 1.4rem;
-  margin-top: 2.2rem;
-  margin-bottom: 0rem;
-  line-height: 1rem;
-}
-
-.post__container ul {
-  margin-top: 0px;
-}
-
-.post__container p {
-  margin-bottom: 0.3rem;
-  margin-top: 0.3rem;
-}
-
-.post__titulo {
-  font-family: 'Raleway', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  margin-top: 0rem;
-  margin-bottom: 1.5rem;
-  line-height: 2.2rem;
-}
-
-.post__tags {
-  font-family: 'Roboto mono', monospace;
-  font-size: 0.7rem;
-  line-height: 1rem;
-  border-top: 1px dashed lightgray;
-  border-bottom: 1px dashed lightgray;
-  padding: 0.2rem 0rem;
-  display: flex;
-  justify-content: right;
-  margin-bottom: 0.5rem;
-  margin-top: 3rem;
-}
-
-.post__fecha {
-  display: flex;
-  justify-content: right;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
-
-
-.apuntes__titulo {
-  font-family: 'Karma', serif;
-}
-
-.apuntes__item {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  line-height: 1.3rem;
-}
-
-.apuntes__item small {
-  font-size: 0.8rem;
+.note_editable {
+  outline-style: none;
+  border: 0px;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-bottom: 0px;
+  overflow-Y: scroll;
 
 }
+
+.note_editable_title {
+  outline-style: none;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1rem;
+ }
 
 
 @media only screen and (max-width: 750px) {
-
-
 
   main,
   header {
@@ -217,4 +145,3 @@ h2 {
 
 
 }
- 
