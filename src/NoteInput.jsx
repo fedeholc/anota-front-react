@@ -12,9 +12,9 @@ export default function NotesInput() {
 
   const [newNoteObject, setNewNoteObject] = useState({
     id: "",
-    noteText: "fede",
-    noteHTML: "fede",
-    noteTitle: "titulo",
+    noteText: "",
+    noteHTML: "",
+    noteTitle: "",
     tags: "",
     category: "",
     deleted: false,
