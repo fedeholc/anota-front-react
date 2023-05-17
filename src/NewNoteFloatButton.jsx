@@ -12,7 +12,7 @@ export default function NewNoteFloatButton() {
           position: "fixed",
           right: "20px",
           bottom: "20px",
-          backgroundColor: "red",
+          backgroundColor: "gray",
           height: "50px",
           width: "50px",
           borderRadius: "50%",

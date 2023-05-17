@@ -1,8 +1,7 @@
-import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
+import { useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
-import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
-import { getFormattedDateTime, dateTimeJStoDB } from "./utilityFunctions.jsx";
-import { useState } from "react";
+import { getFormattedDateTime } from "./utilityFunctions.jsx";
+import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { dbAddNote } from "./dbHandler.jsx";
@@ -27,6 +26,12 @@ export default function NewNoteModal({ setShowModal }) {
     modified: "",
   });
   const dispatch = useNotesDispatch();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   function handleChange(event) {
     setNewNote((prev) => {
@@ -97,13 +102,14 @@ export default function NewNoteModal({ setShowModal }) {
       >
         <input
           name="noteTitle"
-          placeholder="Título..."
+          placeholder="¿Título...?"
           value={newNote.noteTitle}
           onChange={handleChange}
           type="text"
           className="note_editable note_editable_title"
         />
         <ContentEditable
+          innerRef={inputRef}
           html={`${newNote.noteHTML}`}
           disabled={false}
           onChange={handleEditableChange}
