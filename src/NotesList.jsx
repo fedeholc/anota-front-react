@@ -4,6 +4,8 @@ import { dbDeleteNote } from "./dbHandler.jsx";
 import { useState } from "react";
 import NoteEditModal from "./NoteEditModal.jsx";
 
+import { FaTrash } from "react-icons/fa";
+
 export default function NotesList() {
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState();
@@ -38,6 +40,7 @@ export default function NotesList() {
                   border: "1px solid gray",
                   borderRadius: "5px",
                   padding: "0.4rem",
+                  paddingBottom: "0.25rem",
                 }}
               >
                 <div
@@ -56,9 +59,13 @@ export default function NotesList() {
                     data-key={note.id}
                   />
                 </div>
-                <button data-key={note.id} onClick={handleDelete}>
-                  borrar
-                </button>
+                <div className="note-toolbar">
+                  <FaTrash
+                    className="note-toolbar__icon"
+                    data-key={note.id}
+                    onClick={handleDelete}
+                  />
+                </div>
               </div>
 
               <div

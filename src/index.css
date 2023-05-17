@@ -71,6 +71,22 @@ h2 {
   line-height: 1.5rem !important;
 }
 
+.note-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.note-toolbar__icon {
+  color: gray;
+  font-size: 0.9rem;
+
+}
+
+.note-toolbar__icon:hover {
+  color: rgb(27, 27, 27);
+  cursor: pointer;
+}
 
 .new-note__background {
   position: fixed;
@@ -81,7 +97,6 @@ h2 {
   height: 100vh;
   background-Color: rgba(0, 0, 0, 0.7);
 }
-
 
 .new-note__container {
   border: 0px solid gray;
