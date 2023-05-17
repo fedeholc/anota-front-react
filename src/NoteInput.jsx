@@ -45,16 +45,13 @@ export default function NotesInput() {
 
   //TODO: ojo, al ir agregando campos acá también hay que ponerlos en la consulta sql del back
   function handleChange(event) {
-    console.log(event.target.value);
-    setNewNoteObject((prev) => {
+     setNewNoteObject((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
-    console.log(newNoteObject);
-  }
+   }
 
   function handleEditableChange(event) {
-    console.log(event);
-    setNewNoteObject((prev) => {
+     setNewNoteObject((prev) => {
       return {
         ...prev,
         noteHTML: event.currentTarget.innerHTML,
