@@ -2,7 +2,7 @@ import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
 import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
 import { getFormattedDateTime, dateTimeJStoDB } from "./utilityFunctions.jsx";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 NoteEditModal.propTypes = {
@@ -12,9 +12,11 @@ NoteEditModal.propTypes = {
 
 export default function NoteEditModal({ index, setShowModal }) {
   const notes = useNotes();
-  console.log("i:", index);
-  const [editNote, setEditNote] = useState(notes[index]);
   const dispatch = useNotesDispatch();
+  const [editNote, setEditNote] = useState(notes[index]);
+  const ref = useRef(null);
+
+  const inputRef = useRef(null);
 
   function handleChange(event) {
     setEditNote((prev) => {
@@ -55,6 +57,10 @@ export default function NoteEditModal({ index, setShowModal }) {
     dbUpdateNote(updatedNote);
   }
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <div
       style={{
@@ -94,7 +100,9 @@ export default function NoteEditModal({ index, setShowModal }) {
           type="text"
           className="note_editable note_editable_title"
         />
+
         <ContentEditable
+          innerRef={inputRef}
           html={`${editNote.noteHTML}`}
           disabled={false}
           onChange={handleEditableChange}
