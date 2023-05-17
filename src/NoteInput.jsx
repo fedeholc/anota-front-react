@@ -8,21 +8,13 @@ export default function NotesInput() {
     <>
       {showModal ? <NewNoteModal setShowModal={setShowModal} /> : null}
       {!showModal && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.4rem",
-            margin: "1rem",
-            maxWidth: "500px",
-          }}
-        >
-          <div className="note_input_container">
+        <div>
+          <div className="new-note__container">
             <input
               name="noteTitle"
               placeholder="¿Título...?"
               type="text"
-              className="note_editable note_editable_title"
+              className="new-note__title"
               onFocus={() => {
                 setShowModal(true);
               }}

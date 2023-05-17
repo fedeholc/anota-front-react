@@ -1,6 +1,6 @@
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import ContentEditable from "react-contenteditable";
-import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
+import { dbDeleteNote } from "./dbHandler.jsx";
 import { useState } from "react";
 import NoteEditModal from "./NoteEditModal.jsx";
 
@@ -32,7 +32,6 @@ export default function NotesList() {
       {notes &&
         notes.map((note, index) => {
           return (
-            // eslint-disable-next-line react/prop-types
             <div key={note.id}>
               <div
                 style={{

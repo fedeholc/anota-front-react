@@ -25,8 +25,8 @@ export default function NewNoteModal({ setShowModal }) {
     created: "",
     modified: "",
   });
-  const dispatch = useNotesDispatch();
 
+  const dispatch = useNotesDispatch();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ export default function NewNoteModal({ setShowModal }) {
       };
     });
   }
+
   function handleGuardar() {
     if (newNote.noteTitle !== "" || newNote.noteHTML != "") {
       const noteToAdd = {
@@ -71,31 +72,14 @@ export default function NewNoteModal({ setShowModal }) {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        zIndex: 50,
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-      }}
+      className="new-note__background"
       onClick={() => {
         handleGuardar();
         setShowModal(false);
       }}
     >
       <div
-        style={{
-          borderRadius: "5px",
-          padding: "0.4rem",
-          backgroundColor: "white",
-          width: "300px",
-          margin: "auto",
-          marginTop: "1rem",
-          position: "relative",
-        }}
-        className="note_input_container"
+        className="new-note__container"
         onClick={(event) => {
           event.stopPropagation();
         }}
@@ -106,7 +90,7 @@ export default function NewNoteModal({ setShowModal }) {
           value={newNote.noteTitle}
           onChange={handleChange}
           type="text"
-          className="note_editable note_editable_title"
+          className="new-note__title"
         />
         <ContentEditable
           innerRef={inputRef}
@@ -114,10 +98,8 @@ export default function NewNoteModal({ setShowModal }) {
           disabled={false}
           onChange={handleEditableChange}
           //onBlur={handleUpdate}
-          style={{
-            height: "100px",
-          }}
-          className="note_editable"
+
+          className="new-note__body"
         />
 
         <button

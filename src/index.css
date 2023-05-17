@@ -72,21 +72,37 @@ h2 {
 }
 
 
-.note_input_container:hover {
-  outline-style: solid;
-  outline-color: gray;
-  outline-width: 2px;
+.new-note__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-Index: 50;
+  width: 100vw;
+  height: 100vh;
+  background-Color: rgba(0, 0, 0, 0.7);
 }
 
-.note_input_container {
+
+.new-note__container {
   border: 0px solid gray;
   border-radius: 5px;
   outline-style: solid;
   outline-color: gray;
   outline-width: 1px;
+
+  padding: 0.4rem;
+  background-color: white;
+  width: 300px;
+  margin: auto;
+  margin-top: 1rem;
+  position: relative;
 }
 
-.note_editable {
+.new-note__container:hover {
+  outline-width: 2px;
+}
+
+.new-note__body {
   outline-style: none;
   border: 0px;
   border-radius: 5px;
@@ -94,17 +110,24 @@ h2 {
   padding-right: 0.5rem;
   margin-bottom: 0px;
   overflow-Y: scroll;
-
+  min-height: 100px;
+  max-height: 50vh;
 }
 
-.note_editable_title {
+.new-note__title {
   outline-style: none;
   margin-bottom: 0.2rem;
   margin-top: 0.2rem;
   width: 100%;
   font-weight: 600;
   font-size: 1rem;
- }
+  border: 0px;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+
 
 
 @media only screen and (max-width: 750px) {
