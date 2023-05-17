@@ -3,6 +3,12 @@ import ContentEditable from "react-contenteditable";
 import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
 import { getFormattedDateTime, dateTimeJStoDB } from "./utilityFunctions.jsx";
 import { useState } from "react";
+import PropTypes from "prop-types";
+
+NoteEditModal.propTypes = {
+  index: PropTypes.number,
+  setShowModal: PropTypes.func,
+};
 
 export default function NoteEditModal({ index, setShowModal }) {
   const notes = useNotes();
@@ -14,17 +20,25 @@ export default function NoteEditModal({ index, setShowModal }) {
     setEditNote((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
-    console.log(event);
   }
 
-  function handleUpdate(event) {
+  function handleEditableChange(event) {
+    setEditNote((prev) => {
+      return {
+        ...prev,
+        noteText: event.currentTarget.innerText,
+        noteHTML: event.currentTarget.innerHTML,
+      };
+    });
+  }
+  function handleUpdate() {
     //TODO: completar otros campos
     let noteIndex = index;
 
     const updatedNote = {
       id: notes[noteIndex].id,
-      noteText: event.target.innerText,
-      noteHTML: event.target.innerHTML,
+      noteText: editNote.noteText,
+      noteHTML: editNote.noteHTML,
       noteTitle: editNote.noteTitle,
       tags: notes[noteIndex].tags, //! cuando se puedan editar tambien cambiar acá
       category: notes[noteIndex].category,
@@ -52,7 +66,10 @@ export default function NoteEditModal({ index, setShowModal }) {
         height: "100vh",
         backgroundColor: "rgba(0, 0, 0, 0.7)",
       }}
-      onClick={() => setShowModal(false)}
+      onClick={() => {
+        handleUpdate();
+        setShowModal(false);
+      }}
     >
       <div
         style={{
@@ -78,18 +95,25 @@ export default function NoteEditModal({ index, setShowModal }) {
           className="note_editable note_editable_title"
         />
         <ContentEditable
-          html={`${notes[index].noteHTML}`} // innerHTML of the editable div
-          disabled={false} // use true to disable edition
-          //onChange={handleEditableChange} // handle innerHTML change
+          html={`${editNote.noteHTML}`}
+          disabled={false}
+          onChange={handleEditableChange}
           data-key={notes[index].id}
-          onBlur={handleUpdate}
+          //onBlur={handleUpdate}
           style={{
             height: "100px",
           }}
           className="note_editable"
         />
 
-        <button onClick={() => setShowModal(false)}>cerrar</button>
+        <button
+          onClick={() => {
+            handleUpdate();
+            setShowModal(false);
+          }}
+        >
+          cerrar
+        </button>
       </div>
     </div>
   );

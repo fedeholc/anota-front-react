@@ -4,7 +4,7 @@ import { dbUpdateNote, dbDeleteNote } from "./dbHandler.jsx";
 import { useState } from "react";
 import NoteEditModal from "./NoteEditModal.jsx";
 
-export default function NotesList(props) {
+export default function NotesList() {
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState();
 

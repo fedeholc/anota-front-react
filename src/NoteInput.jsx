@@ -8,8 +8,6 @@ import ContentEditable from "react-contenteditable";
 export default function NotesInput() {
   const dispatch = useNotesDispatch();
 
-  const [newNote, setNewNote] = useState("");
-
   const [newNoteObject, setNewNoteObject] = useState({
     id: "",
     noteText: "",
@@ -25,7 +23,7 @@ export default function NotesInput() {
     modified: "",
   });
 
-  function handleGuardar(event) {
+  function handleGuardar() {
     const noteToAdd = {
       id: uuidv4(),
       noteText: newNoteObject.noteText,
@@ -86,9 +84,9 @@ export default function NotesInput() {
             className="note_editable note_editable_title"
           />
           <ContentEditable
-            html={`${newNoteObject.noteHTML}`} // innerHTML of the editable div
-            disabled={false} // use true to disable edition
-            onChange={handleEditableChange} // handle innerHTML change
+            html={`${newNoteObject.noteHTML}`}
+            disabled={false}
+            onChange={handleEditableChange}
             //data-key={note.id}
             //onBlur={handleGuardar}
             style={{
