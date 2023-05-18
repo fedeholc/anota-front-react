@@ -12,7 +12,7 @@ export default function NotesInput() {
           <div className="new-note__container">
             <input
               name="noteTitle"
-              placeholder="¿Título...?"
+              placeholder="Nueva nota..."
               type="text"
               className="new-note__title"
               onFocus={() => {

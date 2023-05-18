@@ -6,6 +6,8 @@ import NoteEditModal from "./NoteEditModal.jsx";
 
 import { FaTrash } from "react-icons/fa";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { DeleteFilled } from "@ant-design/icons";
+import { Button, Tooltip, Space } from "antd";
 
 export default function NotesList() {
   const [showModal, setShowModal] = useState(false);
@@ -61,16 +63,22 @@ export default function NotesList() {
                   />
                 </div>
                 <div className="note-toolbar">
-                 {/*  <FaTrash
+                  {/*  <FaTrash
                     className="note-toolbar__icon"
                     data-key={note.id}
                     onClick={handleDelete}
                   /> */}
-                  <DeleteIcon
+              {/*     <DeleteIcon
+                    className="note-toolbar__icon"
+                    data-key={note.id}
+                    onClick={handleDelete}
+                  /> */}
+                  <DeleteFilled
                     className="note-toolbar__icon"
                     data-key={note.id}
                     onClick={handleDelete}
                   />
+                  
                 </div>
               </div>
 

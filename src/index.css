@@ -79,8 +79,8 @@ h2 {
 
 .note-toolbar__icon {
   color: gray;
-  font-size: 1.6rem !important;
-
+  border-color: gray;
+  font-size: 1.2rem;
 }
 
 /* .MuiSvgIcon-fontSizeSmall {
@@ -89,7 +89,9 @@ h2 {
 
 .note-toolbar__icon:hover {
   color: rgb(27, 27, 27);
+    border-color: black !important;
   cursor: pointer;
+
 }
 
 .new-note__background {
