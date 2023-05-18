@@ -79,9 +79,13 @@ h2 {
 
 .note-toolbar__icon {
   color: gray;
-  font-size: 0.9rem;
+  font-size: 1.6rem !important;
 
 }
+
+/* .MuiSvgIcon-fontSizeSmall {
+  font-size: 0.2rem;
+} */
 
 .note-toolbar__icon:hover {
   color: rgb(27, 27, 27);

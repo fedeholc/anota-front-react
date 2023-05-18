@@ -1,6 +1,9 @@
 import { useState } from "react";
 import NewNoteModal from "./NewNoteModal";
 
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+
 export default function NewNoteFloatButton() {
   const [showModal, setShowModal] = useState(false);
 
@@ -10,24 +13,19 @@ export default function NewNoteFloatButton() {
       <div
         style={{
           position: "fixed",
-          right: "20px",
-          bottom: "20px",
-          backgroundColor: "gray",
-          height: "50px",
-          width: "50px",
-          borderRadius: "50%",
-          display: "grid",
-          justifyContent: "center",
+          right: "40px",
+          bottom: "40px",
         }}
       >
-        <button
-          style={{ border: "none", backgroundColor: "transparent" }}
+        <Fab
           onClick={() => {
             setShowModal(true);
           }}
+          size="medium"
+          aria-label="add"
         >
-          +
-        </button>
+          <AddIcon />
+        </Fab>
       </div>
     </div>
   );
