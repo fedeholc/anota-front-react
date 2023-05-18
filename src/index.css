@@ -71,6 +71,24 @@ h2 {
   line-height: 1.5rem !important;
 }
 
+.note__container {
+  max-width: 300px;
+  display: block;
+}
+
+.note__body {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 0.5rem;
+
+}
+
+.note__title {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
 .note-toolbar {
   display: flex;
   flex-direction: row;
@@ -81,15 +99,21 @@ h2 {
   color: gray;
   border-color: gray;
   font-size: 1.2rem;
+
+  opacity: 0;
+  transition: opacity .3s
 }
 
-/* .MuiSvgIcon-fontSizeSmall {
-  font-size: 0.2rem;
-} */
+.note__container:hover .note-toolbar__icon {
+  opacity: 100;
+  transition: opacity .2s
+}
+
+
 
 .note-toolbar__icon:hover {
   color: rgb(27, 27, 27);
-    border-color: black !important;
+  border-color: black !important;
   cursor: pointer;
 
 }
@@ -113,7 +137,7 @@ h2 {
 
   padding: 0.4rem;
   background-color: white;
-  width: 300px;
+  width: 500px;
   margin: auto;
   margin-top: 1rem;
   position: relative;

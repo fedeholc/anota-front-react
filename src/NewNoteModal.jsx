@@ -98,7 +98,6 @@ export default function NewNoteModal({ setShowModal }) {
           disabled={false}
           onChange={handleEditableChange}
           //onBlur={handleUpdate}
-
           className="new-note__body"
         />
 

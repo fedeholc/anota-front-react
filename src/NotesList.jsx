@@ -37,7 +37,7 @@ export default function NotesList() {
       {notes &&
         notes.map((note, index) => {
           return (
-            <div key={note.id}>
+            <div key={note.id} className="note__container">
               <div
                 style={{
                   border: "1px solid gray",
@@ -52,14 +52,14 @@ export default function NotesList() {
                     setShowModal(true);
                   }}
                 >
-                  <div>
-                    <strong>{note.noteTitle}</strong>
-                  </div>
+                  <div className="note__title">{note.noteTitle}</div>
+
                   <ContentEditable
                     html={`${notes[index].noteHTML}`}
                     disabled={true} // use true to disable edition
                     //onChange={handleEditableChange} // handle innerHTML change
                     data-key={note.id}
+                    className="note__body"
                   />
                 </div>
                 <div className="note-toolbar">
@@ -68,17 +68,17 @@ export default function NotesList() {
                     data-key={note.id}
                     onClick={handleDelete}
                   /> */}
-              {/*     <DeleteIcon
+                  {/*     <DeleteIcon
                     className="note-toolbar__icon"
                     data-key={note.id}
                     onClick={handleDelete}
                   /> */}
+                  
                   <DeleteFilled
                     className="note-toolbar__icon"
                     data-key={note.id}
                     onClick={handleDelete}
                   />
-                  
                 </div>
               </div>
 
