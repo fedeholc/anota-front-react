@@ -3,17 +3,12 @@ import ContentEditable from "react-contenteditable";
 import { dbDeleteNote } from "./dbHandler.jsx";
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import NoteEditModal from "./NoteEditModal.jsx";
-import { useIsOverflow } from "./utilityFunctions.jsx";
 // TODO: remover librerarias si no las voy a usar
 
 import { DeleteFilled } from "@ant-design/icons";
 
 export default function NotesList() {
   const ref = useRef();
-  const isOverflow = useIsOverflow(ref, (isOverflowFromCallback) => {
-    //console.log("from callback", isOverflowFromCallback);
-  });
-  //console.log(isOverflow);
 
   const [notesOver, setNotesOver] = useState();
   const [showModal, setShowModal] = useState(false);
@@ -27,17 +22,15 @@ export default function NotesList() {
     dbDeleteNote(event.currentTarget.dataset.key);
   }
 
+  // crea una ref a la lista de notas, luego busca los nodos que tienen el cuerpo de cada nota y se fija si hay overflow o no. Lo devuelve cómo un array de booleanos. El index del array es el index de la nota en Notes. Luego en el render se fija si esa nota tiene overflow y si es así pone los puntitos.
   useLayoutEffect(() => {
-    console.log("holi");
     const { current } = ref;
+    const noteBodyNodes = Array.from(current.querySelectorAll(".note__body"));
+    const isOverflow = noteBodyNodes.map(
+      (e) => e.scrollHeight > e.clientHeight
+    );
 
-    const divs = current.querySelectorAll(".note__body");
-    const miarr = Array.from(divs);
-    let fede = miarr.map((e) => e.scrollHeight > e.clientHeight);
-
-    console.log("divs:", divs);
-    console.log("miarr", fede);
-    setNotesOver(fede);
+    setNotesOver(isOverflow);
   }, [notes]);
 
   return (
@@ -73,17 +66,16 @@ export default function NotesList() {
                     disabled={true} // use true to disable edition
                     //onChange={handleEditableChange} // handle innerHTML change
                     data-key={note.id}
-                    className="note__body"
+                    className="note__body sb1"
                   />
 
-                  {/* TODO: no me convence del todo, probar con ... en algún lado */}
                   <div
                     className="note__oo"
                     style={{
                       height: 0,
                     }}
                   >
-                    {notesOver[index] ? "↕️" : null}
+                    {notesOver[index] ? "..." : null}
                   </div>
                 </div>
 
