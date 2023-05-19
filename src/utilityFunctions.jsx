@@ -25,3 +25,32 @@ export function getFormattedDateTime() {
 export function dateTimeJStoDB(dateTime) {
   return dateTime.slice(0, 10) + " " + dateTime.slice(11, 19);
 }
+
+import { useState, useLayoutEffect, useEffect } from "react";
+
+export const useIsOverflow = (ref, callback) => {
+  const [isOverflow, setIsOverflow] = useState();
+  
+  useLayoutEffect(() => {
+    const { current } = ref;
+
+    const trigger = () => {
+      const hasOverflow = current.scrollHeight > current.clientHeight;
+      const divs = current.querySelectorAll(".note__body");
+      const miarr = Array.from(divs);
+      //console.log("divs:", divs);
+      //console.log("miarr", miarr);
+      let fede = miarr.map((e) => e.scrollHeight > e.clientHeight);
+      //console.log("map", fede);
+/*       setIsOverflow(hasOverflow);
+ */    setIsOverflow("fede"); 
+      if (callback) callback(fede);
+    };
+
+    if (current) {
+      trigger();
+    }
+  }, [callback, ref]);
+
+  return isOverflow;
+};
