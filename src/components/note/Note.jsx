@@ -4,7 +4,7 @@ import { DeleteFilled, SaveFilled, ArrowsAltOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote } from "../../dbHandler";
-import { useNotesDispatch } from "../../NotesContext";
+import { useNotes, useNotesDispatch } from "../../NotesContext";
 
 Note.propTypes = {
   note: PropTypes.object,
@@ -13,7 +13,9 @@ Note.propTypes = {
   handleEdit: PropTypes.func,
   handleDelete: PropTypes.func,
   isModal: PropTypes.bool,
+  setEditNoteModal: PropTypes.func,
   children: PropTypes.node,
+  handleUpModal: PropTypes.func,
 };
 export function Note({
   note,
@@ -22,11 +24,14 @@ export function Note({
   handleDelete,
   noteOverflow,
   isModal,
+  setEditNoteModal,
   children,
+  handleUpModal,
 }) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
   const dispatch = useNotesDispatch();
+  const notes = useNotes();
 
   function handleChange(event) {
     setEditNote((prev) => {
@@ -64,8 +69,13 @@ export function Note({
       created: dateTimeJStoDB(editNote.created),
       modified: getFormattedDateTime(),
     };
-    console.log("UPDATE");
+    console.log("UPDATE", updatedNote);
+    console.log("n1:", notes);
+
     dispatch({ type: "updated", note: updatedNote });
+    console.log("n2:", notes);
+    setEditNoteModal(updatedNote);
+    handleUpModal(updatedNote);
     dbUpdateNote(updatedNote);
   }
   return (

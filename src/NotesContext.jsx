@@ -40,6 +40,9 @@ export function useNotesDispatch() {
 
 function notesReducer(notes, action) {
   switch (action.type) {
+    case "flush": {
+      return action.notes;
+    }
     case "get": {
       return action.notes;
     }
