@@ -2,7 +2,7 @@ import "./App.css";
 import { NotesProvider } from "./NotesContext";
 import NotesList from "./NotesList";
 import NotesInput from "./NoteInput";
-import NewNoteFloatButton from "./NewNoteFloatButton";
+import NewNoteFloatButton from "./components/NewNoteFloatButton";
 
 function App() {
   return (

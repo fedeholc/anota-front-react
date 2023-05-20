@@ -118,7 +118,7 @@ h2 {
   transition: overflow-y .2s
 }
 
-.note__oo {
+.note__overflow {
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -127,10 +127,11 @@ h2 {
   right: 0px;
   top: -40px;
   font-size: 1.5rem;
+  height: 0;
   opacity: 100%;
 }
 
-.note__container:hover .note__oo {
+.note__container:hover .note__overflow {
   opacity: 0;
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NewNoteModal from "./NewNoteModal";
+import NewNoteModal from "../NewNoteModal";
 import { FloatButton, Button, theme, ConfigProvider } from "antd";
 
 import AddIcon from "@mui/icons-material/Add";
