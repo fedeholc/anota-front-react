@@ -72,6 +72,7 @@ h2 {
 }
 
 
+
 .sb1::-webkit-scrollbar {
   width: 10px;
 }
@@ -80,7 +81,7 @@ h2 {
   border-radius: 8px;
   background-color: rgba(231, 231, 231, 0.2);
   border: 1px solid #cacaca;
- }
+}
 
 .sb1::-webkit-scrollbar-thumb {
   border-radius: 8px;
@@ -94,8 +95,13 @@ h2 {
   max-width: 300px;
   border-radius: 5px;
   padding: 1rem 1rem 1rem 1rem;
-
   display: block;
+
+  background-color: hsla(115, 100%, 99%);
+
+  border: 2px solid hsl(115, 100%, 17%);
+  box-shadow: hsla(210, 6%, 25%, 0.3) 0px 1px 2px 0px, hsla(206, 0%, 25%, 0.15) 1px 1px 2px 0px;
+  /*  box-shadow: 1px 1px 0px 0px hsl(60, 1%, 70%); */
 }
 
 .note__body {
@@ -104,7 +110,7 @@ h2 {
   overflow-y: hidden;
   transition: overflow-y .2s;
   padding-right: 0.7rem;
- }
+}
 
 .note__container:hover .note__body {
   overflow-y: auto;
