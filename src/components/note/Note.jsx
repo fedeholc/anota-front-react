@@ -14,15 +14,12 @@ Note.propTypes = {
   note: PropTypes.object,
   noteOverflow: PropTypes.string,
   handleDelete: PropTypes.func,
-  isModal: PropTypes.bool,
-  setEditNoteModal: PropTypes.func,
   children: PropTypes.node,
-  handleUpModal: PropTypes.func,
 };
 export function Note({ note, handleDelete, noteOverflow, children }) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
-  const [isModalV, setIsModalV] = useState(false);
+  const [isModal, setIsModal] = useState(false);
 
   function handleChange(event) {
     setEditNote((prev) => {
@@ -65,11 +62,11 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
   }
   return (
     <div
-      onClick={() => setIsModalV(false)}
-      className={`${isModalV && "new-note__background"}`}
+      onClick={() => setIsModal(false)}
+      className={`${isModal && "new-note__background"}`}
     >
       <div
-        className={`note__container ${isModalV && "modal-container"}`}
+        className={`note__container ${isModal && "modal-container"}`}
         onClick={(event) => {
           event.stopPropagation();
         }}
@@ -95,22 +92,23 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
             type="text"
             className="note__input-title"
           />
-          <ShrinkOutlined
-            className="note-toolbar__expand-icon"
-            onClick={() => {
-              setIsModalV(false);
-              /*             handleEdit(event, noteIndex);
-               */
-            }}
-          />
-          <ArrowsAltOutlined
-            className="note-toolbar__expand-icon"
-            onClick={() => {
-              setIsModalV(true);
-              /*             handleEdit(event, noteIndex);
-               */
-            }}
-          />
+          {isModal && (
+            <ShrinkOutlined
+              className="note-toolbar__expand-icon"
+              onClick={() => {
+                setIsModal(false);
+              }}
+            />
+          )}
+
+          {!isModal && (
+            <ArrowsAltOutlined
+              className="note-toolbar__expand-icon"
+              onClick={() => {
+                setIsModal(true);
+              }}
+            />
+          )}
         </div>
         <ContentEditable
           html={editNote.noteHTML}
@@ -119,13 +117,13 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
           onChange={handleEditableChange}
           //onBlur={handleUpdate}
           className={`note__body note__body--edit sb1 ${
-            isModalV && "modal-body"
+            isModal && "modal-body"
           }`}
           //className="note__body note__body--edit sb1 modal"
         />
         <div className="note__overflow">{noteOverflow}</div>
         <div className="note-toolbar">
-          <DeleteFilled
+           <DeleteFilled
             className="note-toolbar__icon"
             data-key={note.id}
             onClick={handleDelete}
