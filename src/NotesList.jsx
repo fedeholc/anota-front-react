@@ -1,17 +1,13 @@
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
-import { flushSync } from "react-dom";
 
-import { dbDeleteNote, dbGetNotes } from "./dbHandler.jsx";
+import { dbDeleteNote } from "./dbHandler.jsx";
 import { useState, useRef, useLayoutEffect } from "react";
-import NoteEditModal2 from "./NoteEditModal2.jsx";
 import { Note } from "./components/note/Note.jsx";
 
 export default function NotesList() {
   const ref = useRef();
 
   const [notesOver, setNotesOver] = useState();
-  const [showModal, setShowModal] = useState(false);
-  const [editIndex, setEditIndex] = useState();
 
   const notes = useNotes();
   const dispatch = useNotesDispatch();
@@ -30,19 +26,7 @@ export default function NotesList() {
   function handleDelete(event) {
     dispatch({ type: "deleted", deleteId: event.currentTarget.dataset.key });
     dbDeleteNote(event.currentTarget.dataset.key);
-    setShowModal(false);
     event.stopPropagation();
-  }
-
-  function handleEdit(event, noteIndex) {
-    console.log("llamo:", noteIndex);
-    setEditIndex(noteIndex);
-    setShowModal(true);
-  }
-
-  function handleUpModal(updatedNote) {
- 
-    console.log("UPMODAL", updatedNote);
   }
 
   return (
@@ -55,16 +39,6 @@ export default function NotesList() {
       }}
       ref={ref}
     >
-      {showModal ? (
-        <NoteEditModal2
-          index={editIndex}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-          handleUpModal={handleUpModal}
-          setShowModal={setShowModal}
-        />
-      ) : null}
-
       {notes &&
         notes.map((note, noteIndex) => {
           return (
@@ -72,7 +46,6 @@ export default function NotesList() {
               <Note
                 note={note}
                 noteIndex={noteIndex}
-                handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 noteOverflow={notesOver[noteIndex] ? "..." : null}
               ></Note>

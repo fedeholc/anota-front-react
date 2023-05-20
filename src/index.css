@@ -114,6 +114,9 @@ h2 {
 
 .modal-container {
   max-width: 80vw;
+  position: relative;
+  margin: auto;
+  margin-top: 1rem;
 }
 
 .modal-body {
