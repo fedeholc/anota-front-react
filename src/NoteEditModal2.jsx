@@ -6,18 +6,18 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Note } from "./components/note/Note.jsx";
 
-NoteEditModal.propTypes = {
+NoteEditModal2.propTypes = {
   index: PropTypes.number,
   setShowModal: PropTypes.func,
 };
 
-export default function NoteEditModal({ index, setShowModal }) {
+export default function NoteEditModal2({ index, setShowModal }) {
   const notes = useNotes();
   const dispatch = useNotesDispatch();
   const [editNote, setEditNote] = useState(notes[index]);
 
-  const inputRef = useRef(null);
-
+  /*   const inputRef = useRef(null);
+   */
   function handleChange(event) {
     setEditNote((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
@@ -57,9 +57,9 @@ export default function NoteEditModal({ index, setShowModal }) {
     dbUpdateNote(updatedNote);
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, []); */
 
   return (
     <div
@@ -69,15 +69,31 @@ export default function NoteEditModal({ index, setShowModal }) {
         setShowModal(false);
       }}
     >
-  {/*     <Note
-        note={editNote}
-        noteIndex={index}
-        //handleEdit={handleEdit}
-        //handleDelete={handleDelete}
-        //noteOverflow={notesOver[noteIndex] ? "..." : null}
-      ></Note> */}
-
       <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "1rem",
+        }}
+      >
+        <div
+          onClick={(event) => {
+            console.log("click");
+            event.stopPropagation();
+          }}
+        >
+          <Note
+            note={editNote}
+            noteIndex={index}
+            isModal={true}
+            //handleEdit={handleEdit}
+            //handleDelete={handleDelete}
+            //noteOverflow={notesOver[noteIndex] ? "..." : null}
+          ></Note>
+        </div>
+      </div>
+
+      {/*   <div
         className="new-note__container"
         onClick={(event) => {
           event.stopPropagation();
@@ -110,7 +126,7 @@ export default function NoteEditModal({ index, setShowModal }) {
         >
           cerrar
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useNotes, useNotesDispatch } from "./NotesContext.jsx";
 import { dbDeleteNote } from "./dbHandler.jsx";
 import { useState, useRef, useLayoutEffect } from "react";
-import NoteEditModal from "./NoteEditModal.jsx";
+import NoteEditModal2 from "./NoteEditModal2.jsx";
 import { Note } from "./components/note/Note.jsx";
 
 export default function NotesList() {
@@ -19,9 +19,8 @@ export default function NotesList() {
     const { current } = ref;
     const noteBodyNodes = Array.from(current.querySelectorAll(".note__body"));
     const isOverflow = noteBodyNodes.map(
-      (e) => e.scrollHeight > e.clientHeight
+      (noteBody) => noteBody.scrollHeight > noteBody.clientHeight
     );
-
     setNotesOver(isOverflow);
   }, [notes]);
 
@@ -31,7 +30,6 @@ export default function NotesList() {
     event.stopPropagation();
   }
 
-  //TODO: no puedo usar el event como en handleDelete para no pasar el noteIndex?
   function handleEdit(event, noteIndex) {
     console.log("llamo:", noteIndex);
     setEditIndex(noteIndex);
@@ -42,14 +40,14 @@ export default function NotesList() {
     <div
       style={{
         display: "grid",
-        gap: "0.4rem",
+        gap: "1rem",
         justifyContent: "center",
         margin: "1rem",
       }}
       ref={ref}
     >
       {showModal ? (
-        <NoteEditModal index={editIndex} setShowModal={setShowModal} />
+        <NoteEditModal2 index={editIndex} setShowModal={setShowModal} />
       ) : null}
 
       {notes &&
@@ -66,6 +64,7 @@ export default function NotesList() {
             </div>
           );
         })}
+      <br />
     </div>
   );
 }

@@ -105,16 +105,28 @@ h2 {
 }
 
 .note__body {
-  max-height: 300px;
   margin-bottom: 1.5rem;
+  max-height: 300px;
   overflow-y: hidden;
   transition: overflow-y .2s;
-  padding-right: 0.7rem;
+  padding-right: 0.5rem;
+}
+
+.modal-container {
+  max-width: 80vw;
+}
+
+.modal-body {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.note__body--edit:focus {
+  outline: 0;
 }
 
 .note__container:hover .note__body {
   overflow-y: auto;
-  padding-right: 0rem;
   transition: overflow-y .2s
 }
 
@@ -141,6 +153,21 @@ h2 {
   font-weight: 500;
 }
 
+.note__input-title {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: inherit;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.note__input-title:focus {
+  outline: 0;
+  border-bottom: 1px solid gray;
+}
+
 .note-toolbar {
   display: flex;
   flex-direction: row;
@@ -156,11 +183,38 @@ h2 {
   transition: opacity .3s
 }
 
+.note-toolbar__expand-icon {
+  color: hsl(0, 0%, 30%);
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 98%);
+  transition: opacity .3s;
+
+}
+
+.note-toolbar__expand-icon:hover {
+  color: rgb(27, 27, 27);
+  border-color: black !important;
+  background-color: rgb(233, 232, 232);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.note-toolbar__icon--highlight {
+  color: rgb(0, 0, 0);
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: opacity .3s
+}
+
 .note__container:hover .note-toolbar__icon {
   opacity: 100;
   transition: opacity .2s
 }
-
 
 .note-toolbar__icon:hover {
   color: rgb(27, 27, 27);
@@ -171,7 +225,6 @@ h2 {
   cursor: pointer;
 
 }
-
 
 .new-note__background {
   position: fixed;
