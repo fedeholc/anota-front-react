@@ -36,7 +36,6 @@ export default function NotesList() {
             <div key={note.id}>
               <Note
                 note={note}
-                noteIndex={noteIndex}
                 noteOverflow={notesOver[noteIndex] ? "..." : null}
               ></Note>
             </div>

@@ -9,17 +9,21 @@ import {
 } from "@ant-design/icons";
 import { useState, useRef } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
-import { dbUpdateNote, dbDeleteNote } from "../../dbHandler";
+import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
 Note.propTypes = {
   note: PropTypes.object,
   noteOverflow: PropTypes.string,
+  newNote: PropTypes.bool,
   children: PropTypes.node,
+  setShowModal: PropTypes.func,
 };
-export function Note({ note, noteOverflow, children }) {
+export function Note({ note, noteOverflow, children, newNote, setShowModal }) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(newNote);
+  const [isNewNote, setIsNewNote] = useState(newNote);
+  const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const dispatch = useNotesDispatch();
 
   const inputRef = useRef(null);
@@ -42,9 +46,33 @@ export function Note({ note, noteOverflow, children }) {
     setIsEdited(true);
   }
 
+  function saveNewNote() {
+    dispatch({
+      type: "added",
+      note: {
+        id: editNote.id,
+        noteText: editNote.noteText,
+        noteHTML: editNote.noteHTML,
+        noteTitle: editNote.noteTitle,
+        tags: editNote.tags, //! cuando se puedan editar tambien cambiar acá
+        category: editNote.category,
+        deleted: editNote.deleted,
+        archived: editNote.archived,
+        reminder: editNote.reminder,
+        rating: editNote.rating,
+        //FIXME: ojo, esto está porque cuando viene la fecha en formato JSON lo hace así 2023-05-14T14:32:50.000Z en lugar de como la pide para ser guardada. Ver si mejor cambiarla cuando se cargan los datos para que ya quede.
+        created: dateTimeJStoDB(editNote.created),
+        modified: getFormattedDateTime(),
+      },
+    });
+  }
+
   function handleUpdate() {
     //TODO: completar otros campos
 
+    if (isNewNote) {
+      editNote.created = getFormattedDateTime();
+    }
     const updatedNote = {
       id: editNote.id,
       noteText: editNote.noteText,
@@ -60,9 +88,15 @@ export function Note({ note, noteOverflow, children }) {
       created: dateTimeJStoDB(editNote.created),
       modified: getFormattedDateTime(),
     };
-    dispatch({ type: "updated", note: updatedNote });
 
-    dbUpdateNote(updatedNote);
+    if (isNewNote && !isNewNoteSaved) {
+      dbAddNote(updatedNote);
+      //dispatch({ type: "added", note: updatedNote });
+      setIsNewNoteSaved(true);
+    } else {
+      dispatch({ type: "updated", note: updatedNote });
+      dbUpdateNote(updatedNote);
+    }
   }
 
   function handleDelete(id) {
@@ -71,7 +105,14 @@ export function Note({ note, noteOverflow, children }) {
   }
   return (
     <div
-      onClick={() => setIsModal(false)}
+      onClick={() => {
+        if (isNewNote) {
+          saveNewNote();
+        }
+        setIsModal(false);
+
+        setShowModal(false);
+      }}
       className={`${isModal && "new-note__background"}`}
     >
       <div
@@ -106,6 +147,12 @@ export function Note({ note, noteOverflow, children }) {
               className="note-toolbar__expand-icon"
               onClick={() => {
                 setIsModal(false);
+
+                if (isNewNote) {
+                  saveNewNote();
+                }
+
+                setShowModal(false);
               }}
             />
           )}

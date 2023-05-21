@@ -66,6 +66,7 @@ export default function NewNoteModal({ setShowModal }) {
         modified: getFormattedDateTime(),
       };
       dispatch({ type: "added", note: noteToAdd });
+      
       dbAddNote(noteToAdd);
     }
   }
