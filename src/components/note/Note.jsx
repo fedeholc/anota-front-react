@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import ContentEditable from "react-contenteditable";
+import { useNotesDispatch } from "../../NotesContext";
 import {
   DeleteFilled,
   ShrinkOutlined,
@@ -8,23 +9,21 @@ import {
 } from "@ant-design/icons";
 import { useState, useRef } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
-import { dbUpdateNote } from "../../dbHandler";
+import { dbUpdateNote, dbDeleteNote } from "../../dbHandler";
 
 Note.propTypes = {
   note: PropTypes.object,
   noteOverflow: PropTypes.string,
-  handleDelete: PropTypes.func,
   children: PropTypes.node,
 };
-export function Note({ note, handleDelete, noteOverflow, children }) {
+export function Note({ note, noteOverflow, children }) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
   const [isModal, setIsModal] = useState(false);
+  const dispatch = useNotesDispatch();
 
   const inputRef = useRef(null);
 
-  /*   useEffect(() => {}, []);
-   */
   function handleChange(event) {
     setEditNote((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
@@ -61,8 +60,14 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
       created: dateTimeJStoDB(editNote.created),
       modified: getFormattedDateTime(),
     };
+    dispatch({ type: "updated", note: updatedNote });
 
     dbUpdateNote(updatedNote);
+  }
+
+  function handleDelete(id) {
+    dispatch({ type: "deleted", deleteId: id });
+    dbDeleteNote(id);
   }
   return (
     <div
@@ -133,7 +138,7 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
           <DeleteFilled
             className="note-toolbar__icon"
             data-key={note.id}
-            onClick={handleDelete}
+            onClick={() => handleDelete(note.id)}
           />
           {isEdited && (
             <SaveFilled
