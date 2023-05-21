@@ -3,6 +3,7 @@ import { NotesProvider } from "./NotesContext";
 import NotesList from "./NotesList";
 import NotesInput from "./NoteInput";
 import NewNoteFloatButton from "./components/NewNoteFloatButton";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <NotesList></NotesList>
         <NewNoteFloatButton></NewNoteFloatButton>
       </NotesProvider>
+      <Footer></Footer>
     </>
   );
 }

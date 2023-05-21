@@ -89,6 +89,17 @@ h2 {
 
 }
 
+.note-list__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+  margin: auto;
+  width: 700px;
+  /* border: 1px solid red; */
+  padding: 1rem;
+}
 
 .note__container {
   border: 1px solid gray;

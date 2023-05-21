@@ -21,27 +21,20 @@ export default function NotesList() {
   }, [notes]);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gap: "1rem",
-        justifyContent: "center",
-        margin: "1rem",
-      }}
-      ref={ref}
-    >
-      {notes &&
-        notes.map((note, noteIndex) => {
-          return (
-            <div key={note.id}>
-              <Note
-                note={note}
-                noteOverflow={notesOver[noteIndex] ? "..." : null}
-              ></Note>
-            </div>
-          );
-        })}
-      <br />
+    <div>
+      <div className="note-list__grid" ref={ref}>
+        {notes &&
+          notes.map((note, noteIndex) => {
+            return (
+              <div key={note.id}>
+                <Note
+                  note={note}
+                  noteOverflow={notesOver[noteIndex] ? "..." : null}
+                ></Note>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }
