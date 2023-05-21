@@ -92,6 +92,8 @@ h2 {
 .note-list__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+
   gap: 1rem;
   justify-content: center;
   justify-items: center;
@@ -102,6 +104,7 @@ h2 {
 }
 
 .note__container {
+
   border: 1px solid gray;
   max-width: 300px;
   border-radius: 5px;
