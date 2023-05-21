@@ -113,6 +113,12 @@ h2 {
   margin-left: 1rem;
 }
 
+.note__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .modal-container {
   max-width: 80vw;
   position: relative;
