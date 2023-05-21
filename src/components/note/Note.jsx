@@ -26,7 +26,7 @@ export function Note({
   setShowNewNote,
 }) {
   const [editNote, setEditNote] = useState(note);
-  const [isEdited, setIsEdited] = useState(false);
+  const [isModified, setIsModified] = useState(false);
   const [isModal, setIsModal] = useState(isNewNote);
   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const dispatch = useNotesDispatch();
@@ -46,7 +46,7 @@ export function Note({
     setEditNote((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
     });
-    setIsEdited(true);
+    setIsModified(true);
   }
 
   function handleEditableChange(event) {
@@ -57,7 +57,7 @@ export function Note({
         noteHTML: event.currentTarget.innerHTML,
       };
     });
-    setIsEdited(true);
+    setIsModified(true);
   }
 
   function saveNewNote() {
@@ -81,13 +81,13 @@ export function Note({
     });
   }
 
-  function handleUpdate() {
+  function handleSave() {
     //TODO: completar otros campos
 
     if (isNewNote) {
       editNote.created = getFormattedDateTime();
     }
-    const updatedNote = {
+    const note = {
       id: editNote.id,
       noteText: editNote.noteText,
       noteHTML: editNote.noteHTML,
@@ -104,12 +104,11 @@ export function Note({
     };
 
     if (isNewNote && !isNewNoteSaved) {
-      dbAddNote(updatedNote);
-      //dispatch({ type: "added", note: updatedNote });
+      dbAddNote(note);
       setIsNewNoteSaved(true);
     } else {
-      dispatch({ type: "updated", note: updatedNote });
-      dbUpdateNote(updatedNote);
+      dispatch({ type: "updated", note: note });
+      dbUpdateNote(note);
     }
   }
 
@@ -117,15 +116,21 @@ export function Note({
     dispatch({ type: "deleted", deleteId: id });
     dbDeleteNote(id);
   }
+
+  function handleExitModal() {
+    if (isNewNote) {
+      saveNewNote();
+      setShowNewNote(false);
+      setIsModal(false);
+    } else {
+      handleSave();
+      setIsModified(false);
+      setIsModal(false);
+    }
+  }
   return (
     <div
-      onClick={() => {
-        if (isNewNote) {
-          saveNewNote();
-          setShowNewNote(false);
-        }
-        setIsModal(false);
-      }}
+      onClick={handleExitModal}
       className={`${isModal && "new-note__background"}`}
     >
       <div
@@ -134,13 +139,13 @@ export function Note({
           event.stopPropagation();
         }}
         onMouseLeave={() => {
-          if (isEdited) {
-            handleUpdate();
-            setIsEdited(false);
+          if (isModified) {
+            handleSave();
+            setIsModified(false);
           }
         }}
       >
-        <div
+        <div //TODO: pasar a class
           style={{
             display: "flex",
             flexDirection: "row",
@@ -159,13 +164,7 @@ export function Note({
           {isModal && (
             <ShrinkOutlined
               className="note-toolbar__expand-icon"
-              onClick={() => {
-                if (isNewNote) {
-                  saveNewNote();
-                  setShowNewNote(false);
-                }
-                setIsModal(false);
-              }}
+              onClick={handleExitModal}
             />
           )}
 
@@ -174,7 +173,6 @@ export function Note({
               className="note-toolbar__expand-icon"
               onClick={() => {
                 inputRef.current.focus();
-
                 setIsModal(true);
               }}
             />
@@ -186,11 +184,9 @@ export function Note({
           disabled={false}
           data-key={note.id}
           onChange={handleEditableChange}
-          //onBlur={handleUpdate}
           className={`note__body note__body--edit sb1 ${
             isModal && "modal-body"
           }`}
-          //className="note__body note__body--edit sb1 modal"
         />
         <div className="note__overflow">{!isModal && noteOverflow}</div>
         <div className="note-toolbar">
@@ -199,13 +195,13 @@ export function Note({
             data-key={note.id}
             onClick={() => handleDelete(note.id)}
           />
-          {isEdited && (
+          {isModified && (
             <SaveFilled
               className="note-toolbar__icon--highlight"
               onClick={() => {
-                if (isEdited) {
-                  handleUpdate();
-                  setIsEdited(false);
+                if (isModified) {
+                  handleSave();
+                  setIsModified(false);
                 }
               }}
             />
