@@ -28,20 +28,25 @@ export default function NotesListMasonry() {
   // https://www.npmjs.com/package/react-responsive-masonry
 
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
       {notes && (
-        <Masonry columnsCount={3}>
-          {notes.map((note, noteIndex) => {
-            return (
-              <div key={note.id}>
-                <Note
-                  note={note}
-                  noteOverflow={notesOver[noteIndex] ? "..." : null}
-                ></Note>
-              </div>
-            );
-          })}
-        </Masonry>
+        <ResponsiveMasonry
+         
+          columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
+        >
+          <Masonry gutter="1rem" columnsCount={3}>
+            {notes.map((note, noteIndex) => {
+              return (
+                <div key={note.id}>
+                  <Note
+                    note={note}
+                    noteOverflow={notesOver[noteIndex] ? "..." : null}
+                  ></Note>
+                </div>
+              );
+            })}
+          </Masonry>
+        </ResponsiveMasonry>
       )}
     </div>
   );

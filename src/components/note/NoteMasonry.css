@@ -1,0 +1,187 @@
+.note__container {
+/*   margin: 1rem;
+ */  
+ border: 1px solid gray;
+  border-radius: 5px;
+  display: block;
+  background-color: hsla(115, 100%, 99%);
+  border: 2px solid hsl(115, 100%, 17%);
+  box-shadow: hsla(210, 6%, 25%, 0.3) 0px 1px 2px 0px, hsla(206, 0%, 25%, 0.15) 1px 1px 2px 0px;
+}
+
+.note__body {
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow-y: hidden;
+  transition: overflow-y .2s;
+  padding-right: 0.5rem;
+  margin-right: 0.7rem;
+  margin-left: 1rem;
+}
+
+.note__body--edit:focus {
+  outline: 0;
+}
+
+.note__container:hover .note__body {
+  overflow-y: auto;
+  transition: overflow-y .2s
+}
+
+.note__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.note__overflow {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  position: relative;
+  color: gray;
+  right: 0px;
+  top: -40px;
+  font-size: 1.5rem;
+  height: 0;
+  opacity: 100%;
+  padding-left: 1rem;
+}
+
+.note__title {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.note__input-title {
+  margin-top: 0.6rem;
+  margin-left: 1rem;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: inherit;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.note__input-title:focus {
+  outline: 0;
+  border-bottom: 1px solid gray;
+}
+
+.note-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.note-toolbar__icon {
+  color: gray;
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity .3s
+}
+
+.note-toolbar__expand-icon {
+  margin-top: 0.3rem;
+  margin-right: 0.3rem;
+  margin-bottom: 0.5rem;
+  padding: 5px;
+  color: hsl(0, 0%, 30%);
+  border-color: gray;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 98%);
+  transition: opacity .3s;
+
+}
+
+.note-toolbar__expand-icon:hover {
+  color: rgb(27, 27, 27);
+  border-color: black !important;
+  background-color: rgb(233, 232, 232);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.note-toolbar__icon--highlight {
+  color: rgb(0, 0, 0);
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: opacity .3s
+}
+
+.note__container:hover .note-toolbar__icon {
+  opacity: 100;
+  transition: opacity .2s
+}
+
+.note-toolbar__icon:hover {
+  color: rgb(27, 27, 27);
+  border-color: black !important;
+  background-color: rgb(233, 232, 232);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+
+}
+
+.note__container:hover .note__overflow {
+  opacity: 0;
+}
+
+.new-note__body {
+  outline-style: none;
+  border: 0px;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-bottom: 0px;
+  overflow-Y: scroll;
+  min-height: 100px;
+  max-height: 50vh;
+}
+
+.new-note__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-Index: 50;
+  width: 100vw;
+  height: 100vh;
+  background-Color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-container {
+  max-width: 80vw;
+  position: relative;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.modal-body {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.sb1::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sb1::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: rgba(231, 231, 231, 0.2);
+  border: 1px solid #cacaca;
+}
+
+.sb1::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+
+}
