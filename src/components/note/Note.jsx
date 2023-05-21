@@ -7,7 +7,7 @@ import {
   SaveFilled,
   ArrowsAltOutlined,
 } from "@ant-design/icons";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
@@ -18,14 +18,29 @@ Note.propTypes = {
   children: PropTypes.node,
   setShowNewNote: PropTypes.func,
 };
-export function Note({ note, noteOverflow, children, isNewNote, setShowNewNote }) {
+export function Note({
+  note,
+  noteOverflow,
+  children,
+  isNewNote,
+  setShowNewNote,
+}) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
   const [isModal, setIsModal] = useState(isNewNote);
-   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
+  const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const dispatch = useNotesDispatch();
 
   const inputRef = useRef(null);
+  const newNoteInputRef = useRef(null);
+
+  useEffect(() => {
+    if (isNewNote) {
+      newNoteInputRef.current.focus();
+    } else {
+      inputRef.current.focus();
+    }
+  }, [isNewNote, isModal]);
 
   function handleChange(event) {
     setEditNote((prev) => {
@@ -133,6 +148,7 @@ export function Note({ note, noteOverflow, children, isNewNote, setShowNewNote }
           }}
         >
           <input
+            ref={newNoteInputRef}
             name="noteTitle"
             placeholder="¿Título...?"
             value={editNote.noteTitle}
@@ -144,13 +160,11 @@ export function Note({ note, noteOverflow, children, isNewNote, setShowNewNote }
             <ShrinkOutlined
               className="note-toolbar__expand-icon"
               onClick={() => {
-                setIsModal(false);
-
                 if (isNewNote) {
                   saveNewNote();
+                  setShowNewNote(false);
                 }
-
-                setShowNewNote(false);
+                setIsModal(false);
               }}
             />
           )}
