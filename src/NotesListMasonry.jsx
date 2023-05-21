@@ -1,9 +1,11 @@
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 import { useNotes } from "./NotesContext.jsx";
 import { useState, useRef, useLayoutEffect } from "react";
 import { Note } from "./components/note/Note.jsx";
-import "./NotesList.css"
+import "./NotesListMasonry.css";
 
-export default function NotesList() {
+export default function NotesListMasonry() {
   const ref = useRef();
 
   const [notesOver, setNotesOver] = useState();
@@ -20,19 +22,27 @@ export default function NotesList() {
     setNotesOver(isOverflow);
   }, [notes]);
 
+  //TODO: ojo, crear distintos archivos css para agregar masonry y conservar el anterior.
+  //TODO: ver que el icono superior derecho no se achique de tamaño.
+  // ver los breakpoints
+  // https://www.npmjs.com/package/react-responsive-masonry
+
   return (
-    <div className="note-list__grid" ref={ref}>
-      {notes &&
-        notes.map((note, noteIndex) => {
-          return (
-            <div key={note.id}>
-              <Note
-                note={note}
-                noteOverflow={notesOver[noteIndex] ? "..." : null}
-              ></Note>
-            </div>
-          );
-        })}
+    <div ref={ref}>
+      {notes && (
+        <Masonry columnsCount={3}>
+          {notes.map((note, noteIndex) => {
+            return (
+              <div key={note.id}>
+                <Note
+                  note={note}
+                  noteOverflow={notesOver[noteIndex] ? "..." : null}
+                ></Note>
+              </div>
+            );
+          })}
+        </Masonry>
+      )}
     </div>
   );
 }

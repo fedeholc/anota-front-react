@@ -1,7 +1,9 @@
 import "./App.css";
 import { NotesProvider } from "./NotesContext";
-import NotesList from "./NotesList";
+  import NotesList from "./NotesList";
+  
 import NotesInput from "./NoteInput";
+import NotesListMasonry from "./NotesListMasonry";
 import NewNoteFloatButton from "./components/NewNoteFloatButton";
 import Footer from "./components/Footer";
 
@@ -11,7 +13,8 @@ function App() {
       <h1>notes:</h1>
       <NotesProvider>
         <NotesInput></NotesInput>
-        <NotesList></NotesList>
+        <NotesListMasonry></NotesListMasonry>
+         <NotesList></NotesList>  
         <NewNoteFloatButton></NewNoteFloatButton>
       </NotesProvider>
       <Footer></Footer>

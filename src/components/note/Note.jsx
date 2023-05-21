@@ -11,6 +11,8 @@ import { useState, useRef, useEffect } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
+import "./Note.css";
+
 Note.propTypes = {
   note: PropTypes.object,
   noteOverflow: PropTypes.string,
