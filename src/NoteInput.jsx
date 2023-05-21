@@ -1,15 +1,10 @@
-import NewNoteModal from "./NewNoteModal";
-import { useNotesDispatch, useNotes } from "./NotesContext.jsx";
-import ContentEditable from "react-contenteditable";
-import { getFormattedDateTime } from "./utilityFunctions.jsx";
+import { useNotes } from "./NotesContext.jsx";
 import { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { dbAddNote } from "./dbHandler.jsx";
 import { Note } from "./components/note/Note";
 
 export default function NotesInput() {
-  const [showModal, setShowModal] = useState(false);
+  const [showNewNote, setShowNewNote] = useState(false);
   const [newNote, setNewNote] = useState({
     id: uuidv4(),
     noteText: "",
@@ -25,7 +20,6 @@ export default function NotesInput() {
     modified: "",
   });
 
-  const dispatch = useNotesDispatch();
   const notes = useNotes();
 
   useEffect(() => {
@@ -47,8 +41,7 @@ export default function NotesInput() {
 
   return (
     <>
-      {/*  {showModal ? <NewNoteModal setShowModal={setShowModal} /> : null} */}
-      {!showModal && (
+      {!showNewNote && (
         <div>
           <div className="new-note__container">
             <input
@@ -57,17 +50,17 @@ export default function NotesInput() {
               type="text"
               className="new-note__title"
               onFocus={() => {
-                setShowModal(true);
+                setShowNewNote(true);
               }}
             />
           </div>
         </div>
       )}
-      {showModal && (
+      {showNewNote && (
         <Note
           note={newNote}
-          newNote={true}
-          setShowModal={setShowModal}
+          isNewNote={true}
+          setShowNewNote={setShowNewNote}
           noteOverflow={null}
         ></Note>
       )}

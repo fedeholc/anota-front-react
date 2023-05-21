@@ -14,16 +14,15 @@ import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 Note.propTypes = {
   note: PropTypes.object,
   noteOverflow: PropTypes.string,
-  newNote: PropTypes.bool,
+  isNewNote: PropTypes.bool,
   children: PropTypes.node,
-  setShowModal: PropTypes.func,
+  setShowNewNote: PropTypes.func,
 };
-export function Note({ note, noteOverflow, children, newNote, setShowModal }) {
+export function Note({ note, noteOverflow, children, isNewNote, setShowNewNote }) {
   const [editNote, setEditNote] = useState(note);
   const [isEdited, setIsEdited] = useState(false);
-  const [isModal, setIsModal] = useState(newNote);
-  const [isNewNote, setIsNewNote] = useState(newNote);
-  const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
+  const [isModal, setIsModal] = useState(isNewNote);
+   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const dispatch = useNotesDispatch();
 
   const inputRef = useRef(null);
@@ -108,10 +107,9 @@ export function Note({ note, noteOverflow, children, newNote, setShowModal }) {
       onClick={() => {
         if (isNewNote) {
           saveNewNote();
+          setShowNewNote(false);
         }
         setIsModal(false);
-
-        setShowModal(false);
       }}
       className={`${isModal && "new-note__background"}`}
     >
@@ -152,7 +150,7 @@ export function Note({ note, noteOverflow, children, newNote, setShowModal }) {
                   saveNewNote();
                 }
 
-                setShowModal(false);
+                setShowNewNote(false);
               }}
             />
           )}
