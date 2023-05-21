@@ -38,7 +38,9 @@ export function Note({
     if (isNewNote) {
       newNoteInputRef.current.focus();
     } else {
-      inputRef.current.focus();
+      if (isModal) {
+        inputRef.current.focus();
+      }
     }
   }, [isNewNote, isModal]);
 
@@ -115,6 +117,13 @@ export function Note({
   function handleDelete(id) {
     dispatch({ type: "deleted", deleteId: id });
     dbDeleteNote(id);
+    if (isNewNote) {
+      setShowNewNote(false);
+      setIsModal(false);
+    } else {
+      setIsModified(false);
+      setIsModal(false);
+    }
   }
 
   function handleExitModal() {
