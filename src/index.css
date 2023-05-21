@@ -145,6 +145,7 @@ h2 {
   font-size: 1.5rem;
   height: 0;
   opacity: 100%;
+  padding-left: 1rem;
 }
 
 .note__container:hover .note__overflow {

@@ -6,7 +6,7 @@ import {
   SaveFilled,
   ArrowsAltOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote } from "../../dbHandler";
 
@@ -21,6 +21,10 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
   const [isEdited, setIsEdited] = useState(false);
   const [isModal, setIsModal] = useState(false);
 
+  const inputRef = useRef(null);
+
+  /*   useEffect(() => {}, []);
+   */
   function handleChange(event) {
     setEditNote((prev) => {
       return { ...prev, [event.target.name]: event.target.value };
@@ -105,12 +109,15 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
             <ArrowsAltOutlined
               className="note-toolbar__expand-icon"
               onClick={() => {
+                inputRef.current.focus();
+
                 setIsModal(true);
               }}
             />
           )}
         </div>
         <ContentEditable
+          innerRef={inputRef}
           html={editNote.noteHTML}
           disabled={false}
           data-key={note.id}
@@ -121,9 +128,9 @@ export function Note({ note, handleDelete, noteOverflow, children }) {
           }`}
           //className="note__body note__body--edit sb1 modal"
         />
-        <div className="note__overflow">{noteOverflow}</div>
+        <div className="note__overflow">{!isModal && noteOverflow}</div>
         <div className="note-toolbar">
-           <DeleteFilled
+          <DeleteFilled
             className="note-toolbar__icon"
             data-key={note.id}
             onClick={handleDelete}
