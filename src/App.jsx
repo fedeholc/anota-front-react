@@ -11,16 +11,18 @@ function App() {
   return (
     <>
       <div className="app__body">
-        <h1>notes:</h1>
+        <div className="sticky-navbar">ANOTA (Another Note Taking App)</div>
         <div
           style={{
             display: "grid",
             gridTemplateRows: "1fr",
 
-            border: "1px solid red",
+           /*  border: "1px solid red", */
           }}
         >
-          <div style={{ border: "1px solid blue" }}>
+          <div 
+          /* style={{ border: "1px solid blue" }} */
+          >
             <NotesProvider>
               <NotesInput></NotesInput>
               <NotesListMasonry></NotesListMasonry>

@@ -47,28 +47,28 @@ main {
   max-width: 700px;
 }
 
-header,
-footer {
+header {
   min-width: 100%;
 }
+
 
 footer {
   font-family: "Roboto mono", mono;
   font-size: 0.7rem;
-  padding-bottom: 0.2rem;
-  margin-top: 2rem;
-  border-top: 1px dashed var(--amarillo2);
+  padding: 0.2rem;
+  margin: 1rem;
+  border: 1px dashed var(--amarillo2);
   display: grid;
   justify-content: center;
+  place-self: center;
+  width: 300px;
 }
 
 h2 {
-  font-family: "Karma", serif;
+  font-family: "Roboto Slab", serif;
   font-size: 1.6rem !important;
   line-height: 1.5rem !important;
 }
-
-
 
 
 @media only screen and (max-width: 750px) {
