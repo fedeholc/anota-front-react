@@ -1,7 +1,7 @@
 .note__container {
-/*   margin: 1rem;
- */  
- border: 1px solid gray;
+  /*   margin: 1rem;
+ */
+  border: 1px solid gray;
   border-radius: 5px;
   display: block;
   background-color: hsla(115, 100%, 99%);
@@ -54,7 +54,7 @@
   font-weight: 500;
 }
 
- 
+
 .note__input-title {
   margin-top: 0.6rem;
   margin-left: 1rem;
@@ -164,6 +164,7 @@
   max-width: 80vw;
   position: relative;
   margin: auto;
+  top: 60px;
   margin-top: 1rem;
 }
 

@@ -16,10 +16,14 @@ export default function NotesListMasonry() {
   useLayoutEffect(() => {
     const { current } = ref;
     const noteBodyNodes = Array.from(current.querySelectorAll(".note__body"));
-    const isOverflow = noteBodyNodes.map(
-      (noteBody) => noteBody.scrollHeight > noteBody.clientHeight
+
+    // crea un array con los ids de las notas que tienen overflow
+    const overIds = noteBodyNodes.map((noteBody) =>
+      noteBody.scrollHeight > noteBody.clientHeight
+        ? noteBody.dataset.key
+        : null
     );
-    setNotesOver(isOverflow);
+    setNotesOver(overIds);
   }, [notes]);
 
   //TODO: ojo, crear distintos archivos css para agregar masonry y conservar el anterior.
@@ -31,16 +35,18 @@ export default function NotesListMasonry() {
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
       {notes && (
         <ResponsiveMasonry
-         
           columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
         >
           <Masonry gutter="1rem" columnsCount={3}>
-            {notes.map((note, noteIndex) => {
+            {notes.map((note) => {
               return (
                 <div key={note.id}>
                   <Note
                     note={note}
-                    noteOverflow={notesOver[noteIndex] ? "..." : null}
+                    // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
+                    noteOverflow={
+                      notesOver.some((e) => e === note.id) ? "..." : null
+                    }
                   ></Note>
                 </div>
               );
