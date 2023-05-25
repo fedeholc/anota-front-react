@@ -12,8 +12,8 @@
   padding: 10px;
   background-color: hsl(0, 0%, 99%);
   border-bottom: 1px solid hsl(0, 0%, 50%);
-  box-shadow: gray 0px 0px 4px 0px;
-  opacity: 95%;
+/*   box-shadow: gray 0px 0px 4px 0px;
+ */  opacity: 95%;
   font-family: "Roboto Serif", serif;
   font-size: 1.2rem;
   font-weight: 700;

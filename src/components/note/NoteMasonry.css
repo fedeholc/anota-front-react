@@ -54,6 +54,7 @@
   font-weight: 500;
 }
 
+ 
 .note__input-title {
   margin-top: 0.6rem;
   margin-left: 1rem;
@@ -64,6 +65,7 @@
   border: 0;
   padding: 0;
   overflow: hidden;
+  width: 100%;
 }
 
 .note__input-title:focus {
