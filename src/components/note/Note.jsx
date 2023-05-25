@@ -6,6 +6,8 @@ import {
   ShrinkOutlined,
   SaveFilled,
   ArrowsAltOutlined,
+  InfoCircleFilled,
+  TagFilled,
 } from "@ant-design/icons";
 import { useState, useRef, useEffect } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
@@ -31,6 +33,9 @@ export function Note({
   const [isModified, setIsModified] = useState(false);
   const [isModal, setIsModal] = useState(isNewNote);
   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
+  const [isShowInfo, setIsShowInfo] = useState(false);
+  const [isShowBody, setIsShowBody] = useState(true);
+  const [isShowTags, setisShowTags] = useState(false);
   const dispatch = useNotesDispatch();
 
   const inputRef = useRef(null);
@@ -139,6 +144,124 @@ export function Note({
       setIsModal(false);
     }
   }
+
+  function handleTagsChange(event) {
+    //update note state with new tags value
+    setEditNote((prev) => {
+      return { ...prev, tags: event.target.value };
+    });
+    setIsModified(true);
+  }
+
+  const noteHeader = (
+    <div className="note__header">
+      <input
+        ref={newNoteInputRef}
+        name="noteTitle"
+        placeholder="¿Título...?"
+        value={editNote.noteTitle}
+        onChange={handleChange}
+        type="text"
+        className="note__input-title"
+      />
+      {isModal && (
+        <ShrinkOutlined
+          className="note-toolbar__expand-icon"
+          onClick={handleExitModal}
+        />
+      )}
+
+      {!isModal && (
+        <ArrowsAltOutlined
+          className="note-toolbar__expand-icon"
+          onClick={() => {
+            inputRef.current.focus();
+            setIsModal(true);
+          }}
+        />
+      )}
+    </div>
+  );
+
+  const noteBody = (
+    <ContentEditable
+      innerRef={inputRef}
+      html={editNote.noteHTML}
+      disabled={false}
+      data-key={note.id}
+      onChange={handleEditableChange}
+      className={`note__body note__body--edit sb1 ${isModal && "modal-body"}`}
+    />
+  );
+
+  const noteOverflowIndicator = (
+    <div className="note__overflow">{!isModal && noteOverflow}</div>
+  );
+
+  const noteToolbar = (
+    <div className="note-toolbar">
+      <DeleteFilled
+        className="note-toolbar__icon"
+        data-key={note.id}
+        onClick={() => handleDelete(note.id)}
+      />
+
+      <TagFilled
+        className="note-toolbar__icon"
+        onClick={() => {
+          setisShowTags((prev) => !prev);
+        }}
+      />
+
+      <InfoCircleFilled
+        className="note-toolbar__icon"
+        onClick={() => {
+          setIsShowInfo((prev) => !prev);
+        }}
+      />
+
+      {isModified && (
+        <SaveFilled
+          className="note-toolbar__icon--highlight"
+          onClick={() => {
+            if (isModified) {
+              handleSave();
+              setIsModified(false);
+            }
+          }}
+        />
+      )}
+    </div>
+  );
+
+  const noteInfo = (
+    <div
+      style={{
+        color: "gray",
+        fontSize: "0.8rem",
+      }}
+    >
+      <div>
+        tags: {note.tags} | categ: {note.category} | deleted:
+        {note.deleted} | archived: {note.archived} | rating:
+        {note.rating} | reminder: {note.reminder} |{" "}
+        <div>created: {note.created}</div>
+        <div>modified: {note.modified}</div>
+      </div>
+    </div>
+  );
+
+  const noteInputTags = (
+    <div>
+      <input
+        type="text"
+        placeholder="tags"
+        value={editNote.tags}
+        onChange={handleTagsChange}
+      />
+    </div>
+  );
+
   return (
     <div
       onClick={handleExitModal}
@@ -156,76 +279,17 @@ export function Note({
           }
         }}
       >
-        <div className="note__header">
-          <input
-            ref={newNoteInputRef}
-            name="noteTitle"
-            placeholder="¿Título...?"
-            value={editNote.noteTitle}
-            onChange={handleChange}
-            type="text"
-            className="note__input-title"
-          />
-          {isModal && (
-            <ShrinkOutlined
-              className="note-toolbar__expand-icon"
-              onClick={handleExitModal}
-            />
-          )}
+        {noteHeader}
+        {isShowBody && noteBody}
 
-          {!isModal && (
-            <ArrowsAltOutlined
-              className="note-toolbar__expand-icon"
-              onClick={() => {
-                inputRef.current.focus();
-                setIsModal(true);
-              }}
-            />
-          )}
-        </div>
-        <ContentEditable
-          innerRef={inputRef}
-          html={editNote.noteHTML}
-          disabled={false}
-          data-key={note.id}
-          onChange={handleEditableChange}
-          className={`note__body note__body--edit sb1 ${
-            isModal && "modal-body"
-          }`}
-        />
-        <div className="note__overflow">{!isModal && noteOverflow}</div>
-        <div className="note-toolbar">
-          <DeleteFilled
-            className="note-toolbar__icon"
-            data-key={note.id}
-            onClick={() => handleDelete(note.id)}
-          />
-          {isModified && (
-            <SaveFilled
-              className="note-toolbar__icon--highlight"
-              onClick={() => {
-                if (isModified) {
-                  handleSave();
-                  setIsModified(false);
-                }
-              }}
-            />
-          )}
-        </div>
-        {/*  <div
-          style={{
-            color: "gray",
-            fontSize: "0.8rem",
-          }}
-        >
-          <div>
-            tags: {note.tags} | categ: {note.category} | deleted:
-            {note.deleted} | archived: {note.archived} | rating:
-            {note.rating} | reminder: {note.reminder} |{" "}
-            <div>created: {note.created}</div>
-            <div>modified: {note.modified}</div>
-          </div>
-        </div> */}
+        {isShowBody && noteOverflowIndicator}
+
+        {isShowTags && noteInputTags}
+
+        {isShowInfo && noteInfo}
+
+        {noteToolbar}
+
         {children}
       </div>
     </div>
