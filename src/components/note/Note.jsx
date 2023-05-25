@@ -14,6 +14,7 @@ import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
 import "./NoteMasonry.css";
+import Tags from "../Tags";
 
 Note.propTypes = {
   note: PropTypes.object,
@@ -251,14 +252,25 @@ export function Note({
     </div>
   );
 
+  function handleTags(tagsArray) {
+    // convert an array of tags to a string with comma separated values
+    const tagsString = tagsArray.join(", ");
+    console.log(tagsString);
+    setEditNote((prev) => {
+      return { ...prev, tags: tagsString };
+    });
+    setIsModified(true);
+  }
+
   const noteInputTags = (
     <div>
-      <input
+    {/*   <input
         type="text"
         placeholder="tags"
         value={editNote.tags}
         onChange={handleTagsChange}
-      />
+      /> */}
+      <Tags noteTags={editNote.tags} handleTags={handleTags} />
     </div>
   );
 
