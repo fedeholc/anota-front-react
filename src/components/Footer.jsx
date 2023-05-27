@@ -1,3 +1,3 @@
-export default function footer() {
-  return <div>footer</div>;
+export default function Footer() {
+  return <footer>Federico Holc ⚡️ 2023</footer>;
 }

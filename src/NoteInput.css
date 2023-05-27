@@ -1,0 +1,34 @@
+.new-note__container:hover {
+  outline-width: 2px;
+}
+
+.new-note__container {
+  border: 0px solid gray;
+  border-radius: 5px;
+  outline-style: solid;
+  outline-color: gray;
+  outline-width: 1px;
+
+  padding: 0.4rem;
+  background-color: white;
+  width: 500px;
+  margin: auto;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.new-note__title {
+  outline-style: none;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 0px;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
