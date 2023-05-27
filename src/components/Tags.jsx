@@ -5,7 +5,7 @@
  it also recives a function to update the tags in the note
 */
 
-//! TODO: además del estilo hay que hacer que no acepte tags vacios y que no acepte tags repetidos, y que no acepte tags con espacios al principio o al final, y que si hay comas separe las tags
+// TODO: pasar estilos a clases
 
 //TODO: revisar que acá además de agregar tags lo hacen para que se pueda modificar una https://ant.design/components/tag
 
@@ -45,26 +45,50 @@ export default function Tags({ noteTags, handleTags }) {
 
   const tagPlusStyle = {
     borderStyle: "dashed",
+    margin: "0.3rem",
   };
 
-  function handleInputConfirm(e) {
-    if (e.key === "Enter" || e.type === "blur") {
-      let newTag = e.target.value;
-      setTagsArray((prev) => {
-        return [...prev, newTag];
-      });
-      handleTags([...tagsArray, newTag]);
-      e.target.value = "";
+  function handleInputConfirm(event) {
+    if (event.key === "Enter" || event.type === "blur") {
+      let newTag = event.target.value;
+
+      // if the tag is empty, do nothing
+      if (newTag === "") {
+        event.target.value = "";
+        setInputVisible(false);
+        return;
+      }
+      // remove spaces at the beginning and end of the tag
+      newTag = newTag.trim();
+
+      // si hay varias tags separadas por comas las agrega como tags separadas
+      if (newTag.includes(",")) {
+        newTag = stringToTagsArray(newTag);
+        setTagsArray((prev) => {
+          return [...prev, ...newTag];
+        });
+        handleTags([...tagsArray, ...newTag]);
+      }
+      // si hay una sola tag la agrega
+      else {
+        setTagsArray((prev) => {
+          return [...prev, newTag];
+        });
+        handleTags([...tagsArray, newTag]);
+      }
+
+      event.target.value = "";
       setInputVisible(false);
     }
   }
 
   return (
     /* display tags in tags array as buttons with an x icon for delete the tag */
-    <div className="tags" style={{margin: "1rem"}}>
+    <div className="tags" style={{ margin: "0.7rem" }}>
       {tagsArray.map((tag, index) => {
         return (
           <Tag
+            style={{ margin: "0.3rem" }}
             color="blue"
             key={index}
             closable
@@ -85,7 +109,12 @@ export default function Tags({ noteTags, handleTags }) {
 
       {inputVisible && (
         <input
-          style={{ fontSize: "0.8rem", outlineColor: "dodgerblue" }}
+          style={{
+            width: "70px",
+            margin: "0.2rem",
+            fontSize: "0.8rem",
+            outlineColor: "dodgerblue",
+          }}
           ref={inputRef}
           type="text"
           placeholder="add tags"
