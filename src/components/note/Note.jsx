@@ -70,6 +70,18 @@ export function Note({
     setIsModified(true);
   }
 
+  function handleTitleEditableChange(event) {
+
+    //! ojo, al guardar el innerText no guarda los saltos de linea, ver si queremos que los guarde o no.
+    setEditNote((prev) => {
+      return {
+        ...prev,
+        noteTitle: event.currentTarget.innerText,
+      };
+    });
+    setIsModified(true);
+  }
+
   function saveNewNote() {
     dispatch({
       type: "added",
@@ -156,14 +168,17 @@ export function Note({
 
   const noteHeader = (
     <div className="note__header">
-      <input
-        ref={newNoteInputRef}
-        name="noteTitle"
-        placeholder="¿Título...?"
-        value={editNote.noteTitle}
-        onChange={handleChange}
-        type="text"
-        className="note__input-title"
+   
+      {/* FIXME: al ampliar la nota hacer que vaya el foco si estaba ahí */}
+      <ContentEditable
+        innerRef={newNoteInputRef}
+        html={editNote.noteTitle}
+        disabled={false}
+        data-key={note.id}
+        onChange={handleTitleEditableChange}
+        className={`note__input-title note__body note__body--edit sb1 ${
+          isModal && "modal-body"
+        }`}
       />
       {isModal && (
         <ShrinkOutlined
@@ -264,7 +279,7 @@ export function Note({
 
   const noteInputTags = (
     <div>
-    {/*   <input
+      {/*   <input
         type="text"
         placeholder="tags"
         value={editNote.tags}

@@ -9,7 +9,7 @@
 
 //TODO: revisar que acá además de agregar tags lo hacen para que se pueda modificar una https://ant.design/components/tag
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Tag } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./Tags.css";
