@@ -6,6 +6,7 @@ import NotesInput from "./NoteInput";
 import NotesListMasonry from "./NotesListMasonry";
 import NewNoteFloatButton from "./components/NewNoteFloatButton";
 import Footer from "./components/Footer";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           /* style={{ border: "1px solid blue" }} */
           >
             <NotesProvider>
+              <SearchBar></SearchBar>
               <NotesInput></NotesInput>
               <NotesListMasonry></NotesListMasonry>
               {/*          <NotesList></NotesList>

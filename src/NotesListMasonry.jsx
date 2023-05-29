@@ -1,9 +1,10 @@
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { useNotes } from "./NotesContext.jsx";
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./components/note/Note.jsx";
 import "./NotesListMasonry.css";
+import { NotesFilterContext } from "./NotesContext.jsx";
 
 export default function NotesListMasonry() {
   const ref = useRef();
@@ -11,6 +12,16 @@ export default function NotesListMasonry() {
   const [notesOver, setNotesOver] = useState();
 
   const notes = useNotes();
+
+  const notesFilter = useContext(NotesFilterContext);
+
+  function handleSearchFilter(note) {
+    // hace que si no hay filtro devuelva true
+    return (
+      note.noteTitle.includes(notesFilter || "") ||
+      note.noteText.includes(notesFilter || "")
+    );
+  }
 
   // crea una ref a la lista de notas, luego busca los nodos que tienen el cuerpo de cada nota y se fija si hay overflow o no. Lo devuelve cómo un array de booleanos. El index del array es el index de la nota en Notes. Luego en el render se fija si esa nota tiene overflow y si es así pone los puntitos.
   useLayoutEffect(() => {
@@ -38,7 +49,7 @@ export default function NotesListMasonry() {
           columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
         >
           <Masonry gutter="1rem" columnsCount={3}>
-            {notes.map((note) => {
+            {notes.filter(handleSearchFilter).map((note) => {
               return (
                 <div key={note.id}>
                   <Note
