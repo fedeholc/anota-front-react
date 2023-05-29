@@ -1,15 +1,12 @@
 import "./App.css";
 import { NotesProvider } from "./NotesContext";
-import NotesList from "./NotesList";
 
-import NotesInput from "./NoteInput";
 import NotesListMasonry from "./NotesListMasonry";
-import NewNoteFloatButton from "./components/NewNoteFloatButton";
+
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import NewNoteButton from "./components/NewNoteButton";
 import { Divider } from "antd";
-
 
 function App() {
   return (
@@ -20,8 +17,6 @@ function App() {
           style={{
             display: "grid",
             gridTemplateRows: "1fr",
-
-            /*  border: "1px solid red", */
           }}
         >
           <div>
@@ -33,11 +28,7 @@ function App() {
                 <NewNoteButton></NewNoteButton>
               </div>
 
-              <NotesInput></NotesInput>
               <NotesListMasonry></NotesListMasonry>
-              {/*          <NotesList></NotesList>
-               */}
-              <NewNoteFloatButton></NewNoteFloatButton>
             </NotesProvider>
           </div>
         </div>

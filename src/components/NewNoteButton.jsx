@@ -2,7 +2,6 @@ import { useNotes } from "../NotesContext.jsx";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Note } from "./note/Note.jsx";
-import { FloatButton, ConfigProvider } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./NewNoteButton.css";
 
@@ -55,7 +54,8 @@ export default function NewNoteButton() {
 
       {/* //! TODO: tal vez en lugar de texto ponerle tooltip
       //ver cual es el modo correcto para hacerlo con accesibilidad */}
-      <button className="toolbar__button"
+      <button
+        className="toolbar__button"
         onClick={() => {
           setShowNewNote(true);
         }}
