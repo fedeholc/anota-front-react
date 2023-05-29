@@ -35,6 +35,7 @@ export function Note({
   const [isModal, setIsModal] = useState(isNewNote);
   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const [isShowInfo, setIsShowInfo] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(true);
   const [isShowTags, setisShowTags] = useState(false);
   const dispatch = useNotesDispatch();
