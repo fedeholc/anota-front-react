@@ -18,14 +18,15 @@ function App() {
             display: "grid",
             gridTemplateRows: "1fr",
 
-           /*  border: "1px solid red", */
+            /*  border: "1px solid red", */
           }}
         >
-          <div 
-          /* style={{ border: "1px solid blue" }} */
-          >
+          <div>
             <NotesProvider>
-              <SearchBar></SearchBar>
+              <div className="sticky-navbar">
+                <SearchBar></SearchBar>
+              </div>
+
               <NotesInput></NotesInput>
               <NotesListMasonry></NotesListMasonry>
               {/*          <NotesList></NotesList>
