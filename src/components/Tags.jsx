@@ -87,13 +87,13 @@ export default function Tags({ noteTags, handleTags }) {
     <div className="tags" style={{ margin: "0.7rem" }}>
       {tagsArray.map((tag, index) => {
         return (
-          <Tag
+          tag && <Tag
             style={{ margin: "0.3rem" }}
             color="blue"
             key={index}
             closable
-            onClose={(e) => {
-              e.preventDefault();
+            onClose={(event) => {
+              event.preventDefault();
               let filtrado = tagsArray.filter((prevTag) => {
                 console.log(tagsArray);
                 return prevTag !== tag;
