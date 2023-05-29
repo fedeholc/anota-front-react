@@ -36,10 +36,8 @@ export default function NotesListMasonry() {
     );
     setNotesOver(overIds);
   }, [notes]);
-
-  //TODO: ojo, crear distintos archivos css para agregar masonry y conservar el anterior.
-  //TODO: ver que el icono superior derecho no se achique de tamaño.
-  // ver los breakpoints
+ 
+   // TODO: ver los breakpoints
   // https://www.npmjs.com/package/react-responsive-masonry
 
   return (
