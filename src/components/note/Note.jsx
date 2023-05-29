@@ -35,6 +35,7 @@ export function Note({
   const [isModal, setIsModal] = useState(isNewNote);
   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   const [isShowInfo, setIsShowInfo] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(true);
   const [isShowTags, setisShowTags] = useState(false);
   const dispatch = useNotesDispatch();
@@ -52,12 +53,7 @@ export function Note({
     }
   }, [isNewNote, isModal]);
 
-  function handleChange(event) {
-    setEditNote((prev) => {
-      return { ...prev, [event.target.name]: event.target.value };
-    });
-    setIsModified(true);
-  }
+
 
   function handleEditableChange(event) {
     setEditNote((prev) => {
@@ -65,6 +61,17 @@ export function Note({
         ...prev,
         noteText: event.currentTarget.innerText,
         noteHTML: event.currentTarget.innerHTML,
+      };
+    });
+    setIsModified(true);
+  }
+
+  function handleTitleEditableChange(event) {
+    //! ojo, al guardar el innerText no guarda los saltos de linea, ver si queremos que los guarde o no.
+    setEditNote((prev) => {
+      return {
+        ...prev,
+        noteTitle: event.currentTarget.innerText,
       };
     });
     setIsModified(true);
@@ -121,6 +128,20 @@ export function Note({
       dbUpdateNote(note);
     }
   }
+  function handleKeyDownTitle(event) {
+    if (event.key === "Enter") {
+      // si estamos creando una nota nueva le pasa el foco al body de la nota
+      if (isModal && isNewNote) {
+        // evita que se agregue un enter al comienzo del body de la nota
+        event.preventDefault();
+        inputRef.current.focus();
+      }
+      // si no es una nota nueva simplemente saca el foco del titulo
+      else {
+        newNoteInputRef.current.blur();
+      }
+    }
+  }
 
   function handleDelete(id) {
     dispatch({ type: "deleted", deleteId: id });
@@ -146,24 +167,21 @@ export function Note({
     }
   }
 
-  function handleTagsChange(event) {
-    //update note state with new tags value
-    setEditNote((prev) => {
-      return { ...prev, tags: event.target.value };
-    });
-    setIsModified(true);
-  }
+
 
   const noteHeader = (
     <div className="note__header">
-      <input
-        ref={newNoteInputRef}
-        name="noteTitle"
-        placeholder="¿Título...?"
-        value={editNote.noteTitle}
-        onChange={handleChange}
-        type="text"
-        className="note__input-title"
+      {/* FIXME: al ampliar la nota hacer que vaya el foco si estaba ahí */}
+      <ContentEditable
+        innerRef={newNoteInputRef}
+        html={editNote.noteTitle}
+        disabled={false}
+        data-key={note.id}
+        onChange={handleTitleEditableChange}
+        onKeyDown={handleKeyDownTitle}
+        className={`note__input-title note__body note__body--edit sb1 ${
+          isModal && "modal-body"
+        }`}
       />
       {isModal && (
         <ShrinkOutlined
@@ -264,7 +282,7 @@ export function Note({
 
   const noteInputTags = (
     <div>
-    {/*   <input
+      {/*   <input
         type="text"
         placeholder="tags"
         value={editNote.tags}
