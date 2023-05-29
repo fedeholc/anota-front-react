@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Note } from "./note/Note.jsx";
 import { PlusOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+
 import "./NewNoteButton.css";
 
 export default function NewNoteButton() {
@@ -52,18 +54,14 @@ export default function NewNoteButton() {
         ></Note>
       )}
 
-      {/* //! TODO: tal vez en lugar de texto ponerle tooltip
-      //ver cual es el modo correcto para hacerlo con accesibilidad */}
-      <button
-        className="toolbar__button"
-        onClick={() => {
-          setShowNewNote(true);
-        }}
-      >
-        Nueva
-      </button>
-
-      <PlusOutlined className="toolbar__icon" />
+      <Tooltip placement="topLeft" title="Nueva nota">
+        <PlusOutlined
+          onClick={() => {
+            setShowNewNote(true);
+          }}
+          className="toolbar__icon"
+        />
+      </Tooltip>
     </div>
   );
 }
