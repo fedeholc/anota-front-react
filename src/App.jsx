@@ -7,6 +7,9 @@ import NotesListMasonry from "./NotesListMasonry";
 import NewNoteFloatButton from "./components/NewNoteFloatButton";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
+import NewNoteButton from "./components/NewNoteButton";
+import { Divider } from "antd";
+
 
 function App() {
   return (
@@ -23,8 +26,11 @@ function App() {
         >
           <div>
             <NotesProvider>
-              <div className="sticky-navbar">
+              <div className="top-toolbar">
                 <SearchBar></SearchBar>
+                <Divider type="vertical" />
+
+                <NewNoteButton></NewNoteButton>
               </div>
 
               <NotesInput></NotesInput>

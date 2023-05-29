@@ -1,0 +1,35 @@
+.toolbar__icon {
+  background-color: gray;
+  color: white;
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: opacity 0.3s;
+  border-radius: 50%;
+}
+
+.toolbar__icon:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+.toolbar__button {
+  border: 0px;
+  font-size: 0.8rem;
+  color: black;
+  background-color: transparent;
+  padding: 0.2rem;
+  margin-right: 0.3rem;
+}
+
+.toolbar__button:hover {
+  cursor: pointer;
+
+}
+
+.toolbar__button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

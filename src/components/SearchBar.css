@@ -1,0 +1,12 @@
+.search__input {
+  border-radius: 15px;
+  border: 1px solid gray;
+  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  font-family: "Robot", sans-serif;
+  font-weight: 400;
+}
+
+.search__icon {
+  color: gray;
+}
