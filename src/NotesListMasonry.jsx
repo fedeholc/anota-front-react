@@ -1,5 +1,5 @@
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-
+import { getTagsArray } from "./utilityFunctions.jsx";
 import { useNotes } from "./NotesContext.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./components/note/Note.jsx";
@@ -17,10 +17,43 @@ export default function NotesListMasonry() {
 
   function handleSearchFilter(note) {
     // hace que si no hay filtro devuelva true
-    return (
-      note.noteTitle.includes(notesFilter || "") ||
-      note.noteText.includes(notesFilter || "")
-    );
+
+    let passedTextFilter = "";
+    let passedTagFilter = "";
+
+    if (notesFilter.tags.length > 0) {
+      passedTagFilter = false;
+
+      const noteTags = getTagsArray(note.tags);
+
+      // check if noteTags contains all of the tags in notesFilter.tags, if that ocurrs, passedTagFilter = true else passedTagFilter = false and stop checking
+      notesFilter.tags.forEach((tag) => {
+        if (noteTags.includes(tag)) {
+          passedTagFilter = true;
+        } else {
+          passedTagFilter = false;
+          return;
+        }
+      });
+
+
+     
+
+      console.log(noteTags);
+
+      console.log(notesFilter);
+    } else {
+      passedTagFilter = true;
+    }
+    if (notesFilter.text) {
+      passedTextFilter =
+        note.noteTitle.includes(notesFilter.text || "") ||
+        note.noteText.includes(notesFilter.text || "");
+    } else {
+      passedTextFilter = true;
+    }
+
+    return passedTextFilter && passedTagFilter;
   }
 
   // crea una ref a la lista de notas, luego busca los nodos que tienen el cuerpo de cada nota y se fija si hay overflow o no. Lo devuelve cómo un array de booleanos. El index del array es el index de la nota en Notes. Luego en el render se fija si esa nota tiene overflow y si es así pone los puntitos.
@@ -36,8 +69,8 @@ export default function NotesListMasonry() {
     );
     setNotesOver(overIds);
   }, [notes]);
- 
-   // TODO: ver los breakpoints
+
+  // TODO: ver los breakpoints
   // https://www.npmjs.com/package/react-responsive-masonry
 
   return (

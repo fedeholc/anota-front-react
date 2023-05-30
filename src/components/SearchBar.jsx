@@ -9,7 +9,10 @@ export default function SearchBar() {
   //TODO: falta icono y funcion de clear search
 
   function handleChange(e) {
-    setNotesFilter(e.target.value);
+    setNotesFilter(prev => {
+      return ({...prev,
+      text: e.target.value});
+    });
   }
 
   return (

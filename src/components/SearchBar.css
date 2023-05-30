@@ -1,10 +1,20 @@
 .search__input {
   border-radius: 15px;
-  border: 1px solid gray;
+  border: 1px solid rgb(204, 204, 204);
   padding: 0.2rem 1rem;
   font-size: 1rem;
   font-family: "Robot", sans-serif;
   font-weight: 400;
+  margin-top: 3px;
+
+}
+
+.search__input:hover {
+  border: 1px solid dodgerblue;
+}
+
+.search__input:focus {
+  outline: 0;
 }
 
 .search__icon {
