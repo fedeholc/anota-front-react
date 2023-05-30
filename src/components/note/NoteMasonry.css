@@ -77,7 +77,8 @@
 .note-toolbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 4rem;
 }
 
 .note-toolbar__icon {

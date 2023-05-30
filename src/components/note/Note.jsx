@@ -15,6 +15,7 @@ import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
 import "./NoteMasonry.css";
 import Tags from "../Tags";
+import { Tooltip } from "antd";
 
 Note.propTypes = {
   note: PropTypes.object,
@@ -52,8 +53,6 @@ export function Note({
       }
     }
   }, [isNewNote, isModal]);
-
-
 
   function handleEditableChange(event) {
     setEditNote((prev) => {
@@ -167,8 +166,6 @@ export function Note({
     }
   }
 
-
-
   const noteHeader = (
     <div className="note__header">
       {/* FIXME: al ampliar la nota hacer que vaya el foco si estaba ahí */}
@@ -217,13 +214,27 @@ export function Note({
     <div className="note__overflow">{!isModal && noteOverflow}</div>
   );
 
+  const tooltipText = `Creada: ${note.created.substring(
+    0,
+    10
+  )} ${note.created.substring(11, 16)}hs
+  Modificada: ${note.modified.substring(0, 10)} ${note.modified.substring(
+    11,
+    16
+  )}hs`;
+
   const noteToolbar = (
     <div className="note-toolbar">
-      <DeleteFilled
-        className="note-toolbar__icon"
-        data-key={note.id}
-        onClick={() => handleDelete(note.id)}
-      />
+      <Tooltip placement="right" title={tooltipText}>
+        <InfoCircleFilled
+          className="note-toolbar__icon"
+
+          /* Deshabilitado, lo cambié por tooltip */
+          /*  onClick={() => {
+            setIsShowInfo((prev) => !prev);
+          }} */
+        />
+      </Tooltip>
 
       <TagFilled
         className="note-toolbar__icon"
@@ -232,11 +243,10 @@ export function Note({
         }}
       />
 
-      <InfoCircleFilled
+      <DeleteFilled
         className="note-toolbar__icon"
-        onClick={() => {
-          setIsShowInfo((prev) => !prev);
-        }}
+        data-key={note.id}
+        onClick={() => handleDelete(note.id)}
       />
 
       {isModified && (
@@ -258,14 +268,19 @@ export function Note({
       style={{
         color: "gray",
         fontSize: "0.8rem",
+        padding: "0rem 1rem",
       }}
     >
-      <div>
-        tags: {note.tags} | categ: {note.category} | deleted:
+      {/* tags: {note.tags} | categ: {note.category} | deleted:
         {note.deleted} | archived: {note.archived} | rating:
-        {note.rating} | reminder: {note.reminder} |{" "}
-        <div>created: {note.created}</div>
-        <div>modified: {note.modified}</div>
+        {note.rating} | reminder: {note.reminder} |{" "} */}
+      <div>
+        Creada: {note.created.substring(0, 10)} {note.created.substring(11, 16)}
+        hs
+      </div>
+      <div>
+        Modificada: {note.modified.substring(0, 10)}{" "}
+        {note.modified.substring(11, 16)}hs
       </div>
     </div>
   );
@@ -282,12 +297,6 @@ export function Note({
 
   const noteInputTags = (
     <div>
-      {/*   <input
-        type="text"
-        placeholder="tags"
-        value={editNote.tags}
-        onChange={handleTagsChange}
-      /> */}
       <Tags noteTags={editNote.tags} handleTags={handleTags} />
     </div>
   );
