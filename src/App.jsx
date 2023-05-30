@@ -1,12 +1,11 @@
 import "./App.css";
 import { NotesProvider } from "./NotesContext";
-
 import NotesListMasonry from "./NotesListMasonry";
-
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import NewNoteButton from "./components/NewNoteButton";
 import { Divider } from "antd";
+import SearchByTag from "./components/SearchByTag";
 
 function App() {
   return (
@@ -23,6 +22,8 @@ function App() {
             <NotesProvider>
               <div className="top-toolbar">
                 <SearchBar></SearchBar>
+                <Divider type="vertical" />
+                <SearchByTag></SearchByTag>
                 <Divider type="vertical" />
 
                 <NewNoteButton></NewNoteButton>

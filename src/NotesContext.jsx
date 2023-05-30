@@ -13,7 +13,7 @@ export const SetNotesFilterContext = createContext(null);
 
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
-  const [notesFilter, setNotesFilter] = useState(null);
+  const [notesFilter, setNotesFilter] = useState({ text: "", tags: "" });
 
   async function getData() {
     dispatch({ type: "get", notes: await dbGetNotes() });
@@ -27,7 +27,7 @@ export function NotesProvider({ children }) {
       <NotesDispatchContext.Provider value={dispatch}>
         <NotesFilterContext.Provider value={notesFilter}>
           <SetNotesFilterContext.Provider value={setNotesFilter}>
-        {children}
+            {children}
           </SetNotesFilterContext.Provider>
         </NotesFilterContext.Provider>
       </NotesDispatchContext.Provider>
