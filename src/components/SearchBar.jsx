@@ -2,8 +2,12 @@ import { SetNotesFilterContext } from "../NotesContext";
 import { useContext } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import "./SearchBar.css";
+import { Input  } from "antd";
+
 
 export default function SearchBar() {
+  const { Search } = Input;
+
   const setNotesFilter = useContext(SetNotesFilterContext);
 
   //TODO: falta icono y funcion de clear search
@@ -17,21 +21,23 @@ export default function SearchBar() {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: "0.5rem",
-        alignItems: "center",
-      }}
+    
     >
-      <input
+    {/*   <input
         className="search__input"
         type="text"
         placeholder="Buscar..."
         onChange={handleChange}
+      /> */}
+{/*       <SearchOutlined className="search__icon" />
+ */}      <Search
+        placeholder="Buscar..."
+        allowClear
+        onChange={handleChange}
+        style={{
+          width: 200,
+        }}
       />
-      <SearchOutlined className="search__icon" />
     </div>
   );
 }

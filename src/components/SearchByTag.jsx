@@ -50,11 +50,12 @@ export default function SearchByTag() {
   return (
     <div>
       <Select
-        mode="tags"
+        mode="multiple"
+        allowClear
         style={{
-          width: "250px",
+          width: "150px",
         }}
-        placeholder="Buscar tag"
+        placeholder="Buscar por tag..."
         onChange={handleChange}
         options={options}
       />

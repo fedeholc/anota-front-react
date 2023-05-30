@@ -6,6 +6,7 @@
   padding: 5px;
   transition: opacity 0.3s;
   border-radius: 50%;
+  min-width: 2rem;
 }
 
 .toolbar__icon:hover {

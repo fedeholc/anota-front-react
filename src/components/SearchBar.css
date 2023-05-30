@@ -6,7 +6,7 @@
   font-family: "Robot", sans-serif;
   font-weight: 400;
   margin-top: 3px;
-
+  width: 100px;
 }
 
 .search__input:hover {
@@ -15,8 +15,10 @@
 
 .search__input:focus {
   outline: 0;
+    width: 250px;
 }
 
 .search__icon {
   color: gray;
+  min-width: 2rem;
 }
