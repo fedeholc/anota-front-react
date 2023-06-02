@@ -1,14 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useState, useEffect } from "react";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 
-// estas no las exporto porque despues lo hago en un hook
-const NotesContext = createContext(null);
-const NotesDispatchContext = createContext(null);
+export const NotesContext = createContext(null);
+export const NotesDispatchContext = createContext(null);
 
-//prueba para usar sin el hook
 export const NotesFilterContext = createContext(null);
 export const SetNotesFilterContext = createContext(null);
 
@@ -40,14 +37,6 @@ export function NotesProvider({ children }) {
 NotesProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-export function useNotes() {
-  return useContext(NotesContext);
-}
-
-export function useNotesDispatch() {
-  return useContext(NotesDispatchContext);
-}
 
 function notesReducer(notes, action) {
   switch (action.type) {

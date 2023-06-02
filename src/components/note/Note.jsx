@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import ContentEditable from "react-contenteditable";
-import { useNotesDispatch } from "../../NotesContext";
+import { useNotesDispatch } from "../../NotesContextHooks";
 import {
   DeleteFilled,
   ShrinkOutlined,

@@ -1,6 +1,6 @@
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getTagsArray } from "./utilityFunctions.jsx";
-import { useNotes } from "./NotesContext.jsx";
+import { useNotes } from "./NotesContextHooks.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./components/note/Note.jsx";
 import "./NotesListMasonry.css";
@@ -63,8 +63,6 @@ export default function NotesListMasonry() {
     );
     setNotesOver(overIds);
   }, [notes]);
-
-
 
   return (
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
