@@ -32,6 +32,13 @@ export function Note({
   isNewNote,
   setShowNewNote,
 }) {
+
+
+  //* en general los isNewNote, isEditMode los uso para diferenciar cosas que se hacen en la creación de una nota nueva y en la edición de una nota existente.
+  //* isModified lo uso para saber si se ha modificado el contenido de la nota, para saber si hay que mostrar el botón de guardar o no.
+  //* isNewNoteSaved lo uso para saber si se ha guardado la nota nueva, para saber si hay que hacer update o guardar por primera vez.
+  //* isShowInfo, isShowBody, isShowTags los uso para saber si se muestra o no la info, el cuerpo y los tags de la nota al renderizar el componente.
+
   const [editNote, setEditNote] = useState(note);
   const [isModified, setIsModified] = useState(false);
   const [isEditMode, setIsEditMode] = useState(isNewNote);
@@ -107,9 +114,11 @@ export function Note({
   function handleSaveEdit() {
     //TODO: completar otros campos
 
+    // si la nota es nueva le pone la fecha y hora del momento en que se guarda/crea
     if (isNewNote) {
       editNote.created = getFormattedDateTime();
     }
+
     const note = {
       id: editNote.id,
       noteText: editNote.noteText,
@@ -126,14 +135,18 @@ export function Note({
       modified: getFormattedDateTime(),
     };
 
+    // si es una nota nueva y no está guardada la guarda
     if (isNewNote && !isNewNoteSaved) {
       dbAddNote(note);
       setIsNewNoteSaved(true);
-    } else {
+    }
+    // si no es una nota nueva la actualiza
+    else {
       dispatch({ type: "updated", note: note });
       dbUpdateNote(note);
     }
   }
+
   function handleKeyDownTitle(event) {
     if (event.key === "Enter") {
       // si estamos creando una nota nueva le pasa el foco al body de la nota
@@ -172,6 +185,17 @@ export function Note({
       setIsEditMode(false);
     }
   }
+
+  function handleTags(tagsArray) {
+    // convert an array of tags to a string with comma separated values
+    const tagsString = tagsArray.join(", ");
+    setEditNote((prev) => {
+      return { ...prev, tags: tagsString };
+    });
+    setIsModified(true);
+  }
+
+  //* *** Bloques de JSX de cada note ***
 
   const noteHeader = (
     <div className="note__header">
@@ -286,15 +310,6 @@ export function Note({
       </div>
     </div>
   );
-
-  function handleTags(tagsArray) {
-    // convert an array of tags to a string with comma separated values
-    const tagsString = tagsArray.join(", ");
-    setEditNote((prev) => {
-      return { ...prev, tags: tagsString };
-    });
-    setIsModified(true);
-  }
 
   const noteInputTags = (
     <div>
