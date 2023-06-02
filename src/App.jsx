@@ -10,14 +10,11 @@ import SearchByTag from "./components/SearchByTag";
 function App() {
   return (
     <>
-      <div className="app__body">
-        <div className="sticky-navbar">ANOTA (Another Note Taking App)</div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateRows: "1fr",
-          }}
-        >
+      <div className="app__container">
+        <div className="app__sticky-navbar">
+          ANOTA (Another Note Taking App)
+        </div>
+        <div className="app__main-grid">
           <div>
             <NotesProvider>
               <div className="top-toolbar">

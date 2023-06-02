@@ -1,11 +1,16 @@
-.app__body {
+.app__container {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   margin: 0;
 }
 
-.sticky-navbar {
+.app_main-grid {
+  display: grid;
+  grid-template-rows: "1fr";
+}
+
+.app__sticky-navbar {
   position: sticky;
   z-index: 99;
   top: 0;
