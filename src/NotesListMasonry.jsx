@@ -16,11 +16,10 @@ export default function NotesListMasonry() {
   const notesFilter = useContext(NotesFilterContext);
 
   function handleSearchFilter(note) {
-    // hace que si no hay filtro devuelva true
-
     let passedTextFilter = "";
     let passedTagFilter = "";
 
+    // si hay filtro de etiquetas y hay etiquetas en la nota, entonces se fija si la nota tiene todas las etiquetas del filtro
     if (notesFilter.tags.length > 0) {
       passedTagFilter = false;
 
@@ -35,16 +34,11 @@ export default function NotesListMasonry() {
           return;
         }
       });
-
-
-     
-
-      console.log(noteTags);
-
-      console.log(notesFilter);
     } else {
       passedTagFilter = true;
     }
+
+    // si hay filtro de texto, se fija si el titulo o el texto de la nota contienen el texto del filtro
     if (notesFilter.text) {
       passedTextFilter =
         note.noteTitle.includes(notesFilter.text || "") ||
@@ -70,8 +64,7 @@ export default function NotesListMasonry() {
     setNotesOver(overIds);
   }, [notes]);
 
-  // TODO: ver los breakpoints
-  // https://www.npmjs.com/package/react-responsive-masonry
+
 
   return (
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>

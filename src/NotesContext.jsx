@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createContext, useContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 
+// estas no las exporto porque despues lo hago en un hook
 const NotesContext = createContext(null);
 const NotesDispatchContext = createContext(null);
 
@@ -18,9 +19,7 @@ export function NotesProvider({ children }) {
   async function getData() {
     dispatch({ type: "get", notes: await dbGetNotes() });
   }
-  useEffect(() => {
-    getData();
-  }, []);
+  getData();
 
   return (
     <NotesContext.Provider value={notes}>
@@ -35,7 +34,6 @@ export function NotesProvider({ children }) {
   );
 }
 
-//TODO: ver documentacion de propTypes, y reactPropTypes
 NotesProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -50,16 +48,6 @@ export function useNotesDispatch() {
 
 function notesReducer(notes, action) {
   switch (action.type) {
-    /*   case "flush": {
-      return action.notes;
-    } */
-
-    //problema: si se filtran las notas y luego se vuelve a escribir otra busqueda se vuelve a filtrar sobre lo filtrado
-    //solucion: hacer que el filtro se haga sobre las notas originales
-    // para lo cual debería tener otro array de notas.
-    case "search": {
-      return notes.filter((note) => note.noteTitle.includes(action.searchText));
-    }
     case "get": {
       return action.notes;
     }
@@ -78,10 +66,6 @@ function notesReducer(notes, action) {
     }
     case "deleted": {
       return notes.filter((note) => note.id !== action.deleteId);
-      /* asi? o (prev) => prev.filter((note) => note.id !== action.deleteId) 
-      TODO: o no hace falta llamar al prev?? ver docu nueva react
-      
-      */
     }
     default: {
       throw Error("Unknown action: " + action.type);
