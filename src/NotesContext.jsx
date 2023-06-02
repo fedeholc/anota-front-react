@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createContext, useContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
@@ -19,7 +19,10 @@ export function NotesProvider({ children }) {
   async function getData() {
     dispatch({ type: "get", notes: await dbGetNotes() });
   }
-  getData();
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <NotesContext.Provider value={notes}>
