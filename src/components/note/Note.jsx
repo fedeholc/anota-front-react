@@ -24,6 +24,7 @@ Note.propTypes = {
   children: PropTypes.node,
   setShowNewNote: PropTypes.func,
 };
+
 export function Note({
   note,
   noteOverflow,
@@ -33,7 +34,7 @@ export function Note({
 }) {
   const [editNote, setEditNote] = useState(note);
   const [isModified, setIsModified] = useState(false);
-  const [isModal, setIsModal] = useState(isNewNote);
+  const [isEditMode, setIsEditMode] = useState(isNewNote);
   const [isNewNoteSaved, setIsNewNoteSaved] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [isShowInfo, setIsShowInfo] = useState(false);
@@ -42,18 +43,23 @@ export function Note({
   const [isShowTags, setisShowTags] = useState(false);
   const dispatch = useNotesDispatch();
 
+  // ref para cuando se está editando una nota
   const inputRef = useRef(null);
+
+  // ref para cuando se está creando una nota nueva
   const newNoteInputRef = useRef(null);
 
+  // pone el foco en el título de la nota cuando se crea una nueva nota (isNewNote)
+  // y en el cuerpo cuando es edición (isEditMode)
   useEffect(() => {
     if (isNewNote) {
       newNoteInputRef.current.focus();
     } else {
-      if (isModal) {
+      if (isEditMode) {
         inputRef.current.focus();
       }
     }
-  }, [isNewNote, isModal]);
+  }, [isNewNote, isEditMode]);
 
   function handleEditableChange(event) {
     setEditNote((prev) => {
@@ -85,7 +91,7 @@ export function Note({
         noteText: editNote.noteText,
         noteHTML: editNote.noteHTML,
         noteTitle: editNote.noteTitle,
-        tags: editNote.tags, //! cuando se puedan editar tambien cambiar acá
+        tags: editNote.tags,
         category: editNote.category,
         deleted: editNote.deleted,
         archived: editNote.archived,
@@ -98,7 +104,7 @@ export function Note({
     });
   }
 
-  function handleSave() {
+  function handleSaveEdit() {
     //TODO: completar otros campos
 
     if (isNewNote) {
@@ -109,7 +115,7 @@ export function Note({
       noteText: editNote.noteText,
       noteHTML: editNote.noteHTML,
       noteTitle: editNote.noteTitle,
-      tags: editNote.tags, //! cuando se puedan editar tambien cambiar acá
+      tags: editNote.tags,
       category: editNote.category,
       deleted: editNote.deleted,
       archived: editNote.archived,
@@ -131,7 +137,7 @@ export function Note({
   function handleKeyDownTitle(event) {
     if (event.key === "Enter") {
       // si estamos creando una nota nueva le pasa el foco al body de la nota
-      if (isModal && isNewNote) {
+      if (isEditMode && isNewNote) {
         // evita que se agregue un enter al comienzo del body de la nota
         event.preventDefault();
         inputRef.current.focus();
@@ -148,10 +154,10 @@ export function Note({
     dbDeleteNote(id);
     if (isNewNote) {
       setShowNewNote(false);
-      setIsModal(false);
+      setIsEditMode(false);
     } else {
       setIsModified(false);
-      setIsModal(false);
+      setIsEditMode(false);
     }
   }
 
@@ -159,11 +165,11 @@ export function Note({
     if (isNewNote) {
       saveNewNote();
       setShowNewNote(false);
-      setIsModal(false);
+      setIsEditMode(false);
     } else {
-      handleSave();
+      handleSaveEdit();
       setIsModified(false);
-      setIsModal(false);
+      setIsEditMode(false);
     }
   }
 
@@ -178,22 +184,22 @@ export function Note({
         onChange={handleTitleEditableChange}
         onKeyDown={handleKeyDownTitle}
         className={`note__input-title note__body note__body--edit sb1 ${
-          isModal && "modal-body"
+          isEditMode && "modal-body"
         }`}
       />
-      {isModal && (
+      {isEditMode && (
         <ShrinkOutlined
           className="note-toolbar__expand-icon"
           onClick={handleExitModal}
         />
       )}
 
-      {!isModal && (
+      {!isEditMode && (
         <ArrowsAltOutlined
           className="note-toolbar__expand-icon"
           onClick={() => {
             inputRef.current.focus();
-            setIsModal(true);
+            setIsEditMode(true);
           }}
         />
       )}
@@ -207,12 +213,14 @@ export function Note({
       disabled={false}
       data-key={note.id}
       onChange={handleEditableChange}
-      className={`note__body note__body--edit sb1 ${isModal && "modal-body"}`}
+      className={`note__body note__body--edit sb1 ${
+        isEditMode && "modal-body"
+      }`}
     />
   );
 
   const noteOverflowIndicator = (
-    <div className="note__overflow">{!isModal && noteOverflow}</div>
+    <div className="note__overflow">{!isEditMode && noteOverflow}</div>
   );
 
   const tooltipText = `Creada: ${note.created.substring(
@@ -227,14 +235,7 @@ export function Note({
   const noteToolbar = (
     <div className="note-toolbar">
       <Tooltip placement="right" title={tooltipText}>
-        <InfoCircleFilled
-          className="note-toolbar__icon"
-
-          /* Deshabilitado, lo cambié por tooltip */
-          /*  onClick={() => {
-            setIsShowInfo((prev) => !prev);
-          }} */
-        />
+        <InfoCircleFilled className="note-toolbar__icon" />
       </Tooltip>
 
       <TagFilled
@@ -255,7 +256,7 @@ export function Note({
           className="note-toolbar__icon--highlight"
           onClick={() => {
             if (isModified) {
-              handleSave();
+              handleSaveEdit();
               setIsModified(false);
             }
           }}
@@ -289,7 +290,6 @@ export function Note({
   function handleTags(tagsArray) {
     // convert an array of tags to a string with comma separated values
     const tagsString = tagsArray.join(", ");
-    console.log(tagsString);
     setEditNote((prev) => {
       return { ...prev, tags: tagsString };
     });
@@ -305,16 +305,16 @@ export function Note({
   return (
     <div
       onClick={handleExitModal}
-      className={`${isModal && "new-note__background"}`}
+      className={`${isEditMode && "new-note__background"}`}
     >
       <div
-        className={`note__container ${isModal && "modal-container"}`}
+        className={`note__container ${isEditMode && "modal-container"}`}
         onClick={(event) => {
           event.stopPropagation();
         }}
         onMouseLeave={() => {
           if (isModified) {
-            handleSave();
+            handleSaveEdit();
             setIsModified(false);
           }
         }}
