@@ -4,8 +4,8 @@ import NotesListMasonry from "./NotesListMasonry";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import NewNoteButton from "./components/NewNoteButton";
-import { Divider } from "antd";
 import SearchByTag from "./components/SearchByTag";
+import { Divider } from "antd";
 
 function App() {
   return (
@@ -22,10 +22,8 @@ function App() {
                 <Divider type="vertical" />
                 <SearchByTag></SearchByTag>
                 <Divider type="vertical" />
-
                 <NewNoteButton></NewNoteButton>
               </div>
-
               <NotesListMasonry></NotesListMasonry>
             </NotesProvider>
           </div>

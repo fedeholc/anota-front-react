@@ -1,3 +1,5 @@
+// funciones utilizadas para interactuar con la base de datos
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function dbGetNotes() {
@@ -13,7 +15,6 @@ export function dbGetNotes() {
 }
 
 export function dbAddNote(note) {
-  console.log(note);
   fetch(API_URL, {
     method: "POST",
     headers: {
@@ -34,7 +35,6 @@ export function dbDeleteNote(noteId) {
     method: "DELETE",
   })
     .then((res) => {
-      console.log("listo");
       return res;
     })
     .catch((error) => {
