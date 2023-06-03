@@ -18,11 +18,14 @@ function App() {
           <div>
             <NotesProvider>
               <div className="top-toolbar">
-                <SearchBar></SearchBar>
-                <Divider type="vertical" />
-                <SearchByTag></SearchByTag>
-                <Divider type="vertical" />
-                <NewNoteButton></NewNoteButton>
+                <div className="top-toolbar__search">
+                  <SearchBar></SearchBar>
+                  <SearchByTag></SearchByTag>
+                </div>
+                <div className="top-toolbar__new">
+                  <Divider type="vertical" />
+                  <NewNoteButton></NewNoteButton>
+                </div>
               </div>
               <NotesListMasonry></NotesListMasonry>
             </NotesProvider>

@@ -53,7 +53,7 @@ export default function SearchByTag() {
         mode="multiple"
         allowClear
         style={{
-          width: "150px",
+          width: "200px",
         }}
         placeholder="Buscar por tag..."
         onChange={handleChange}

@@ -17,14 +17,11 @@
   padding: 10px;
   background-color: hsl(0, 0%, 99%);
   border-bottom: 1px solid hsl(0, 0%, 50%);
-  /*   box-shadow: gray 0px 0px 4px 0px;
- */
   opacity: 95%;
   font-family: "Roboto Serif", serif;
   font-size: 1.2rem;
   font-weight: 700;
 
-  /* Define additional styles for your navbar */
 }
 
 .top-toolbar {
@@ -33,6 +30,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
 
   gap: 1rem;
   z-index: 99;
@@ -42,5 +40,39 @@
   border-bottom: 1px solid hsl(0, 0%, 50%);
   box-shadow: gray 0px 0px 3px 0px;
 
+
+}
+
+.top-toolbar__search {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+.top-toolbar__new {
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media only screen and (max-width: 550px) {
+
+
+  /* hace que se ajuste el ancho para que
+  la toolbar quede centrada */
+  .top-toolbar__search {
+    width: min-content;
+  }
+
+  .app__sticky-navbar {
+    display: none;
+  }
 
 }

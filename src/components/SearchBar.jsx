@@ -21,7 +21,7 @@ export default function SearchBar() {
         allowClear
         onChange={handleChange}
         style={{
-          width: 200,
+          width: "200px",
         }}
       />
     </div>
