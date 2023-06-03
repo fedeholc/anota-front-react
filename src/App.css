@@ -10,7 +10,7 @@
   grid-template-rows: "1fr";
 }
 
-.app__sticky-navbar {
+.app__sticky-navbar { 
   position: sticky;
   z-index: 99;
   top: 0;
