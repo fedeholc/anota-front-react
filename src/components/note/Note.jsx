@@ -32,8 +32,6 @@ export function Note({
   isNewNote,
   setShowNewNote,
 }) {
-
-
   //* en general los isNewNote, isEditMode los uso para diferenciar cosas que se hacen en la creación de una nota nueva y en la edición de una nota existente.
   //* isModified lo uso para saber si se ha modificado el contenido de la nota, para saber si hay que mostrar el botón de guardar o no.
   //* isNewNoteSaved lo uso para saber si se ha guardado la nota nueva, para saber si hay que hacer update o guardar por primera vez.
@@ -199,7 +197,6 @@ export function Note({
 
   const noteHeader = (
     <div className="note__header">
-      {/* FIXME: al ampliar la nota hacer que vaya el foco si estaba ahí */}
       <ContentEditable
         innerRef={newNoteInputRef}
         html={editNote.noteTitle}
@@ -289,7 +286,8 @@ export function Note({
     </div>
   );
 
-  const noteInfo = (
+  // lo cambié por el tooltip cola fecha de creación y modificación
+  /* const noteInfo = (
     <div
       style={{
         color: "gray",
@@ -297,9 +295,9 @@ export function Note({
         padding: "0rem 1rem",
       }}
     >
-      {/* tags: {note.tags} | categ: {note.category} | deleted:
+      { tags: {note.tags} | categ: {note.category} | deleted:
         {note.deleted} | archived: {note.archived} | rating:
-        {note.rating} | reminder: {note.reminder} |{" "} */}
+        {note.rating} | reminder: {note.reminder} |{" "} }
       <div>
         Creada: {note.created.substring(0, 10)} {note.created.substring(11, 16)}
         hs
@@ -310,6 +308,7 @@ export function Note({
       </div>
     </div>
   );
+  */
 
   const noteInputTags = (
     <div>
@@ -341,7 +340,7 @@ export function Note({
 
         {isShowTags && noteInputTags}
 
-        {isShowInfo && noteInfo}
+        {/*         {isShowInfo && noteInfo}  */}
 
         {noteToolbar}
 

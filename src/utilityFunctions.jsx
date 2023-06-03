@@ -1,10 +1,6 @@
 // función que toma un string de tags separados por coma y devuelve un array de tags, sin espacios al principio ni al final, y sin tags vacíos
 export function getTagsArray(tagsString) {
-  const tagsArray = tagsString.split(",");
-  tagsArray.forEach((tag, index) => {
-    tagsArray[index] = tag.trim();
-  });
-  return tagsArray;
+  return tagsString.split(",").map((tag) => tag.trim());
 }
 
 export function getFormattedDateTime() {

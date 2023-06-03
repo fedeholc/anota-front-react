@@ -5,14 +5,11 @@
  it also recives a function to update the tags in the note
 */
 
-// TODO: pasar estilos a clases
-
-//TODO: revisar que acá además de agregar tags lo hacen para que se pueda modificar una https://ant.design/components/tag
-
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./Tags.css";
+import { getTagsArray } from "../utilityFunctions";
 import PropTypes from "prop-types";
 
 //add prop types to the function
@@ -32,12 +29,7 @@ export default function Tags({ noteTags, handleTags }) {
     }
   }, [inputVisible]);
 
-  // function to convert a string with tags separated by commas into an array of tags
-  function stringToTagsArray(string) {
-    return string.split(",").map((tag) => tag.trim());
-  }
-
-  const [tagsArray, setTagsArray] = useState(stringToTagsArray(noteTags));
+  const [tagsArray, setTagsArray] = useState(getTagsArray(noteTags));
 
   const showInput = () => {
     setInputVisible(true);
@@ -63,7 +55,7 @@ export default function Tags({ noteTags, handleTags }) {
 
       // si hay varias tags separadas por comas las agrega como tags separadas
       if (newTag.includes(",")) {
-        newTag = stringToTagsArray(newTag);
+        newTag = getTagsArray(newTag);
         setTagsArray((prev) => {
           return [...prev, ...newTag];
         });
@@ -84,37 +76,34 @@ export default function Tags({ noteTags, handleTags }) {
 
   return (
     /* display tags in tags array as buttons with an x icon for delete the tag */
-    <div className="tags" style={{ margin: "0.7rem" }}>
+    <div className="tags__container">
       {tagsArray.map((tag, index) => {
         return (
-          tag && <Tag
-            style={{ margin: "0.3rem" }}
-            color="blue"
-            key={index}
-            closable
-            onClose={(event) => {
-              event.preventDefault();
-              let filtrado = tagsArray.filter((prevTag) => {
-                console.log(tagsArray);
-                return prevTag !== tag;
-              });
-              setTagsArray(filtrado);
-              handleTags(filtrado);
-            }}
-          >
-            {tag}
-          </Tag>
+          tag && (
+            <Tag
+              className="tag__component"
+              color="blue"
+              key={index}
+              closable
+              onClose={(event) => {
+                event.preventDefault();
+                let filtrado = tagsArray.filter((prevTag) => {
+                  console.log(tagsArray);
+                  return prevTag !== tag;
+                });
+                setTagsArray(filtrado);
+                handleTags(filtrado);
+              }}
+            >
+              {tag}
+            </Tag>
+          )
         );
       })}
 
       {inputVisible && (
         <input
-          style={{
-            width: "70px",
-            margin: "0.2rem",
-            fontSize: "0.8rem",
-            outlineColor: "dodgerblue",
-          }}
+          className="tag__new-tag-input"
           ref={inputRef}
           type="text"
           placeholder="add tags"

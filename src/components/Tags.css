@@ -1,0 +1,15 @@
+.tags__container {
+  margin: 0.7rem;
+}
+
+.tag__component {
+  margin: 0.3rem;
+}
+
+
+.tag__new-tag-input {
+  width: 70px;
+  margin: 0.2rem;
+  font-size: 0.8rem;
+  outline-color: dodgerblue;
+}
