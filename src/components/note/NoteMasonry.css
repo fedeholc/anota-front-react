@@ -90,10 +90,14 @@
   transition: opacity .3s
 }
 
-.note-toolbar__expand-icon {
-  margin-top: 0.3rem;
-  margin-right: 0.3rem;
-  margin-bottom: 0.5rem;
+.note__header__toolbar {
+  display: flex;
+  width: 82px;
+  margin: 0.3rem;
+}
+
+.note__header__toolbar-icon {
+
   padding: 5px;
   color: hsl(0, 0%, 30%);
   border-color: gray;
@@ -102,9 +106,10 @@
   background-color: hsl(0, 0%, 98%);
   transition: opacity .3s;
 
+
 }
 
-.note-toolbar__expand-icon:hover {
+.note__header__toolbar-icon:hover {
   color: rgb(27, 27, 27);
   border-color: black !important;
   background-color: rgb(233, 232, 232);
@@ -121,6 +126,8 @@
   transition: opacity .3s
 }
 
+
+/* muestra los iconos de la toolbar cuando el mouse está sobre la nota */
 .note__container:hover .note-toolbar__icon {
   opacity: 100;
   transition: opacity .2s

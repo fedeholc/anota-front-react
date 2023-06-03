@@ -5,8 +5,10 @@ import {
   DeleteFilled,
   ShrinkOutlined,
   SaveFilled,
+  RightOutlined,
   ArrowsAltOutlined,
   InfoCircleFilled,
+  DownOutlined,
   TagFilled,
 } from "@ant-design/icons";
 import { useState, useRef, useEffect } from "react";
@@ -208,22 +210,42 @@ export function Note({
           isEditMode && "modal-body"
         }`}
       />
-      {isEditMode && (
-        <ShrinkOutlined
-          className="note-toolbar__expand-icon"
-          onClick={handleExitModal}
-        />
-      )}
 
-      {!isEditMode && (
-        <ArrowsAltOutlined
-          className="note-toolbar__expand-icon"
-          onClick={() => {
-            inputRef.current.focus();
-            setIsEditMode(true);
-          }}
-        />
-      )}
+      <div className="note__header__toolbar">
+        {isEditMode && (
+          <ShrinkOutlined
+            className="note__header__toolbar-icon"
+            onClick={handleExitModal}
+          />
+        )}
+        {!isShowBody && (
+          <RightOutlined
+            className="note__header__toolbar-icon"
+            onClick={() => {
+              setIsShowBody((prev) => !prev);
+            }}
+          />
+        )}
+        {isShowBody && (
+          <DownOutlined
+            className="note__header__toolbar-icon"
+            onClick={() => {
+              setIsShowBody((prev) => !prev);
+            }}
+          />
+        )}
+        {!isEditMode && (
+          <ArrowsAltOutlined
+            className="note__header__toolbar-icon"
+            onClick={() => {
+              setIsShowBody(true);
+              setIsEditMode(true);
+
+              inputRef.current.focus();
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 
