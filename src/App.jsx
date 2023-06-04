@@ -6,6 +6,7 @@ import SearchBar from "./components/SearchBar";
 import NewNoteButton from "./components/NewNoteButton";
 import SearchByTag from "./components/SearchByTag";
 import { Divider } from "antd";
+import LayoutButton from "./components/LayoutButton";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 </div>
                 <div className="top-toolbar__new">
                   <Divider type="vertical" />
+                  <LayoutButton></LayoutButton>
                   <NewNoteButton></NewNoteButton>
                 </div>
               </div>

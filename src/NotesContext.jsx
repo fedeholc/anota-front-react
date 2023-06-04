@@ -9,9 +9,14 @@ export const NotesDispatchContext = createContext(null);
 export const NotesFilterContext = createContext(null);
 export const SetNotesFilterContext = createContext(null);
 
+export const NotesLayoutContext = createContext(null);
+export const SetNotesLayoutContext = createContext(null);
+
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
   const [notesFilter, setNotesFilter] = useState({ text: "", tags: "" });
+
+  const [notesLayout, SetNotesLayout] = useState(0);
 
   async function getData() {
     dispatch({ type: "get", notes: await dbGetNotes() });
@@ -26,7 +31,11 @@ export function NotesProvider({ children }) {
       <NotesDispatchContext.Provider value={dispatch}>
         <NotesFilterContext.Provider value={notesFilter}>
           <SetNotesFilterContext.Provider value={setNotesFilter}>
-            {children}
+            <NotesLayoutContext.Provider value={notesLayout}>
+              <SetNotesLayoutContext.Provider value={SetNotesLayout}>
+                {children}
+              </SetNotesLayoutContext.Provider>
+            </NotesLayoutContext.Provider>
           </SetNotesFilterContext.Provider>
         </NotesFilterContext.Provider>
       </NotesDispatchContext.Provider>

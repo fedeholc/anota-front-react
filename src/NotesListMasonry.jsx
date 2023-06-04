@@ -4,7 +4,7 @@ import { useNotes } from "./NotesContextHooks.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./components/note/Note.jsx";
 import "./NotesListMasonry.css";
-import { NotesFilterContext } from "./NotesContext.jsx";
+import { NotesFilterContext, NotesLayoutContext } from "./NotesContext.jsx";
 
 export default function NotesListMasonry() {
   const ref = useRef();
@@ -14,6 +14,7 @@ export default function NotesListMasonry() {
   const notes = useNotes();
 
   const notesFilter = useContext(NotesFilterContext);
+  const notesLayout = useContext(NotesLayoutContext);
 
   function handleSearchFilter(note) {
     let passedTextFilter = "";
@@ -66,7 +67,7 @@ export default function NotesListMasonry() {
 
   return (
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
-      {notes && (
+      {notes && notesLayout === 0 && (
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
         >
@@ -86,6 +87,24 @@ export default function NotesListMasonry() {
             })}
           </Masonry>
         </ResponsiveMasonry>
+      )}
+
+      {notes && notesLayout === 1 && (
+        <Masonry gutter="1rem" columnsCount={1}>
+          {notes.filter(handleSearchFilter).map((note) => {
+            return (
+              <div key={note.id}>
+                <Note
+                  note={note}
+                  // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
+                  noteOverflow={
+                    notesOver.some((e) => e === note.id) ? "..." : null
+                  }
+                ></Note>
+              </div>
+            );
+          })}
+        </Masonry>
       )}
     </div>
   );
