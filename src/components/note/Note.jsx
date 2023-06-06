@@ -16,7 +16,7 @@ import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote, dbDeleteNote, dbAddNote } from "../../dbHandler";
 
 import "./NoteMasonry.css";
-import Tags from "../Tags";
+import NoteTags from "./NoteTags";
 import { Tooltip } from "antd";
 
 Note.propTypes = {
@@ -341,7 +341,7 @@ export function Note({
 
   const noteInputTags = (
     <div>
-      <Tags noteTags={editNote.tags} handleTags={handleTags} />
+      <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
     </div>
   );
 

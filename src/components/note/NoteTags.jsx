@@ -8,17 +8,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import "./Tags.css";
-import { getTagsArray } from "../utilityFunctions";
+import "./NoteTags.css";
+import { getTagsArray } from "../../utilityFunctions";
 import PropTypes from "prop-types";
 
 //add prop types to the function
-Tags.propTypes = {
+NoteTags.propTypes = {
   noteTags: PropTypes.string,
   handleTags: PropTypes.func,
 };
 
-export default function Tags({ noteTags, handleTags }) {
+export default function NoteTags({ noteTags, handleTags }) {
   const [inputVisible, setInputVisible] = useState(false);
 
   const inputRef = useRef(null);

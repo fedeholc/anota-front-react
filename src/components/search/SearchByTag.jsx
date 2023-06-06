@@ -1,8 +1,8 @@
 import "./SearchByTag.css";
 import { Select } from "antd";
-import { SetNotesFilterContext } from "../NotesContext";
+import { SetNotesFilterContext } from "../../NotesContext";
 import { useContext } from "react";
-import { useNotes } from "../NotesContextHooks";
+import { useNotes } from "../../NotesContextHooks";
 
 export default function SearchByTag() {
   const notes = useNotes();

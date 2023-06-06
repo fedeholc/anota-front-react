@@ -1,10 +1,10 @@
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { getTagsArray } from "./utilityFunctions.jsx";
-import { useNotes } from "./NotesContextHooks.jsx";
+import { getTagsArray } from "../../utilityFunctions.jsx";
+import { useNotes } from "../../NotesContextHooks.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
-import { Note } from "./components/note/Note.jsx";
+import { Note } from "./Note.jsx";
 import "./NotesListMasonry.css";
-import { NotesFilterContext, NotesLayoutContext } from "./NotesContext.jsx";
+import { NotesFilterContext, NotesLayoutContext } from "../../NotesContext.jsx";
 
 import PropTypes from "prop-types";
 
@@ -97,7 +97,11 @@ export default function NotesListMasonry({ isCollapsed }) {
       )}
 
       {notes && notesLayout === 1 && (
-        <Masonry gutter="1rem" columnsCount={1} className="masonry-list__container">
+        <Masonry
+          gutter="1rem"
+          columnsCount={1}
+          className="masonry-list__container"
+        >
           {notes.filter(handleSearchFilter).map((note) => {
             return (
               <div key={note.id}>
