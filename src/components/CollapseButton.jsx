@@ -1,6 +1,6 @@
 import { RightOutlined, DownOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 
-//add proptypes to component
 import PropTypes from "prop-types";
 CollapseButton.propTypes = {
   isCollapsed: PropTypes.bool.isRequired,
@@ -11,17 +11,21 @@ export default function CollapseButton({ isCollapsed, setIsCollapsed }) {
   return (
     <div>
       {isCollapsed === true && (
-        <RightOutlined
-          onClick={() => setIsCollapsed((prev) => !prev)}
-          className="toolbar__icon"
-        ></RightOutlined>
+        <Tooltip placement="topLeft" title="Expandir">
+          <DownOutlined
+            onClick={() => setIsCollapsed((prev) => !prev)}
+            className="toolbar__icon"
+          ></DownOutlined>
+        </Tooltip>
       )}
 
       {isCollapsed === false && (
-        <DownOutlined
-          onClick={() => setIsCollapsed((prev) => !prev)}
-          className="toolbar__icon"
-        ></DownOutlined>
+        <Tooltip placement="topLeft" title="Colapsar">
+          <RightOutlined
+            onClick={() => setIsCollapsed((prev) => !prev)}
+            className="toolbar__icon"
+          ></RightOutlined>
+        </Tooltip>
       )}
     </div>
   );

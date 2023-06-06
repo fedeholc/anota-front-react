@@ -23,7 +23,7 @@ function App() {
     <>
       <div className="app__container">
         <div className="app__sticky-navbar">
-          ANOTA (Another Note Taking App) {isCollapsed.toString()}
+          ANOTA (Another Note Taking App) 
         </div>
         <div className="app__main-grid">
           <div>
