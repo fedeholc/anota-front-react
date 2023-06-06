@@ -12,7 +12,7 @@ import CollapseButton from "./components/CollapseButton";
 import { useEffect } from "react";
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(
-    JSON.parse(localStorage.getItem("isCollapsed"))
+    JSON.parse(localStorage.getItem("isCollapsed")||false)
   );
 
   useEffect(() => {

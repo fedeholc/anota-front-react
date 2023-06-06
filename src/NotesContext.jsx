@@ -16,12 +16,16 @@ export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
   const [notesFilter, setNotesFilter] = useState({ text: "", tags: "" });
 
-  const [notesLayout, SetNotesLayout] = useState(0);
+  const [notesLayout, SetNotesLayout] = useState(
+    JSON.parse(localStorage.getItem("notesLayout")) || 0
+  );
+  useEffect(() => {
+    localStorage.setItem("notesLayout", notesLayout);
+  }, [notesLayout]);
 
   async function getData() {
     dispatch({ type: "get", notes: await dbGetNotes() });
   }
-
   useEffect(() => {
     getData();
   }, []);
