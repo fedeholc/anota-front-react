@@ -25,6 +25,7 @@ Note.propTypes = {
   isNewNote: PropTypes.bool,
   children: PropTypes.node,
   setShowNewNote: PropTypes.func,
+  isCollapsed: PropTypes.bool,
 };
 
 export function Note({
@@ -33,6 +34,7 @@ export function Note({
   children,
   isNewNote,
   setShowNewNote,
+  isCollapsed,
 }) {
   //* en general los isNewNote, isEditMode los uso para diferenciar cosas que se hacen en la creación de una nota nueva y en la edición de una nota existente.
   //* isModified lo uso para saber si se ha modificado el contenido de la nota, para saber si hay que mostrar el botón de guardar o no.
@@ -46,7 +48,7 @@ export function Note({
   // eslint-disable-next-line no-unused-vars
   const [isShowInfo, setIsShowInfo] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [isShowBody, setIsShowBody] = useState(true);
+  const [isShowBody, setIsShowBody] = useState(!isCollapsed);
   const [isShowTags, setisShowTags] = useState(false);
   const dispatch = useNotesDispatch();
 
@@ -67,6 +69,11 @@ export function Note({
       }
     }
   }, [isNewNote, isEditMode]);
+
+  // hace que cuando se cambia el isCollapsed general, se cambie el isShowBody de cada nota
+  useEffect(() => {
+    setIsShowBody(!isCollapsed);
+  }, [isCollapsed]);
 
   function handleEditableChange(event) {
     setEditNote((prev) => {

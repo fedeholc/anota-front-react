@@ -7,8 +7,14 @@ import NewNoteButton from "./components/NewNoteButton";
 import SearchByTag from "./components/SearchByTag";
 import { Divider } from "antd";
 import LayoutButton from "./components/LayoutButton";
-
+import { useState } from "react";
+import CollapseButton from "./components/CollapseButton";
 function App() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function handleCollapsed() {
+    setIsCollapsed((prev) => !prev);
+  }
   return (
     <>
       <div className="app__container">
@@ -25,11 +31,15 @@ function App() {
                 </div>
                 <div className="top-toolbar__new">
                   <Divider type="vertical" />
+                  <CollapseButton
+                    isCollapsed={isCollapsed}
+                    setIsCollapsed={setIsCollapsed}
+                  ></CollapseButton>
                   <LayoutButton></LayoutButton>
                   <NewNoteButton></NewNoteButton>
                 </div>
               </div>
-              <NotesListMasonry></NotesListMasonry>
+              <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
             </NotesProvider>
           </div>
         </div>

@@ -6,7 +6,13 @@ import { Note } from "./components/note/Note.jsx";
 import "./NotesListMasonry.css";
 import { NotesFilterContext, NotesLayoutContext } from "./NotesContext.jsx";
 
-export default function NotesListMasonry() {
+import PropTypes from "prop-types";
+
+NotesListMasonry.propTypes = {
+  isCollapsed: PropTypes.bool.isRequired,
+};
+
+export default function NotesListMasonry({ isCollapsed }) {
   const ref = useRef();
 
   const [notesOver, setNotesOver] = useState();
@@ -76,6 +82,7 @@ export default function NotesListMasonry() {
               return (
                 <div key={note.id}>
                   <Note
+                    isCollapsed={isCollapsed}
                     note={note}
                     // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
                     noteOverflow={
@@ -95,6 +102,7 @@ export default function NotesListMasonry() {
             return (
               <div key={note.id}>
                 <Note
+                  isCollapsed={isCollapsed}
                   note={note}
                   // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
                   noteOverflow={
