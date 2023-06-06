@@ -97,7 +97,7 @@ export default function NotesListMasonry({ isCollapsed }) {
       )}
 
       {notes && notesLayout === 1 && (
-        <Masonry gutter="1rem" columnsCount={1}>
+        <Masonry gutter="1rem" columnsCount={1} className="masonry-list__container">
           {notes.filter(handleSearchFilter).map((note) => {
             return (
               <div key={note.id}>
