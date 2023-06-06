@@ -10,7 +10,7 @@
   grid-template-rows: "1fr";
 }
 
-.app__sticky-navbar { 
+.app__sticky-navbar {
   position: sticky;
   z-index: 99;
   top: 0;
@@ -60,6 +60,46 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+
+.toolbar__icon {
+  background-color: gray;
+  color: white;
+  border-color: gray;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: opacity 0.3s;
+  border-radius: 50%;
+  min-width: 2rem;
+  stroke: white;
+  stroke-width: 2px;
+}
+
+.toolbar__icon:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+.toolbar__button {
+  border: 0px;
+  font-size: 0.8rem;
+  color: black;
+  background-color: transparent;
+  padding: 0.2rem;
+  margin-right: 0.3rem;
+}
+
+.toolbar__button:hover {
+  cursor: pointer;
+
+}
+
+.toolbar__button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 550px) {

@@ -1,8 +1,9 @@
-import { ProfileOutlined, ProjectOutlined } from "@ant-design/icons";
-import "./NewNoteButton.css";
+import "../App.css";
 import { NotesLayoutContext, SetNotesLayoutContext } from "../NotesContext";
-
 import { useContext } from "react";
+import { ReactComponent as LayoutMasonryIcon } from "../assets/LayoutMasonryIcon.svg";
+import { ReactComponent as LayoutListIcon } from "../assets/LayoutListIcon.svg";
+
 
 export default function LayoutButton() {
   const SetNotesLayout = useContext(SetNotesLayoutContext);
@@ -11,17 +12,17 @@ export default function LayoutButton() {
   return (
     <div>
       {notesLayout === 0 && (
-        <ProfileOutlined
+        <LayoutListIcon
           onClick={() => SetNotesLayout((prev) => (prev === 0 ? 1 : 0))}
           className="toolbar__icon"
-        ></ProfileOutlined>
+        ></LayoutListIcon>
       )}
 
       {notesLayout === 1 && (
-        <ProjectOutlined
+        <LayoutMasonryIcon
           onClick={() => SetNotesLayout((prev) => (prev === 0 ? 1 : 0))}
           className="toolbar__icon"
-        ></ProjectOutlined>
+        ></LayoutMasonryIcon>
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { Note } from "./note/Note.jsx";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 
-import "./NewNoteButton.css";
+import "../App.css";
 
 export default function NewNoteButton() {
   const [showNewNote, setShowNewNote] = useState(false);
