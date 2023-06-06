@@ -9,17 +9,21 @@ import { Divider } from "antd";
 import LayoutButton from "./components/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/CollapseButton";
+import { useEffect } from "react";
 function App() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(
+    JSON.parse(localStorage.getItem("isCollapsed"))
+  );
 
-  function handleCollapsed() {
-    setIsCollapsed((prev) => !prev);
-  }
+  useEffect(() => {
+    localStorage.setItem("isCollapsed", isCollapsed);
+  }, [isCollapsed]);
+
   return (
     <>
       <div className="app__container">
         <div className="app__sticky-navbar">
-          ANOTA (Another Note Taking App)
+          ANOTA (Another Note Taking App) {isCollapsed.toString()}
         </div>
         <div className="app__main-grid">
           <div>
