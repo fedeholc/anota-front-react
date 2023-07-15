@@ -2,7 +2,7 @@
 
 [![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/fedeholc/anotes-front-react/blob/main/README.es.md)
 
-Yes, another one. Made to learn and practice React.
+Yes, another one. Made to learn and practice React, Node.js/Express, and MySQL.
 
 The application has a front-end made in React, a back-end in Node.js/Express with a MySQL database, and an extension for Google Chrome.
 - fron-end: https://github.com/fedeholc/anotes-front-react
