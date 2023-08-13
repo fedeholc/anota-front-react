@@ -15,7 +15,7 @@ NotesListMasonry.propTypes = {
 export default function NotesListMasonry({ isCollapsed }) {
   const ref = useRef();
 
-  const [notesOver, setNotesOver] = useState();
+  const [notesOver, setNotesOver] = useState([false]);
 
   const notes = useNotes();
 
