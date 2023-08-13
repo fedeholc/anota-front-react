@@ -23,11 +23,21 @@ export function NotesProvider({ children }) {
     localStorage.setItem("notesLayout", notesLayout);
   }, [notesLayout]);
 
-  async function getData() {
-    dispatch({ type: "get", notes: await dbGetNotes() });
-  }
+  // el ignore es para ignorar posibles respuestas pendientes
+  // que lleguen después
+  // como está explicado acá (último ejemplo de data fetching) https://react.dev/learn/you-might-not-need-an-effect
   useEffect(() => {
-    getData();
+    async function getData(ignore) {
+      let data = await dbGetNotes();
+      if (!ignore) {
+        dispatch({ type: "get", notes: data });
+      }
+    }
+    let ignore = false;
+    getData(ignore);
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (
