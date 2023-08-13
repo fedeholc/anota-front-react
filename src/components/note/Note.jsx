@@ -49,7 +49,7 @@ export function Note({
   const [isShowInfo, setIsShowInfo] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(!isCollapsed);
-  const [isShowTags, setisShowTags] = useState(false);
+  const [isShowTags, setIsShowTags] = useState(false);
   const dispatch = useNotesDispatch();
 
   // ref para cuando se está editando una nota
@@ -291,7 +291,7 @@ export function Note({
       <TagFilled
         className="note-toolbar__icon"
         onClick={() => {
-          setisShowTags((prev) => !prev);
+          setIsShowTags((prev) => !prev);
         }}
       />
 

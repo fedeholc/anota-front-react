@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Note } from "../note/Note.jsx";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import { useOnlineStatus } from "../../useOnlineStatus";
 
 import "../../App.css";
 
@@ -25,6 +26,7 @@ export default function NewNoteButton() {
   });
 
   const notes = useNotes();
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     setNewNote({
@@ -54,14 +56,21 @@ export default function NewNoteButton() {
         ></Note>
       )}
 
-      <Tooltip placement="topLeft" title="Nueva nota">
-        <PlusOutlined
-          onClick={() => {
-            setShowNewNote(true);
-          }}
-          className="toolbar__icon"
-        />
-      </Tooltip>
+      {isOnline && (
+        <Tooltip placement="topLeft" title="Nueva nota">
+          <PlusOutlined
+            onClick={() => {
+              setShowNewNote(true);
+            }}
+            className="toolbar__icon"
+          />
+        </Tooltip>
+      )}
+      {!isOnline && (
+        <Tooltip placement="topLeft" title="Nueva nota (no disponible offline)">
+          <div className="offline_warning">Offline. Intentando conectar...</div>
+        </Tooltip>
+      )}
     </div>
   );
 }

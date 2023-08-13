@@ -102,6 +102,14 @@
   align-items: center;
 }
 
+.offline_warning {
+  border: 1px solid rgb(151, 28, 28);
+  color: rgb(151, 28, 28);
+  padding: 0.2rem 0.5rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
 @media only screen and (max-width: 550px) {
 
 
