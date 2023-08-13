@@ -55,18 +55,18 @@
 }
 
 .note__title {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-family: "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 
 .note__input-title {
   margin-top: 0.6rem;
   margin-left: 1rem;
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-family: "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 600;
   background-color: inherit;
   border: 0;
   padding: 0;

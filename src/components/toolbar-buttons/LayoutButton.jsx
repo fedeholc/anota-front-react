@@ -1,8 +1,8 @@
-import "../App.css";
-import { NotesLayoutContext, SetNotesLayoutContext } from "../NotesContext";
+import "../../App.css";
+import { NotesLayoutContext, SetNotesLayoutContext } from "../../NotesContext";
 import { useContext } from "react";
-import { ReactComponent as LayoutMasonryIcon } from "../assets/LayoutMasonryIcon.svg";
-import { ReactComponent as LayoutListIcon } from "../assets/LayoutListIcon.svg";
+import { ReactComponent as LayoutMasonryIcon } from "../../assets/LayoutMasonryIcon.svg";
+import { ReactComponent as LayoutListIcon } from "../../assets/LayoutListIcon.svg";
 import { Tooltip } from "antd";
 
 export default function LayoutButton() {

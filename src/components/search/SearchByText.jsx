@@ -1,9 +1,9 @@
-import { SetNotesFilterContext } from "../NotesContext";
+import { SetNotesFilterContext } from "../../NotesContext";
 import { useContext } from "react";
-import "./SearchBar.css";
+import "./SearchByText.css";
 import { Input } from "antd";
 
-export default function SearchBar() {
+export default function SearchByText() {
   const { Search } = Input;
 
   const setNotesFilter = useContext(SetNotesFilterContext);

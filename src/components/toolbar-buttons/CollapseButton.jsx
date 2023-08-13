@@ -1,5 +1,6 @@
 import { RightOutlined, DownOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import "../../App.css";
 
 import PropTypes from "prop-types";
 CollapseButton.propTypes = {
