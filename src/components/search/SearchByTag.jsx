@@ -1,6 +1,6 @@
 import "./SearchByTag.css";
 import { Select } from "antd";
-import { SetNotesFilterContext } from "../../NotesContext";
+import { SetNotesFilterContext } from "../../context";
 import { useContext } from "react";
 import { useNotes } from "../../NotesContextHooks";
 

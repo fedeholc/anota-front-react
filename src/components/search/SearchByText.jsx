@@ -1,4 +1,4 @@
-import { SetNotesFilterContext } from "../../NotesContext";
+import { SetNotesFilterContext } from "../../context";
 import { useContext } from "react";
 import "./SearchByText.css";
 import { Input } from "antd";

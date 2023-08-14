@@ -3,22 +3,23 @@ import { createContext, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 
-export const NotesContext = createContext(null);
-export const NotesDispatchContext = createContext(null);
-
-export const NotesFilterContext = createContext(null);
-export const SetNotesFilterContext = createContext(null);
-
-export const NotesLayoutContext = createContext(null);
-export const SetNotesLayoutContext = createContext(null);
+import {
+  NotesContext,
+  NotesDispatchContext,
+  NotesFilterContext,
+  SetNotesFilterContext,
+  NotesLayoutContext,
+  SetNotesLayoutContext,
+} from "./context";
 
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
   const [notesFilter, setNotesFilter] = useState({ text: "", tags: "" });
 
-  const [notesLayout, SetNotesLayout] = useState(
+  const [notesLayout, setNotesLayout] = useState(
     JSON.parse(localStorage.getItem("notesLayout")) || 0
   );
+
   useEffect(() => {
     localStorage.setItem("notesLayout", notesLayout);
   }, [notesLayout]);
@@ -46,7 +47,7 @@ export function NotesProvider({ children }) {
         <NotesFilterContext.Provider value={notesFilter}>
           <SetNotesFilterContext.Provider value={setNotesFilter}>
             <NotesLayoutContext.Provider value={notesLayout}>
-              <SetNotesLayoutContext.Provider value={SetNotesLayout}>
+              <SetNotesLayoutContext.Provider value={setNotesLayout}>
                 {children}
               </SetNotesLayoutContext.Provider>
             </NotesLayoutContext.Provider>

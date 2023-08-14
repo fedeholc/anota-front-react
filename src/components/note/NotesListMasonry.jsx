@@ -4,7 +4,7 @@ import { useNotes } from "../../NotesContextHooks.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./Note.jsx";
 import "./NotesListMasonry.css";
-import { NotesFilterContext, NotesLayoutContext } from "../../NotesContext.jsx";
+import { NotesFilterContext, NotesLayoutContext } from "../../context.jsx";
 
 import PropTypes from "prop-types";
 

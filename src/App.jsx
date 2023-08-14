@@ -21,13 +21,13 @@ function App() {
 
   return (
     <>
-      <div className="app__container">
-        <div className="app__sticky-navbar">
-          📓ANOTA (Another Note Taking App)
-        </div>
-        <div className="app__main-grid">
-          <div>
-            <NotesProvider>
+      <NotesProvider>
+        <div className="app__container">
+          <div className="app__sticky-navbar">
+            📓ANOTA (Another Note Taking App)
+          </div>
+          <div className="app__main-grid">
+            <div>
               <div className="top-toolbar">
                 <div className="top-toolbar__search">
                   <SearchByText></SearchByText>
@@ -44,11 +44,11 @@ function App() {
                 </div>
               </div>
               <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
-            </NotesProvider>
+            </div>
           </div>
+          <Footer></Footer>
         </div>
-        <Footer></Footer>
-      </div>
+      </NotesProvider>
     </>
   );
 }

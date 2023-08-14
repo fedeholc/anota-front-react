@@ -1,5 +1,5 @@
 import "../../App.css";
-import { NotesLayoutContext, SetNotesLayoutContext } from "../../NotesContext";
+import { NotesLayoutContext, SetNotesLayoutContext } from "../../context";
 import { useContext } from "react";
 import { ReactComponent as LayoutMasonryIcon } from "../../assets/LayoutMasonryIcon.svg";
 import { ReactComponent as LayoutListIcon } from "../../assets/LayoutListIcon.svg";
@@ -7,11 +7,11 @@ import { RiLayoutMasonryLine, RiFileListLine } from "react-icons/ri";
 import { Tooltip } from "antd";
 
 export default function LayoutButton() {
-  const SetNotesLayout = useContext(SetNotesLayoutContext);
+  const setNotesLayout = useContext(SetNotesLayoutContext);
   const notesLayout = useContext(NotesLayoutContext);
 
   function handleLayoutChange() {
-    SetNotesLayout((prev) => (prev === 0 ? 1 : 0));
+    setNotesLayout((prev) => (prev === 0 ? 1 : 0));
   }
 
   return (
@@ -31,7 +31,7 @@ export default function LayoutButton() {
         <Tooltip placement="topLeft" title="vista Mosaico">
           <div>
             <LayoutMasonryIcon
-              onClick={() => SetNotesLayout((prev) => (prev === 0 ? 1 : 0))}
+              onClick={() => setNotesLayout((prev) => (prev === 0 ? 1 : 0))}
               className="toolbar__icon"
             ></LayoutMasonryIcon>
           </div>
