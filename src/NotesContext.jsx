@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { createContext, useReducer } from "react";
+import {  useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 
 import {
   NotesContext,
-  NotesDispatchContext,
-  NotesFilterContext,
+   NotesFilterContext,
   SetNotesFilterContext,
   NotesLayoutContext,
   SetNotesLayoutContext,
@@ -42,9 +41,8 @@ export function NotesProvider({ children }) {
   }, []);
 
   return (
-    <NotesContext.Provider value={notes}>
-      <NotesDispatchContext.Provider value={dispatch}>
-        <NotesFilterContext.Provider value={notesFilter}>
+    <NotesContext.Provider value={{notes, dispatch}}>
+         <NotesFilterContext.Provider value={notesFilter}>
           <SetNotesFilterContext.Provider value={setNotesFilter}>
             <NotesLayoutContext.Provider value={notesLayout}>
               <SetNotesLayoutContext.Provider value={setNotesLayout}>
@@ -53,8 +51,7 @@ export function NotesProvider({ children }) {
             </NotesLayoutContext.Provider>
           </SetNotesFilterContext.Provider>
         </NotesFilterContext.Provider>
-      </NotesDispatchContext.Provider>
-    </NotesContext.Provider>
+     </NotesContext.Provider>
   );
 }
 

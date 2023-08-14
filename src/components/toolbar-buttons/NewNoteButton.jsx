@@ -25,7 +25,7 @@ export default function NewNoteButton() {
     modified: "",
   });
 
-  const notes = useNotes();
+  const {notes} = useNotes();
   const isOnline = useOnlineStatus();
 
   useEffect(() => {

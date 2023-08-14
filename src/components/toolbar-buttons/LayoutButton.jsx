@@ -3,8 +3,7 @@ import { NotesLayoutContext, SetNotesLayoutContext } from "../../context";
 import { useContext } from "react";
 import { ReactComponent as LayoutMasonryIcon } from "../../assets/LayoutMasonryIcon.svg";
 import { ReactComponent as LayoutListIcon } from "../../assets/LayoutListIcon.svg";
-import { RiLayoutMasonryLine, RiFileListLine } from "react-icons/ri";
-import { Tooltip } from "antd";
+ import { Tooltip } from "antd";
 
 export default function LayoutButton() {
   const setNotesLayout = useContext(SetNotesLayoutContext);

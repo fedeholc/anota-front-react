@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { useNotes } from "../../NotesContextHooks";
 
 export default function SearchByTag() {
-  const notes = useNotes();
+  const {notes} = useNotes();
   const setNotesFilter = useContext(SetNotesFilterContext);
 
   let uniqueTags = [];

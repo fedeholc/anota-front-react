@@ -17,7 +17,7 @@ export default function NotesListMasonry({ isCollapsed }) {
 
   const [notesOver, setNotesOver] = useState([false]);
 
-  const notes = useNotes();
+  const {notes} = useNotes();
 
   const notesFilter = useContext(NotesFilterContext);
   const notesLayout = useContext(NotesLayoutContext);
