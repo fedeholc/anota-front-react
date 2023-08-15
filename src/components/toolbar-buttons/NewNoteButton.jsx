@@ -1,4 +1,4 @@
-import { useNotes } from "../../NotesContextHooks.jsx";
+import { useNotes } from "../../useNotes.jsx";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Note } from "../note/Note.jsx";
@@ -25,7 +25,7 @@ export default function NewNoteButton() {
     modified: "",
   });
 
-  const {notes} = useNotes();
+  const { notes } = useNotes();
   const isOnline = useOnlineStatus();
 
   useEffect(() => {

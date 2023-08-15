@@ -1,5 +1,5 @@
 import "./App.css";
-import { NotesProvider } from "./NotesContext";
+import { NotesProvider } from "./NotesProvider";
 import NotesListMasonry from "./components/note/NotesListMasonry";
 import Footer from "./components/footer/Footer";
 import SearchByText from "./components/search/SearchByText";

@@ -1,6 +1,6 @@
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getTagsArray } from "../../utilityFunctions.jsx";
-import { useNotes } from "../../NotesContextHooks.jsx";
+import { useNotes } from "../../useNotes.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
 import { Note } from "./Note.jsx";
 import "./NotesListMasonry.css";
@@ -17,7 +17,7 @@ export default function NotesListMasonry({ isCollapsed }) {
 
   const [notesOver, setNotesOver] = useState([false]);
 
-  const {notes} = useNotes();
+  const { notes } = useNotes();
 
   const notesFilter = useContext(NotesFilterContext);
   const notesLayout = useContext(NotesLayoutContext);

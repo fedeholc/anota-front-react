@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import ContentEditable from "react-contenteditable";
-import { useNotes } from "../../NotesContextHooks";
+import { useNotes } from "../../useNotes";
 import {
   DeleteFilled,
   ShrinkOutlined,
@@ -50,7 +50,7 @@ export function Note({
   // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(!isCollapsed);
   const [isShowTags, setIsShowTags] = useState(false);
-  const {dispatch} = useNotes();
+  const { dispatch } = useNotes();
   // ref para cuando se está editando una nota
   const inputRef = useRef(null);
 

@@ -2,10 +2,10 @@ import "./SearchByTag.css";
 import { Select } from "antd";
 import { SetNotesFilterContext } from "../../context";
 import { useContext } from "react";
-import { useNotes } from "../../NotesContextHooks";
+import { useNotes } from "../../useNotes";
 
 export default function SearchByTag() {
-  const {notes} = useNotes();
+  const { notes } = useNotes();
   const setNotesFilter = useContext(SetNotesFilterContext);
 
   let uniqueTags = [];
