@@ -54,8 +54,8 @@ export function Note2({
   // ref para cuando se está creando una nota nueva
   const newNoteInputRef = useRef(null);
 
-  // pone el foco en el título de la nota cuando se crea una nueva nota (isNewNote)
-  // y en el cuerpo cuando es edición (isEditMode)
+  // pone el foco en el título de la nota cuando no tiene texto
+  // y sino en el cuerpo
   useEffect(() => {
     if (note.noteTitle === "") {
       newNoteInputRef.current.focus();
@@ -63,11 +63,6 @@ export function Note2({
       inputRef.current.focus();
     }
   }, [note.noteTitle]);
-
-  // hace que cuando se cambia el isCollapsed general, se cambie el isShowBody de cada nota
-  useEffect(() => {
-    setIsShowBody(!isCollapsed);
-  }, [isCollapsed]);
 
   function handleEditableChange(event) {
     setEditNote((prev) => {
@@ -92,8 +87,6 @@ export function Note2({
   }
 
   async function handleSaveEdit() {
-    //TODO: completar otros campos
-
     const note = {
       id: editNote.id,
       noteText: editNote.noteText,
@@ -116,13 +109,12 @@ export function Note2({
 
   function handleKeyDownTitle(event) {
     if (event.key === "Enter") {
-      // si estamos creando una nota nueva le pasa el foco al body de la nota
-      if (isEditMode && isNewNote) {
-        // evita que se agregue un enter al comienzo del body de la nota
-        event.preventDefault();
+      // si no hay texto en el cuerpo de la nota pasa el foco ahí
+      if (note.noteText === "") {
+        event.preventDefault(); // evita que se agregue un enter al comienzo del body de la nota
         inputRef.current.focus();
       }
-      // si no es una nota nueva simplemente saca el foco del titulo
+      // si no simplemente saca el foco del titulo
       else {
         newNoteInputRef.current.blur();
       }
