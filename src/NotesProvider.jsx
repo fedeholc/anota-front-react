@@ -69,13 +69,16 @@ function notesReducer(notes, action) {
     }
 
     case "updated": {
-      return notes.map((note) => {
+      let a = notes.map((note) => {
         if (note.id == action.note.id) {
+          console.log("pasé por aquí");
           return action.note;
         } else {
           return note;
         }
       });
+      console.log("a:",a)
+      return [...a];
     }
     case "deleted": {
       return notes.filter((note) => note.id !== action.deleteId);

@@ -10,6 +10,8 @@ import LayoutButton from "./components/toolbar-buttons/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/toolbar-buttons/CollapseButton";
 import { useEffect } from "react";
+import NewNoteTest from "./components/toolbar-buttons/NewNoteTest";
+
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(
     JSON.parse(localStorage.getItem("isCollapsed") || false)
@@ -41,6 +43,7 @@ function App() {
                   ></CollapseButton>
                   <LayoutButton></LayoutButton>
                   <NewNoteButton></NewNoteButton>
+                  <NewNoteTest></NewNoteTest>
                 </div>
               </div>
               <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
