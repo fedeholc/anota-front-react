@@ -10,7 +10,7 @@ import LayoutButton from "./components/toolbar-buttons/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/toolbar-buttons/CollapseButton";
 import { useEffect } from "react";
-import NewNoteTest from "./components/toolbar-buttons/NewNoteTest";
+import NewNoteTest from "./components/toolbar-buttons/NewNoteButton2";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(

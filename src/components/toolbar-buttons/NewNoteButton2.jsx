@@ -1,11 +1,10 @@
 import { useNotes } from "../../useNotes.jsx";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Note } from "../note/Note.jsx";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { useOnlineStatus } from "../../useOnlineStatus.jsx";
-import { getFormattedDateTime } from "../../utilityFunctions";
+import { getFormattedDateTime } from "../../utilityFunctions.jsx";
 import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
 import { Note2 } from "../note/Note2.jsx";
