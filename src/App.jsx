@@ -42,7 +42,6 @@ function App() {
                     setIsCollapsed={setIsCollapsed}
                   ></CollapseButton>
                   <LayoutButton></LayoutButton>
-                  <NewNoteButton></NewNoteButton>
                   <NewNoteTest></NewNoteTest>
                 </div>
               </div>
