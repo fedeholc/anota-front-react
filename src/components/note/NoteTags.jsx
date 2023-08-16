@@ -88,8 +88,7 @@ export default function NoteTags({ noteTags, handleTags }) {
               onClose={(event) => {
                 event.preventDefault();
                 let filtrado = tagsArray.filter((prevTag) => {
-                  console.log(tagsArray);
-                  return prevTag !== tag;
+                      return prevTag !== tag;
                 });
                 setTagsArray(filtrado);
                 handleTags(filtrado);

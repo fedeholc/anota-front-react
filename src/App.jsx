@@ -3,13 +3,14 @@ import { NotesProvider } from "./NotesProvider";
 import NotesListMasonry from "./components/note/NotesListMasonry";
 import Footer from "./components/footer/Footer";
 import SearchByText from "./components/search/SearchByText";
-import NewNoteButton from "./components/toolbar-buttons/NewNoteButton";
 import SearchByTag from "./components/search/SearchByTag";
 import { Divider } from "antd";
 import LayoutButton from "./components/toolbar-buttons/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/toolbar-buttons/CollapseButton";
 import { useEffect } from "react";
+import NewNoteTest from "./components/toolbar-buttons/NewNoteButton2";
+
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(
     JSON.parse(localStorage.getItem("isCollapsed") || false)
@@ -40,7 +41,7 @@ function App() {
                     setIsCollapsed={setIsCollapsed}
                   ></CollapseButton>
                   <LayoutButton></LayoutButton>
-                  <NewNoteButton></NewNoteButton>
+                  <NewNoteTest></NewNoteTest>
                 </div>
               </div>
               <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>

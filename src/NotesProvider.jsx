@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import {  useReducer } from "react";
+import { useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 
 import {
   NotesContext,
-   NotesFilterContext,
+  NotesFilterContext,
   SetNotesFilterContext,
   NotesLayoutContext,
   SetNotesLayoutContext,
@@ -41,17 +41,17 @@ export function NotesProvider({ children }) {
   }, []);
 
   return (
-    <NotesContext.Provider value={{notes, dispatch}}>
-         <NotesFilterContext.Provider value={notesFilter}>
-          <SetNotesFilterContext.Provider value={setNotesFilter}>
-            <NotesLayoutContext.Provider value={notesLayout}>
-              <SetNotesLayoutContext.Provider value={setNotesLayout}>
-                {children}
-              </SetNotesLayoutContext.Provider>
-            </NotesLayoutContext.Provider>
-          </SetNotesFilterContext.Provider>
-        </NotesFilterContext.Provider>
-     </NotesContext.Provider>
+    <NotesContext.Provider value={{ notes, dispatch }}>
+      <NotesFilterContext.Provider value={notesFilter}>
+        <SetNotesFilterContext.Provider value={setNotesFilter}>
+          <NotesLayoutContext.Provider value={notesLayout}>
+            <SetNotesLayoutContext.Provider value={setNotesLayout}>
+              {children}
+            </SetNotesLayoutContext.Provider>
+          </NotesLayoutContext.Provider>
+        </SetNotesFilterContext.Provider>
+      </NotesFilterContext.Provider>
+    </NotesContext.Provider>
   );
 }
 
@@ -69,13 +69,14 @@ function notesReducer(notes, action) {
     }
 
     case "updated": {
-      return notes.map((note) => {
+      let a = notes.map((note) => {
         if (note.id == action.note.id) {
           return action.note;
         } else {
           return note;
         }
       });
+      return [...a];
     }
     case "deleted": {
       return notes.filter((note) => note.id !== action.deleteId);
