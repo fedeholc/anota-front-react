@@ -119,6 +119,7 @@ export default function NotesListMasonry({ isCollapsed }) {
           })}
         </Masonry>
       )}
+      {!notes && <p>Error al cargar los datos.</p>}
     </div>
   );
 }
