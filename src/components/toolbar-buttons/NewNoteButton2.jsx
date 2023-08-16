@@ -1,5 +1,5 @@
 import { useNotes } from "../../useNotes.jsx";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
@@ -10,29 +10,13 @@ import "../../App.css";
 import { Note2 } from "../note/Note2.jsx";
 
 export default function NewNoteTest() {
-  /*   const [showNewNote, setShowNewNote] = useState(false); */
-  const [newNote, setNewNote] = useState({
-    id: uuidv4(),
-    noteText: "",
-    noteHTML: "",
-    noteTitle: "nn",
-    tags: "",
-    category: "",
-    deleted: false,
-    archived: false,
-    reminder: "",
-    rating: 0,
-    created: getFormattedDateTime(),
-    modified: getFormattedDateTime(),
-  });
+  const [newNote, setNewNote] = useState();
   const [showNewNote, setShowNewNote] = useState(false);
-
-  const { notes, dispatch } = useNotes();
+  const { dispatch } = useNotes();
   const isOnline = useOnlineStatus();
 
-  //este useEffect tiene que estar para que cambie el id con la creación de cada nota nueva
-  useEffect(() => {
-    setNewNote({
+  function handleNewNote() {
+    let note = {
       id: uuidv4(),
       noteText: "",
       noteHTML: "",
@@ -45,12 +29,19 @@ export default function NewNoteTest() {
       rating: 0,
       created: getFormattedDateTime(),
       modified: getFormattedDateTime(),
+    };
+    setNewNote(note);
+    dispatch({
+      type: "added",
+      note: note,
     });
-  }, [notes]);
+    dbAddNote(note);
+    setShowNewNote(true);
+  }
 
   return (
     <div className="toolbar__button-container">
-      {showNewNote && (
+      {showNewNote && newNote && (
         <Note2
           note={newNote}
           isNewNote={true}
@@ -61,18 +52,7 @@ export default function NewNoteTest() {
 
       {isOnline && (
         <Tooltip placement="topLeft" title="Nueva nota">
-          <PlusOutlined
-            onClick={() => {
-              dispatch({
-                type: "added",
-                note: newNote,
-              });
-
-              dbAddNote(newNote);
-              setShowNewNote(true);
-            }}
-            className="toolbar__icon"
-          />
+          <PlusOutlined onClick={handleNewNote} className="toolbar__icon" />
         </Tooltip>
       )}
       {!isOnline && (

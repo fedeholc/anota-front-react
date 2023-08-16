@@ -47,21 +47,18 @@ export function Note2({
   // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(!isCollapsed);
   const [isShowTags, setIsShowTags] = useState(false);
-  const { dispatch } = useNotes();
+  const { notes, dispatch } = useNotes();
   // ref para cuando se está editando una nota
-  const inputRef = useRef(null);
-
+  const bodyInputRef = useRef(null);
   // ref para cuando se está creando una nota nueva
-  const newNoteInputRef = useRef(null);
+  const titleInputRef = useRef(null);
 
   // pone el foco en el título de la nota cuando no tiene texto
   // y sino en el cuerpo
   useEffect(() => {
-    if (note.noteTitle === "") {
-      newNoteInputRef.current.focus();
-    } else {
-      inputRef.current.focus();
-    }
+    note.noteTitle === ""
+      ? titleInputRef.current.focus()
+      : bodyInputRef.current.focus();
   }, [note.noteTitle]);
 
   function handleEditableChange(event) {
@@ -86,7 +83,7 @@ export function Note2({
     setIsModified(true);
   }
 
-  async function handleSaveEdit() {
+  function handleSaveEdit() {
     const note = {
       id: editNote.id,
       noteText: editNote.noteText,
@@ -112,11 +109,11 @@ export function Note2({
       // si no hay texto en el cuerpo de la nota pasa el foco ahí
       if (note.noteText === "") {
         event.preventDefault(); // evita que se agregue un enter al comienzo del body de la nota
-        inputRef.current.focus();
+        bodyInputRef.current.focus();
       }
       // si no simplemente saca el foco del titulo
       else {
-        newNoteInputRef.current.blur();
+        titleInputRef.current.blur();
       }
     }
   }
@@ -124,22 +121,16 @@ export function Note2({
   function handleDelete(id) {
     dispatch({ type: "deleted", deleteId: id });
     dbDeleteNote(id);
-    if (isNewNote) {
-      setShowNewNote(false);
-      setIsEditMode(false);
-    } else {
-      setIsModified(false);
-      setIsEditMode(false);
-    }
+    setShowNewNote(false);
+    setIsModified(false);
+    setIsEditMode(false);
   }
 
   function handleExitModal() {
-    handleSaveEdit();
-
     setShowNewNote && setShowNewNote(false); //para que no de error si no se pasó el parámetro
-
     setIsModified(false);
     setIsEditMode(false);
+    handleSaveEdit();
   }
 
   function handleTags(tagsArray) {
@@ -156,7 +147,7 @@ export function Note2({
   const noteHeader = (
     <div className="note__header">
       <ContentEditable
-        innerRef={newNoteInputRef}
+        innerRef={titleInputRef}
         html={editNote.noteTitle}
         disabled={false}
         data-key={note.id}
@@ -196,8 +187,7 @@ export function Note2({
             onClick={() => {
               setIsShowBody(true);
               setIsEditMode(true);
-
-              inputRef.current.focus();
+              bodyInputRef.current.focus();
             }}
           />
         )}
@@ -207,7 +197,7 @@ export function Note2({
 
   const noteBody = (
     <ContentEditable
-      innerRef={inputRef}
+      innerRef={bodyInputRef}
       html={editNote.noteHTML}
       disabled={false}
       data-key={note.id}
@@ -288,6 +278,7 @@ export function Note2({
         }}
       >
         {noteHeader}
+
         {isShowBody && noteBody}
 
         {isShowBody && noteOverflowIndicator}

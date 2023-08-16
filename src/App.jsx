@@ -3,7 +3,6 @@ import { NotesProvider } from "./NotesProvider";
 import NotesListMasonry from "./components/note/NotesListMasonry";
 import Footer from "./components/footer/Footer";
 import SearchByText from "./components/search/SearchByText";
-import NewNoteButton from "./components/toolbar-buttons/NewNoteButton";
 import SearchByTag from "./components/search/SearchByTag";
 import { Divider } from "antd";
 import LayoutButton from "./components/toolbar-buttons/LayoutButton";
