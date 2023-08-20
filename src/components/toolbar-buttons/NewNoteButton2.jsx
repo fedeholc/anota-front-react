@@ -1,5 +1,5 @@
 import { useNotes } from "../../useNotes.jsx";
-import { useState} from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
@@ -7,7 +7,6 @@ import { useOnlineStatus } from "../../useOnlineStatus.jsx";
 import { getFormattedDateTime } from "../../utilityFunctions.jsx";
 import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
-import { Note2 } from "../note/Note2.jsx";
 import { Note3 } from "../note/Note3.jsx";
 
 export default function NewNoteTest() {
@@ -32,11 +31,11 @@ export default function NewNoteTest() {
       modified: getFormattedDateTime(),
     };
     setNewNote(note);
-     dispatch({
+    dispatch({
       type: "added",
       note: note,
-    });  
-    dbAddNote(note);  
+    });
+    dbAddNote(note);
     setShowNewNote(true);
   }
 
@@ -46,10 +45,9 @@ export default function NewNoteTest() {
         <Note3
           note={newNote}
           isNewNote={true}
-           setShowNewNote={setShowNewNote}
+          setShowNewNote={setShowNewNote}
           noteOverflow={""}
           isCollapsed={false}
-          
         ></Note3>
       )}
 

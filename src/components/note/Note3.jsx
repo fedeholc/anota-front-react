@@ -11,12 +11,12 @@ import {
   DownOutlined,
   TagFilled,
 } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import { useState, useRef, useEffect } from "react";
 import { dateTimeJStoDB, getFormattedDateTime } from "../../utilityFunctions";
 import { dbUpdateNote, dbDeleteNote } from "../../dbHandler";
 import "./NoteMasonry.css";
 import NoteTags from "./NoteTags";
-import { Tooltip } from "antd";
 import { createContext, useContext } from "react";
 
 const NoteContext = createContext();
@@ -41,37 +41,29 @@ export function Note3({
   //* en general los isNewNote, isEditMode los uso para diferenciar cosas que se hacen en la creación de una nota nueva y en la edición de una nota existente.
   //* isModified lo uso para saber si se ha modificado el contenido de la nota, para saber si hay que mostrar el botón de guardar o no.
   //* isShowInfo, isShowBody, isShowTags los uso para saber si se muestra o no la info, el cuerpo y los tags de la nota al renderizar el componente.
-
   const [editNote, setEditNote] = useState(note);
   const [isModified, setIsModified] = useState(false);
   const [isEditMode, setIsEditMode] = useState(isNewNote);
-  // eslint-disable-next-line no-unused-vars
-  const [isShowInfo, setIsShowInfo] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [isShowBody, setIsShowBody] = useState(!isCollapsed);
   const [isShowTags, setIsShowTags] = useState(false);
-  const { dispatch } = useNotes();
-  // ref para cuando se está editando una nota
-  const bodyInputRef = useRef(null);
-  // ref para cuando se está creando una nota nueva
+  const { dispatch } = useNotes(); // ref para cuando se está editando una nota
+  const bodyInputRef = useRef(null); // ref para cuando se está creando una nota nueva
   const titleInputRef = useRef(null);
-
   const [isNew, setIsNew] = useState(isNewNote);
-  // pone el foco en el título de la nota cuando no tiene texto
-  // y sino en el cuerpo
+
+  // useEffects
   useEffect(() => {
     if (isNew) {
-      note.noteTitle === ""
-        ? titleInputRef.current.focus()
-        : bodyInputRef.current.focus();
+      titleInputRef.current.focus();
     }
     setIsNew(false);
-  }, [note.noteTitle, isNew]);
+  }, [isNew]);
 
   useEffect(() => {
     setIsShowBody(!isCollapsed);
   }, [isCollapsed]);
 
+  // handlers
   function handleEditableChange(event) {
     setEditNote((prev) => {
       return {
@@ -153,9 +145,143 @@ export function Note3({
     setIsModified(true);
   }
 
-  //* *** Bloques de JSX de cada note ***
+  return (
+    <NoteContext.Provider
+      value={{
+        setIsShowTags,
+        note,
+        editNote,
+        titleInputRef,
+        bodyInputRef,
+        handleTitleEditableChange,
+        handleKeyDownTitle,
+        handleExitModal,
+        handleDelete,
+        handleSaveEdit,
+        isEditMode,
+        setIsEditMode,
+        isModified,
+        setIsModified,
+        isShowBody,
+        setIsShowBody,
+      }}
+    >
+      <div
+        onClick={handleExitModal}
+        className={`${isEditMode && "new-note__background"}`}
+      >
+        <div
+          className={`note__container ${isEditMode && "modal-container"}`}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+          onMouseLeave={() => {
+            if (isModified) {
+              handleSaveEdit();
+              setIsModified(false);
+            }
+          }}
+        >
+          <NoteHeader />
 
-  const noteHeader = (
+          {isShowBody && (
+            <ContentEditable
+              innerRef={bodyInputRef}
+              html={editNote.noteHTML}
+              disabled={false}
+              data-key={note.id}
+              onChange={handleEditableChange}
+              className={`note__body note__body--edit sb1 ${
+                isEditMode && "modal-body"
+              }`}
+            />
+          )}
+
+          {isShowBody && !isEditMode && (
+            <NoteOverflowIndicator noteOverflow={noteOverflow} />
+          )}
+          {isShowTags && (
+            <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
+          )}
+
+          <NoteToolbar />
+          {children}
+        </div>
+      </div>
+    </NoteContext.Provider>
+  );
+}
+
+function NoteToolbar() {
+  const {
+    setIsShowTags,
+    note,
+    handleDelete,
+    isModified,
+    handleSaveEdit,
+    setIsModified,
+  } = useContext(NoteContext);
+
+  // prettier-ignore
+  const tooltipText = `Creada: ${note.created.substring(0,10)} ${note.created.substring(11, 16)}hs
+  Modificada: ${note.modified.substring(0, 10)} ${note.modified.substring(11,16)}hs`;
+
+  return (
+    <div className="note-toolbar">
+      <Tooltip placement="right" title={tooltipText}>
+        <InfoCircleFilled className="note-toolbar__icon" />
+      </Tooltip>
+
+      <TagFilled
+        className="note-toolbar__icon"
+        onClick={() => {
+          setIsShowTags((prev) => !prev);
+        }}
+      />
+
+      <DeleteFilled
+        className="note-toolbar__icon"
+        data-key={note.id}
+        onClick={() => handleDelete(note.id)}
+      />
+
+      {isModified && (
+        <SaveFilled
+          className="note-toolbar__icon--highlight"
+          onClick={() => {
+            if (isModified) {
+              handleSaveEdit();
+              setIsModified(false);
+            }
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+NoteOverflowIndicator.propTypes = {
+  noteOverflow: PropTypes.string.isRequired,
+};
+function NoteOverflowIndicator({ noteOverflow }) {
+  return <div className="note__overflow">{noteOverflow}</div>;
+}
+
+function NoteHeader() {
+  const {
+    titleInputRef,
+    note,
+    editNote,
+    handleTitleEditableChange,
+    handleKeyDownTitle,
+    isEditMode,
+    handleExitModal,
+    isShowBody,
+    setIsShowBody,
+    setIsEditMode,
+    bodyInputRef,
+  } = useContext(NoteContext);
+  return (
     <div className="note__header">
       <ContentEditable
         innerRef={titleInputRef}
@@ -203,163 +329,6 @@ export function Note3({
           />
         )}
       </div>
-    </div>
-  );
-
-  const noteBody = (
-    <ContentEditable
-      innerRef={bodyInputRef}
-      html={editNote.noteHTML}
-      disabled={false}
-      data-key={note.id}
-      onChange={handleEditableChange}
-      className={`note__body note__body--edit sb1 ${
-        isEditMode && "modal-body"
-      }`}
-    />
-  );
-
-  const noteOverflowIndicator = (
-    <div className="note__overflow">{!isEditMode && noteOverflow}</div>
-  );
-
-  const tooltipText = `Creada: ${note.created.substring(
-    0,
-    10
-  )} ${note.created.substring(11, 16)}hs
-  Modificada: ${note.modified.substring(0, 10)} ${note.modified.substring(
-    11,
-    16
-  )}hs`;
-
-  const noteToolbar = (
-    <div className="note-toolbar">
-      <Tooltip placement="right" title={tooltipText}>
-        <InfoCircleFilled className="note-toolbar__icon" />
-      </Tooltip>
-
-      <TagFilled
-        className="note-toolbar__icon"
-        onClick={() => {
-          setIsShowTags((prev) => !prev);
-        }}
-      />
-
-      <DeleteFilled
-        className="note-toolbar__icon"
-        data-key={note.id}
-        onClick={() => handleDelete(note.id)}
-      />
-
-      {isModified && (
-        <SaveFilled
-          className="note-toolbar__icon--highlight"
-          onClick={() => {
-            if (isModified) {
-              handleSaveEdit();
-              setIsModified(false);
-            }
-          }}
-        />
-      )}
-    </div>
-  );
-
-  const noteInputTags = (
-    <div>
-      <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
-    </div>
-  );
-
-  return (
-    <NoteContext.Provider
-      value={{
-        setIsShowTags,
-        note,
-        handleDelete,
-        isModified,
-        handleSaveEdit,
-        setIsModified,
-      }}
-    >
-      <div
-        onClick={handleExitModal}
-        className={`${isEditMode && "new-note__background"}`}
-      >
-        <div
-          className={`note__container ${isEditMode && "modal-container"}`}
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-          onMouseLeave={() => {
-            if (isModified) {
-              handleSaveEdit();
-              setIsModified(false);
-            }
-          }}
-        >
-          {noteHeader}
-          {isShowBody && noteBody}
-          {isShowBody && noteOverflowIndicator}
-          {isShowTags && noteInputTags}
-
-          <NoteToolbar />
-          {children}
-        </div>
-      </div>
-    </NoteContext.Provider>
-  );
-}
-
-function NoteToolbar() {
-  const {
-    setIsShowTags,
-    note,
-    handleDelete,
-    isModified,
-    handleSaveEdit,
-    setIsModified,
-  } = useContext(NoteContext);
-
-  const tooltipText = `Creada: ${note.created.substring(
-    0,
-    10
-  )} ${note.created.substring(11, 16)}hs
-  Modificada: ${note.modified.substring(0, 10)} ${note.modified.substring(
-    11,
-    16
-  )}hs`;
-
-  return (
-    <div className="note-toolbar">
-      <Tooltip placement="right" title={tooltipText}>
-        <InfoCircleFilled className="note-toolbar__icon" />
-      </Tooltip>
-
-      <TagFilled
-        className="note-toolbar__icon"
-        onClick={() => {
-          setIsShowTags((prev) => !prev);
-        }}
-      />
-
-      <DeleteFilled
-        className="note-toolbar__icon"
-        data-key={note.id}
-        onClick={() => handleDelete(note.id)}
-      />
-
-      {isModified && (
-        <SaveFilled
-          className="note-toolbar__icon--highlight"
-          onClick={() => {
-            if (isModified) {
-              handleSaveEdit();
-              setIsModified(false);
-            }
-          }}
-        />
-      )}
     </div>
   );
 }

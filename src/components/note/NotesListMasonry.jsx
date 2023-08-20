@@ -2,12 +2,10 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getTagsArray } from "../../utilityFunctions.jsx";
 import { useNotes } from "../../useNotes.jsx";
 import { useState, useRef, useLayoutEffect, useContext } from "react";
-import { Note } from "./Note.jsx";
 import "./NotesListMasonry.css";
 import { NotesFilterContext, NotesLayoutContext } from "../../context.jsx";
 
 import PropTypes from "prop-types";
-import { Note2 } from "./Note2.jsx";
 import { Note3 } from "./Note3.jsx";
 
 NotesListMasonry.propTypes = {
