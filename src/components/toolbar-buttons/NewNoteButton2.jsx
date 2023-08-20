@@ -8,6 +8,7 @@ import { getFormattedDateTime } from "../../utilityFunctions.jsx";
 import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
 import { Note2 } from "../note/Note2.jsx";
+import { Note3 } from "../note/Note3.jsx";
 
 export default function NewNoteTest() {
   const [newNote, setNewNote] = useState();
@@ -31,23 +32,25 @@ export default function NewNoteTest() {
       modified: getFormattedDateTime(),
     };
     setNewNote(note);
-    dispatch({
+     dispatch({
       type: "added",
       note: note,
-    });
-    dbAddNote(note);
+    });  
+    dbAddNote(note);  
     setShowNewNote(true);
   }
 
   return (
     <div className="toolbar__button-container">
       {showNewNote && newNote && (
-        <Note2
+        <Note3
           note={newNote}
           isNewNote={true}
-          setShowNewNote={setShowNewNote}
-          noteOverflow={null}
-        ></Note2>
+           setShowNewNote={setShowNewNote}
+          noteOverflow={""}
+          isCollapsed={false}
+          
+        ></Note3>
       )}
 
       {isOnline && (

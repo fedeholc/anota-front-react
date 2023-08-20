@@ -8,6 +8,7 @@ import { NotesFilterContext, NotesLayoutContext } from "../../context.jsx";
 
 import PropTypes from "prop-types";
 import { Note2 } from "./Note2.jsx";
+import { Note3 } from "./Note3.jsx";
 
 NotesListMasonry.propTypes = {
   isCollapsed: PropTypes.bool.isRequired,
@@ -82,14 +83,15 @@ export default function NotesListMasonry({ isCollapsed }) {
             {notes.filter(handleSearchFilter).map((note) => {
               return (
                 <div key={`${note.id} ${note.modified}`}>
-                  <Note
+                  <Note3
                     isCollapsed={isCollapsed}
                     note={note}
                     // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
                     noteOverflow={
-                      notesOver.some((e) => e === note.id) ? "..." : null
+                      notesOver.some((e) => e === note.id) ? "..." : ""
                     }
-                  ></Note>
+                    isNewNote={false}
+                  ></Note3>
                 </div>
               );
             })}
@@ -106,14 +108,15 @@ export default function NotesListMasonry({ isCollapsed }) {
           {notes.filter(handleSearchFilter).map((note) => {
             return (
               <div key={`${note.id} ${note.modified}`}>
-                <Note2
+                <Note3
                   isCollapsed={isCollapsed}
                   note={note}
                   // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
                   noteOverflow={
-                    notesOver.some((e) => e === note.id) ? "..." : null
+                    notesOver.some((e) => e === note.id) ? "..." : ""
                   }
-                ></Note2>
+                  isNewNote={false}
+                ></Note3>
               </div>
             );
           })}
