@@ -28,7 +28,7 @@
   transition: overflow-y .2s;
   padding-right: 0.5rem;
   margin-right: 0.7rem;
-  margin-left: 1rem;
+  margin-left: 0.7rem;
   margin-top: 0.6rem;
 }
 
@@ -46,7 +46,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-    border-bottom: 1px solid hsl(204, 64%, 71%);
 } */
 
 /*? nuevo diseño */
@@ -56,6 +55,9 @@
   justify-content: space-between;
   align-items: flex-start;
   background-color: hsla(204, 94%, 51%, 0.156);
+  border-bottom: 1px solid hsl(204, 44%, 71%);
+  /* 20% menos de saturación que el borde de la nota */
+
 }
 
 .note__overflow {
@@ -81,8 +83,8 @@
 
 .note__input-title {
   margin-top: 0.2rem;
-  margin-bottom: 0rem;
-  margin-left: 1rem;
+  margin-bottom: 0.2rem;
+  margin-left: 0.7rem;
   font-family: "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
