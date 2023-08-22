@@ -1,30 +1,22 @@
-.note__container {
-  /*   margin: 1rem;
- */
+/* .note__container {
+ 
   border-radius: 5px;
   display: block;
   background-color: hsl(229,
       100%, 99.7%);
   border: 1px solid hsl(300, 100%, 10%);
-  /*   box-shadow: hsla(229,
-      100%,
-      17%, 0.3) 0px 1px 2px 0px, hsla(229,
-      100%,
-      17%, 0.15) 1px 1px 2px 0px; */
+ 
 
-}
+} */
 
 /*? nuevo diseño */
 .note__container {
-  /*   margin: 1rem;
- */
+
   border-radius: 5px;
   display: block;
-  background-color: hsl(229,
-      100%, 99.7%);
+  background-color: hsl(229, 100%, 99.7%);
   border: 2px solid hsl(204, 64%, 71%);
-  /* outline: 2px solid hsl(300, 100%, 18%);
- */
+
   box-shadow: hsl(221, 47%, 32%) 6px 6px 0px 0px;
 
 }
@@ -49,13 +41,13 @@
   transition: overflow-y .2s
 }
 
-.note__header {
+/* .note__header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
     border-bottom: 1px solid hsl(204, 64%, 71%);
-}
+} */
 
 /*? nuevo diseño */
 .note__header {
