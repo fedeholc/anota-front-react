@@ -290,7 +290,7 @@ function NoteHeader() {
         data-key={note.id}
         onChange={handleTitleEditableChange}
         onKeyDown={handleKeyDownTitle}
-        className={`note__input-title note__body note__body--edit sb1 ${
+        className={`note__input-title    sb1 ${
           isEditMode && "modal-body"
         }`}
       />
