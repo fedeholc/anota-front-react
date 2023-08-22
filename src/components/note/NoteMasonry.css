@@ -14,6 +14,21 @@
 
 }
 
+/*? nuevo diseño */
+.note__container {
+  /*   margin: 1rem;
+ */
+  border-radius: 5px;
+  display: block;
+  background-color: hsl(229,
+      100%, 99.7%);
+  border: 2px solid hsl(204, 64%, 71%);
+  /* outline: 2px solid hsl(300, 100%, 18%);
+ */
+  box-shadow: hsl(221, 47%, 32%) 6px 6px 0px 0px;
+
+}
+
 .note__body {
   margin-bottom: 1.5rem;
   max-height: 300px;
@@ -22,6 +37,7 @@
   padding-right: 0.5rem;
   margin-right: 0.7rem;
   margin-left: 1rem;
+  margin-top: 0.6rem;
 }
 
 .note__body--edit:focus {
@@ -38,6 +54,16 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+    border-bottom: 1px solid hsl(204, 64%, 71%);
+}
+
+/*? nuevo diseño */
+.note__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: hsla(204, 94%, 51%, 0.156);
 }
 
 .note__overflow {
@@ -62,12 +88,12 @@
 
 
 .note__input-title {
-  margin-top: 0.6rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0rem;
   margin-left: 1rem;
   font-family: "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
-  background-color: inherit;
   border: 0;
   padding: 0;
   overflow: hidden;
