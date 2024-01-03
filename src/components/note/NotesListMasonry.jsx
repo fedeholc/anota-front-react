@@ -23,26 +23,17 @@ export default function NotesListMasonry({ isCollapsed }) {
   const notesLayout = useContext(NotesLayoutContext);
 
   function handleSearchFilter(note) {
-    let passedTextFilter = "";
-    let passedTagFilter = "";
+    let passedTextFilter = true;
+    let passedTagFilter = true;
 
-    // si hay filtro de etiquetas y hay etiquetas en la nota, entonces se fija si la nota tiene todas las etiquetas del filtro
     if (notesFilter.tags.length > 0) {
-      passedTagFilter = false;
-
       const noteTags = getTagsArray(note.tags);
-
-      // check if noteTags contains all of the tags in notesFilter.tags, if that ocurrs, passedTagFilter = true else passedTagFilter = false and stop checking
+      // check if noteTags contains all of the tags in notesFilter.tags
       notesFilter.tags.forEach((tag) => {
-        if (noteTags.includes(tag)) {
-          passedTagFilter = true;
-        } else {
+        if (!noteTags.includes(tag)) {
           passedTagFilter = false;
-          return;
         }
       });
-    } else {
-      passedTagFilter = true;
     }
 
     // si hay filtro de texto, se fija si el titulo o el texto de la nota contienen el texto del filtro
@@ -50,13 +41,10 @@ export default function NotesListMasonry({ isCollapsed }) {
       passedTextFilter =
         note.noteTitle.includes(notesFilter.text || "") ||
         note.noteText.includes(notesFilter.text || "");
-    } else {
-      passedTextFilter = true;
     }
 
     return passedTextFilter && passedTagFilter;
   }
-
   // crea una ref a la lista de notas, luego busca los nodos que tienen el cuerpo de cada nota y se fija si hay overflow o no. Lo devuelve cómo un array de booleanos. El index del array es el index de la nota en Notes. Luego en el render se fija si esa nota tiene overflow y si es así pone los puntitos.
   useLayoutEffect(() => {
     const { current } = ref;
