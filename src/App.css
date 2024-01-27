@@ -36,9 +36,10 @@
   z-index: 99;
   top: 0rem;
   background-color: hsl(0, 0%, 99%);
-  /*   box-shadow: 0px 0px 10px 10px whitesmoke;
- */
-  border-bottom: 2px solid rgb(0, 21, 92);
+  box-shadow: 0px 0px 3px 0px var(--celeste2);
+
+  border-top: 1px solid var(--celeste2);
+  border-bottom: 1px solid var(--celeste2);
   padding: 0.2rem;
 
 
@@ -52,6 +53,7 @@
   padding: 0.5rem;
   text-wrap: nowrap;
   margin-left: 0.5rem;
+  margin-right: 1rem;
   font-family: "Roboto Serif", serif;
   font-size: 1rem;
   font-weight: 700;
@@ -100,6 +102,8 @@
 
 .top-toolbar__new {
   margin-right: 1rem;
+  margin-left: 1rem;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -155,7 +159,7 @@
   font-size: 0.8rem;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 734px) {
 
 
   /* hace que se ajuste el ancho para que

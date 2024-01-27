@@ -16,22 +16,22 @@
   --linkVisitado: hsl(225, 100%, 35%);
 
 
-    --celeste1: rgb(0, 153, 255);
-      --celeste2: rgb(0, 115, 192);
-      --celeste3: rgb(17, 143, 216);
-      --celeste4: rgb(68, 89, 156);
-    
-      --gris: rgb(153, 153, 153);
-      --gris2: rgb(247, 247, 247);
-      --gris3: rgb(200, 200, 200);
-      --azul1: rgb(0, 2, 119);
-      --azul2: rgb(0, 17, 255);
-      --amarillo3: rgb(255, 212, 21);
-    
-      --verde: rgb(48, 87, 48);
-      --verde2: rgb(0, 129, 0);
-      --rojo: rgb(126, 0, 0);
-      --rojo2: rgb(196, 0, 0);
+  --celeste1: rgb(0, 153, 255);
+  --celeste2: rgb(0, 115, 192);
+  --celeste3: rgb(17, 143, 216);
+  --celeste4: rgb(68, 89, 156);
+
+  --gris: rgb(153, 153, 153);
+  --gris2: rgb(247, 247, 247);
+  --gris3: rgb(200, 200, 200);
+  --azul1: rgb(0, 2, 119);
+  --azul2: rgb(0, 17, 255);
+  --amarillo3: rgb(255, 212, 21);
+
+  --verde: rgb(48, 87, 48);
+  --verde2: rgb(0, 129, 0);
+  --rojo: rgb(126, 0, 0);
+  --rojo2: rgb(196, 0, 0);
 }
 
 html,
@@ -41,7 +41,7 @@ body {
   height: 100%;
   font-size: 16px;
   min-width: 300px;
-
+  background: linear-gradient(to bottom, #00004e, #3f0058, #00004e);
 }
 
 body {
@@ -72,7 +72,7 @@ header {
 
 footer {
   font-family: "Roboto mono", mono;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   padding: 0.2rem;
   margin: 1rem;
   border: 1px dashed var(--amarillo2);
@@ -80,6 +80,8 @@ footer {
   justify-content: center;
   place-self: center;
   width: 300px;
+  color: whitesmoke;
+  background-color: rgb(27, 27, 27);
 }
 
 h2 {

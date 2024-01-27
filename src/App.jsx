@@ -33,7 +33,7 @@ function App() {
                   <SearchByTag></SearchByTag>
                 </div>
                 <div className="top-toolbar__new">
-                  <Divider type="vertical" />
+                {/*   <Divider type="vertical" /> */}
                   <CollapseButton
                     isCollapsed={isCollapsed}
                     setIsCollapsed={setIsCollapsed}
