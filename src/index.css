@@ -14,6 +14,24 @@
 
   --linkNuevo: hsl(225, 80%, 45%);
   --linkVisitado: hsl(225, 100%, 35%);
+
+
+    --celeste1: rgb(0, 153, 255);
+      --celeste2: rgb(0, 115, 192);
+      --celeste3: rgb(17, 143, 216);
+      --celeste4: rgb(68, 89, 156);
+    
+      --gris: rgb(153, 153, 153);
+      --gris2: rgb(247, 247, 247);
+      --gris3: rgb(200, 200, 200);
+      --azul1: rgb(0, 2, 119);
+      --azul2: rgb(0, 17, 255);
+      --amarillo3: rgb(255, 212, 21);
+    
+      --verde: rgb(48, 87, 48);
+      --verde2: rgb(0, 129, 0);
+      --rojo: rgb(126, 0, 0);
+      --rojo2: rgb(196, 0, 0);
 }
 
 html,
