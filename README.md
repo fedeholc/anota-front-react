@@ -6,9 +6,9 @@ Yes, another one. Made to learn and practice React, Node.js/Express, and MySQL.
 
 The application has a front-end made in React, a back-end in Node.js/Express with a MySQL database, and an extension for Google Chrome.
 
-- front-end: <https://github.com/fedeholc/anota-front-react>
-- back-end: <https://github.com/fedeholc/anota-back-express>
-- extension: <https://github.com/fedeholc/anota-chrome-extension>
+- frontend: <https://github.com/fedeholc/anota-front-react>
+- backend: <https://github.com/fedeholc/anota-back-express>
+- web extension: <https://github.com/fedeholc/anota-highlighter>
 
 ## Libraries and resources
 

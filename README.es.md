@@ -7,9 +7,9 @@ Sí, otra aplicación más para tomar notas. Hecha para aprender y practicar Rea
 La aplicación tiene un front-end hecho en React, un back-end en Node.js/Express
 con una base de datos MySQL, y una extensión para Google Chrome.
 
-- front-end: <https://github.com/fedeholc/anota-front-react>
-- back-end: <https://github.com/fedeholc/anota-back-express>
-- extension: <https://github.com/fedeholc/anota-chrome-extension>
+- frontend: <https://github.com/fedeholc/anota-front-react>
+- backend: <https://github.com/fedeholc/anota-back-express>
+- web extension: <https://github.com/fedeholc/anota-highlighter>
 
 ## Librerías y recursos
 
