@@ -124,20 +124,19 @@
 .note__header__toolbar-icon {
 
   padding: 5px;
-  color: hsl(0, 0%, 30%);
+  color: hsl(212, 100%, 34%);
   border-color: gray;
   font-size: 1.2rem;
   border-radius: 50%;
-  background-color: hsl(0, 0%, 98%);
+  background-color: transparent;
   transition: opacity .3s;
 
 
 }
 
 .note__header__toolbar-icon:hover {
-  color: rgb(27, 27, 27);
-  border-color: black !important;
-  background-color: rgb(233, 232, 232);
+  color: rgb(0, 0, 61);
+  background-color: transparent;
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
