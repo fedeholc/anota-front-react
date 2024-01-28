@@ -7,7 +7,7 @@ import { useOnlineStatus } from "../../useOnlineStatus.jsx";
 import { getFormattedDateTime } from "../../utilityFunctions.jsx";
 import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
-import { Note3 } from "../note/Note3.jsx";
+import { Note } from "../note/Note.jsx";
 
 export default function NewNoteTest() {
   const [newNote, setNewNote] = useState();
@@ -42,13 +42,13 @@ export default function NewNoteTest() {
   return (
     <div className="toolbar__button-container">
       {showNewNote && newNote && (
-        <Note3
+        <Note
           note={newNote}
           isNewNote={true}
           setShowNewNote={setShowNewNote}
           noteOverflow={""}
           isCollapsed={false}
-        ></Note3>
+        ></Note>
       )}
 
       {isOnline && (

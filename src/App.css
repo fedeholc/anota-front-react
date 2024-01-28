@@ -2,7 +2,6 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  margin: 0;
 }
 
 .app_main-grid {
@@ -14,32 +13,56 @@
   position: sticky;
   z-index: 99;
   top: 0;
-  padding: 10px;
   background-color: hsl(0, 0%, 99%);
-  border-bottom: 1px solid hsl(0, 0%, 50%);
   opacity: 95%;
   font-family: "Roboto Serif", serif;
   font-size: 1.1rem;
   font-weight: 700;
+  color: rgb(0, 0, 54);
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
 
+.top-toolbar-wrapper {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 99;
+  top: 0rem;
+  background-color: hsl(0, 0%, 99%);
+  box-shadow: 0px 0px 3px 0px var(--celeste2);
+  border-top: 1px solid var(--celeste2);
+  border-bottom: 1px solid var(--celeste2);
+  padding: 0.2rem;
+}
+
+.top-nombre {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 0.5rem;
+  text-wrap: nowrap;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+  font-family: "Roboto Serif", serif;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .top-toolbar {
-  position: sticky;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-
+  width: 100%;
   gap: 1rem;
   z-index: 99;
-  top: 0;
-  padding: 10px;
+  padding: 0.5rem;
   background-color: hsl(0, 0%, 99%);
-  border-bottom: 1px solid hsl(0, 0%, 50%);
-  box-shadow: gray 0px 0px 3px 0px;
-
 
 }
 
@@ -50,11 +73,11 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-
 }
 
 .top-toolbar__new {
   margin-right: 1rem;
+  margin-left: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -64,7 +87,7 @@
 
 
 .toolbar__icon {
-  background-color: gray;
+  background-color: #101052;
   color: white;
   border-color: gray;
   font-size: 1.2rem;
@@ -77,7 +100,7 @@
 }
 
 .toolbar__icon:hover {
-  background-color: black;
+  outline: 2px solid hsl(204, 100%, 50%);
   cursor: pointer;
 }
 
@@ -110,9 +133,7 @@
   font-size: 0.8rem;
 }
 
-@media only screen and (max-width: 550px) {
-
-
+@media only screen and (max-width: 734px) {
   /* hace que se ajuste el ancho para que
   la toolbar quede centrada */
   .top-toolbar__search {
