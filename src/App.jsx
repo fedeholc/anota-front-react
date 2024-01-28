@@ -4,7 +4,6 @@ import NotesListMasonry from "./components/note/NotesListMasonry";
 import Footer from "./components/footer/Footer";
 import SearchByText from "./components/search/SearchByText";
 import SearchByTag from "./components/search/SearchByTag";
-import { Divider } from "antd";
 import LayoutButton from "./components/toolbar-buttons/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/toolbar-buttons/CollapseButton";
@@ -33,7 +32,6 @@ function App() {
                   <SearchByTag></SearchByTag>
                 </div>
                 <div className="top-toolbar__new">
-                {/*   <Divider type="vertical" /> */}
                   <CollapseButton
                     isCollapsed={isCollapsed}
                     setIsCollapsed={setIsCollapsed}
