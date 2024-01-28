@@ -113,7 +113,7 @@
 
 
 .toolbar__icon {
-  background-color: gray;
+  background-color: #101052;
   color: white;
   border-color: gray;
   font-size: 1.2rem;
@@ -126,7 +126,9 @@
 }
 
 .toolbar__icon:hover {
-  background-color: black;
+  /*   background-color: black;
+ */
+  outline: 2px solid hsl(204, 100%, 50%);
   cursor: pointer;
 }
 
