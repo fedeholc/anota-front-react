@@ -105,6 +105,7 @@ export function Note({
 
     dispatch({ type: "updated", note: note });
     dbUpdateNote(note);
+    console.log("salgo por handle saveedit");
   }
 
   function handleKeyDownTitle(event) {
@@ -134,6 +135,7 @@ export function Note({
     setIsModified(false);
     setIsEditMode(false);
     handleSaveEdit();
+    console.log("salgo por exit modal");
   }
 
   function handleTags(tagsArray) {
@@ -177,8 +179,10 @@ export function Note({
           }}
           onMouseLeave={() => {
             if (isModified) {
+              console.log("mouse leave 1");
               handleSaveEdit();
               setIsModified(false);
+              console.log("mouse leave 2", isEditMode);
             }
           }}
         >
@@ -294,20 +298,6 @@ function NoteHeader() {
       />
 
       <div className="note__header__toolbar">
-        {isEditMode && (
-          <ShrinkOutlined
-            className="note__header__toolbar-icon"
-            onClick={handleExitModal}
-          />
-        )}
-        {!isShowBody && (
-          <RightOutlined
-            className="note__header__toolbar-icon"
-            onClick={() => {
-              setIsShowBody((prev) => !prev);
-            }}
-          />
-        )}
         {isShowBody && (
           <DownOutlined
             className="note__header__toolbar-icon"
@@ -323,6 +313,20 @@ function NoteHeader() {
               setIsShowBody(true);
               setIsEditMode(true);
               bodyInputRef.current.focus();
+            }}
+          />
+        )}
+        {isEditMode && (
+          <ShrinkOutlined
+            className="note__header__toolbar-icon"
+            onClick={handleExitModal}
+          />
+        )}
+        {!isShowBody && (
+          <RightOutlined
+            className="note__header__toolbar-icon"
+            onClick={() => {
+              setIsShowBody((prev) => !prev);
             }}
           />
         )}

@@ -152,7 +152,7 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-bottom: 0px;
-  overflow-Y: scroll;
+  overflow-y: scroll;
   min-height: 100px;
   max-height: 50vh;
 }
@@ -161,10 +161,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-Index: 50;
+  z-index: 50;
   width: 100%;
   height: 100%;
-  background-Color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal-container {
