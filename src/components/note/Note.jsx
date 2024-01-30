@@ -103,8 +103,8 @@ export function Note({
       modified: getFormattedDateTime(),
     };
 
-    //dispatch({ type: "updated", note: note });
-    //no hace falta hacer el dispatch porque ya se hizo en el handleEditableChange el update. Y por otra parte, el dispatch dispara el rerender con lo cual se cerraba la nota estando en modo edición.
+    if (!isEditMode) dispatch({ type: "updated", note: note });
+    //si está en edit mode el dispatch lo tiene que hacer en el hadleExitModal para evitar un rerender que cierre el modal.
 
     dbUpdateNote(note);
   }
@@ -132,6 +132,25 @@ export function Note({
   }
 
   function handleExitModal() {
+    const note = {
+      id: editNote.id,
+      noteText: editNote.noteText,
+      noteHTML: editNote.noteHTML,
+      noteTitle: editNote.noteTitle,
+      tags: editNote.tags,
+      category: editNote.category,
+      deleted: editNote.deleted,
+      archived: editNote.archived,
+      reminder: editNote.reminder,
+      rating: editNote.rating,
+      //FIXME: ojo, esto está porque cuando viene la fecha en formato JSON lo hace así 2023-05-14T14:32:50.000Z en lugar de como la pide para ser guardada. Ver si mejor cambiarla cuando se cargan los datos para que ya quede.
+      created: dateTimeJStoDB(editNote.created),
+      modified: getFormattedDateTime(),
+    };
+
+    if (!isEditMode) dispatch({ type: "updated", note: note });
+    dispatch({ type: "updated", note: note });
+
     setShowNewNote && setShowNewNote(false); //para que no de error si no se pasó el parámetro
     setIsModified(false);
     setIsEditMode(false);
