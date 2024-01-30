@@ -69,14 +69,14 @@ function notesReducer(notes, action) {
     }
 
     case "updated": {
-      let a = notes.map((note) => {
+      let updatedNotes = notes.map((note) => {
         if (note.id == action.note.id) {
           return action.note;
         } else {
           return note;
         }
       });
-      return [...a];
+      return [...updatedNotes];
     }
     case "deleted": {
       return notes.filter((note) => note.id !== action.deleteId);

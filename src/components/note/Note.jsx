@@ -103,9 +103,10 @@ export function Note({
       modified: getFormattedDateTime(),
     };
 
-    dispatch({ type: "updated", note: note });
+    //dispatch({ type: "updated", note: note });
+    //no hace falta hacer el dispatch porque ya se hizo en el handleEditableChange el update. Y por otra parte, el dispatch dispara el rerender con lo cual se cerraba la nota estando en modo edición.
+
     dbUpdateNote(note);
-    console.log("salgo por handle saveedit");
   }
 
   function handleKeyDownTitle(event) {
@@ -135,7 +136,6 @@ export function Note({
     setIsModified(false);
     setIsEditMode(false);
     handleSaveEdit();
-    console.log("salgo por exit modal");
   }
 
   function handleTags(tagsArray) {
@@ -179,10 +179,8 @@ export function Note({
           }}
           onMouseLeave={() => {
             if (isModified) {
-              console.log("mouse leave 1");
               handleSaveEdit();
               setIsModified(false);
-              console.log("mouse leave 2", isEditMode);
             }
           }}
         >
@@ -306,6 +304,14 @@ function NoteHeader() {
             }}
           />
         )}
+        {!isShowBody && (
+          <RightOutlined
+            className="note__header__toolbar-icon"
+            onClick={() => {
+              setIsShowBody((prev) => !prev);
+            }}
+          />
+        )}
         {!isEditMode && (
           <ArrowsAltOutlined
             className="note__header__toolbar-icon"
@@ -320,14 +326,6 @@ function NoteHeader() {
           <ShrinkOutlined
             className="note__header__toolbar-icon"
             onClick={handleExitModal}
-          />
-        )}
-        {!isShowBody && (
-          <RightOutlined
-            className="note__header__toolbar-icon"
-            onClick={() => {
-              setIsShowBody((prev) => !prev);
-            }}
           />
         )}
       </div>
