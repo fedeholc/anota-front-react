@@ -20,25 +20,22 @@ const supabase = createClient(
 );
 
 function App() {
+  //supabase auth. Ver que esto está duplicado en NotesProvider.jsx, tal vez se pueda quitar de acá y dejarlo solo en NotesProvider.jsx, y obtener el session de ahí.
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-
     return () => subscription.unsubscribe();
   }, []);
-
   async function handleSignOut() {
     const { error } = await supabase.auth.signOut();
     if (error) console.log("Error al hacer SignOut");
   }
-
   const [session, setSession] = useState(null);
 
   const [isCollapsed, setIsCollapsed] = useState(

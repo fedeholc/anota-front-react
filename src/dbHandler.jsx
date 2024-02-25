@@ -2,6 +2,8 @@
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+//TODO: hay que hacer el get con el usuario
+
 export function dbGetNotes() {
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta

@@ -104,6 +104,7 @@ export function Note({
       //FIXME: ojo, esto está porque cuando viene la fecha en formato JSON lo hace así 2023-05-14T14:32:50.000Z en lugar de como la pide para ser guardada. Ver si mejor cambiarla cuando se cargan los datos para que ya quede.
       created: dateTimeJStoDB(editNote.created),
       modified: getFormattedDateTime(),
+      usuario: loginInfo.user.email,
     };
 
     if (!isEditMode) dispatch({ type: "updated", note: note });
@@ -228,6 +229,8 @@ export function Note({
             <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
           )}
           <NoteToolbar />
+          usu:{note.usuario}
+          {editNote.usuario}
           {children}
         </div>
       </div>

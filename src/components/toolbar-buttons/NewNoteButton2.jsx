@@ -29,6 +29,7 @@ export default function NewNoteTest() {
       rating: 0,
       created: getFormattedDateTime(),
       modified: getFormattedDateTime(),
+      usuario: "falta obtener",
     };
     setNewNote(note);
     dispatch({
