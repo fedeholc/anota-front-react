@@ -9,7 +9,16 @@ import {
   SetNotesFilterContext,
   NotesLayoutContext,
   SetNotesLayoutContext,
+  LoginContext,
+  SetLoginContext,
 } from "./context";
+
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://xbnjcziobgswkczsvssv.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhibmpjemlvYmdzd2tjenN2c3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTMyNDc1MzAsImV4cCI6MjAwODgyMzUzMH0.FEYcuWPO4B4kDmOMbmXqy_K6TsW8xoRAF9CQCo0SRUU"
+);
 
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
@@ -40,13 +49,33 @@ export function NotesProvider({ children }) {
     };
   }, []);
 
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
       <NotesFilterContext.Provider value={notesFilter}>
         <SetNotesFilterContext.Provider value={setNotesFilter}>
           <NotesLayoutContext.Provider value={notesLayout}>
             <SetNotesLayoutContext.Provider value={setNotesLayout}>
-              {children}
+              <LoginContext.Provider value={session}>
+                <SetLoginContext.Provider value={setSession}>
+                  {children}
+                </SetLoginContext.Provider>
+              </LoginContext.Provider>
             </SetNotesLayoutContext.Provider>
           </NotesLayoutContext.Provider>
         </SetNotesFilterContext.Provider>

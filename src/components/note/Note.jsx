@@ -18,6 +18,7 @@ import { dbUpdateNote, dbDeleteNote } from "../../dbHandler";
 import "./Note.css";
 import NoteTags from "./NoteTags";
 import { createContext, useContext } from "react";
+import { LoginContext } from "../../context";
 
 const NoteContext = createContext();
 
@@ -50,6 +51,8 @@ export function Note({
   const bodyInputRef = useRef(null); // ref para cuando se está creando una nota nueva
   const titleInputRef = useRef(null);
   const [isNew, setIsNew] = useState(isNewNote);
+
+  const loginInfo = useContext(LoginContext);
 
   // useEffects
   useEffect(() => {
@@ -203,8 +206,9 @@ export function Note({
             }
           }}
         >
+          {" "}
+          holi {loginInfo && loginInfo.user.email}
           <NoteHeader />
-
           {isShowBody && (
             <ContentEditable
               innerRef={bodyInputRef}
@@ -217,14 +221,12 @@ export function Note({
               }`}
             />
           )}
-
           {isShowBody && !isEditMode && (
             <NoteOverflowIndicator noteOverflow={noteOverflow} />
           )}
           {isShowTags && (
             <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
           )}
-
           <NoteToolbar />
           {children}
         </div>

@@ -8,3 +8,6 @@ export const SetNotesFilterContext = createContext(null);
 
 export const NotesLayoutContext = createContext(null);
 export const SetNotesLayoutContext = createContext(null);
+
+export const LoginContext = createContext(null);
+export const SetLoginContext = createContext(null);
