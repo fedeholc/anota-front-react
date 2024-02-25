@@ -13,9 +13,7 @@ import {
   LoginContext,
   SetLoginContext,
   supabaseClientContext,
-} from "./context"; 
-
- 
+} from "./context";
 
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
@@ -32,19 +30,6 @@ export function NotesProvider({ children }) {
   // el ignore es para ignorar posibles respuestas pendientes
   // que lleguen después
   // como está explicado acá (último ejemplo de data fetching) https://react.dev/learn/you-might-not-need-an-effect
-  useEffect(() => {
-    async function getData(ignore) {
-      let data = await dbGetNotes();
-      if (!ignore) {
-        dispatch({ type: "get", notes: data });
-      }
-    }
-    let ignore = false;
-    getData(ignore);
-    return () => {
-      ignore = true;
-    };
-  }, []);
 
   const [session, setSession] = useState(null);
 
@@ -61,6 +46,23 @@ export function NotesProvider({ children }) {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+
+    if (!session) return;
+
+    async function getData(ignore) {
+      let data = await dbGetNotes(session.user.email);
+      if (!ignore) {
+        dispatch({ type: "get", notes: data });
+      }
+    }
+    let ignore = false;
+    getData(ignore);
+    return () => {
+      ignore = true;
+    };
+  }, [session]);
 
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>

@@ -4,11 +4,11 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 //TODO: hay que hacer el get con el usuario
 
-export function dbGetNotes() {
+export function dbGetNotes(usuario) {
   //FIXME: ojo que los datos vienen ordenados por PK (id)
   // habría que reordenar o modificar la consulta
   //FIXME: ojo, los boolean los convierte a 0 y 1, typeof number
-  let data = fetch(API_URL)
+  let data = fetch(`${API_URL}/get/${usuario}`)
     .then((res) => res.json())
     .catch((error) => {
       console.error(error);

@@ -34,6 +34,21 @@ function App() {
     localStorage.setItem("isCollapsed", isCollapsed);
   }, [isCollapsed]);
 
+  const [session, setSession] = useState(null);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    console.log(supabase);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <>
       <NotesProvider>
@@ -58,10 +73,12 @@ function App() {
                 </div>
               </div>
             </div>
-            <LoginAuth></LoginAuth>
-            <div>
-              <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
-            </div>
+            {!session && <LoginAuth></LoginAuth>}
+            {session && (
+              <div>
+                <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
+              </div>
+            )}
           </div>
           <Footer></Footer>
         </div>
