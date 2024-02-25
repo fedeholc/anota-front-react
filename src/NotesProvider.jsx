@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
+import { supabase } from "./supabaseClient";
 
 import {
   NotesContext,
@@ -11,14 +12,10 @@ import {
   SetNotesLayoutContext,
   LoginContext,
   SetLoginContext,
-} from "./context";
+  supabaseClientContext,
+} from "./context"; 
 
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  "https://xbnjcziobgswkczsvssv.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhibmpjemlvYmdzd2tjenN2c3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTMyNDc1MzAsImV4cCI6MjAwODgyMzUzMH0.FEYcuWPO4B4kDmOMbmXqy_K6TsW8xoRAF9CQCo0SRUU"
-);
+ 
 
 export function NotesProvider({ children }) {
   const [notes, dispatch] = useReducer(notesReducer, null);
@@ -55,7 +52,7 @@ export function NotesProvider({ children }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-
+    console.log(supabase);
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -73,7 +70,9 @@ export function NotesProvider({ children }) {
             <SetNotesLayoutContext.Provider value={setNotesLayout}>
               <LoginContext.Provider value={session}>
                 <SetLoginContext.Provider value={setSession}>
-                  {children}
+                  <supabaseClientContext.Provider value={supabase}>
+                    {children}
+                  </supabaseClientContext.Provider>
                 </SetLoginContext.Provider>
               </LoginContext.Provider>
             </SetNotesLayoutContext.Provider>

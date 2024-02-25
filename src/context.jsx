@@ -11,3 +11,4 @@ export const SetNotesLayoutContext = createContext(null);
 
 export const LoginContext = createContext(null);
 export const SetLoginContext = createContext(null);
+export const supabaseClientContext = createContext(null);
