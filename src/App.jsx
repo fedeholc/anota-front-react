@@ -10,7 +10,6 @@ import CollapseButton from "./components/toolbar-buttons/CollapseButton";
 import { useEffect } from "react";
 import NewNoteTest from "./components/toolbar-buttons/NewNoteButton2";
 
-import { supabase } from "./supabaseClient";
 import { Login } from "./components/login/login";
 import { LoginAuth } from "./components/login/loginAuth";
 
@@ -22,21 +21,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("isCollapsed", isCollapsed);
   }, [isCollapsed]);
-
-  const [session, setSession] = useState(null);
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-    console.log(supabase);
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   return (
     <>
@@ -62,12 +46,10 @@ function App() {
                 </div>
               </div>
             </div>
-            {!session && <LoginAuth></LoginAuth>}
-            {session && (
-              <div>
-                <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
-              </div>
-            )}
+
+            <LoginAuth></LoginAuth>
+
+            <NotesListMasonry isCollapsed={isCollapsed}></NotesListMasonry>
           </div>
           <Footer></Footer>
         </div>

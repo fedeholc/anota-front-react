@@ -12,7 +12,6 @@ import {
   SetNotesLayoutContext,
   LoginContext,
   SetLoginContext,
-  supabaseClientContext,
 } from "./context";
 
 export function NotesProvider({ children }) {
@@ -48,7 +47,6 @@ export function NotesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-
     if (!session) return;
 
     async function getData(ignore) {
@@ -72,9 +70,7 @@ export function NotesProvider({ children }) {
             <SetNotesLayoutContext.Provider value={setNotesLayout}>
               <LoginContext.Provider value={session}>
                 <SetLoginContext.Provider value={setSession}>
-                  <supabaseClientContext.Provider value={supabase}>
-                    {children}
-                  </supabaseClientContext.Provider>
+                  {children}
                 </SetLoginContext.Provider>
               </LoginContext.Provider>
             </SetNotesLayoutContext.Provider>

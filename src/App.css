@@ -133,7 +133,9 @@
   font-size: 0.8rem;
 }
 
-
+button {
+  cursor: pointer;
+}
 
 
 @media only screen and (max-width: 734px) {
