@@ -8,7 +8,7 @@ import { NotesFilterContext, NotesLayoutContext } from "../../context.jsx";
 import PropTypes from "prop-types";
 import { Note } from "./Note.jsx";
 
-import { LoginContext, SetLoginContext } from "../../context";
+import { LoginContext } from "../../context";
 
 NotesListMasonry.propTypes = {
   isCollapsed: PropTypes.bool.isRequired,
