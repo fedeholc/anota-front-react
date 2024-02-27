@@ -207,8 +207,7 @@ export function Note({
             }
           }}
         >
-          {" "}
-          holi {loginInfo && loginInfo.user.email}
+          {/* {loginInfo && loginInfo.user.email} */}
           <NoteHeader />
           {isShowBody && (
             <ContentEditable
@@ -229,8 +228,6 @@ export function Note({
             <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
           )}
           <NoteToolbar />
-          usu:{note.usuario}
-          {editNote.usuario}
           {children}
         </div>
       </div>
