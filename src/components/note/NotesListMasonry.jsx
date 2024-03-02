@@ -25,7 +25,6 @@ export default function NotesListMasonry({ isCollapsed }) {
   const notesLayout = useContext(NotesLayoutContext);
   const loginInfo = useContext(LoginContext);
 
-  console.log("notes:", notes);
   function handleSearchFilter(note) {
     let passedTextFilter = true;
     let passedTagFilter = true;
@@ -45,12 +44,6 @@ export default function NotesListMasonry({ isCollapsed }) {
       passedTextFilter =
         note.noteTitle.includes(notesFilter.text || "") ||
         note.noteText.includes(notesFilter.text || "");
-      console.log(
-        notesFilter.text,
-        passedTextFilter,
-        note.noteTitle,
-        note.noteText
-      );
     }
 
     return passedTextFilter && passedTagFilter;

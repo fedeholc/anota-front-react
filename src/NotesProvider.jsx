@@ -36,7 +36,6 @@ export function NotesProvider({ children }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-    console.log(supabase);
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
