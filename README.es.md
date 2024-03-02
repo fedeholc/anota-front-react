@@ -1,4 +1,4 @@
-# ¡ANOTÁ! ¿Another note taking app? v0.2.0
+# ¡ANOTÁ! ¿Another note taking app? & Highlighter - v0.2.0
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/fedeholc/anota-front-react/blob/main/README.md)
 
@@ -7,6 +7,10 @@ Pero con algunas características particulares. Y lo mejor: una extensión para 
 
 La aplicación tiene un frontend hecho en React, un back-end en Next.js
 con una base de datos Sqlite en Turso, y una extensión para Google Chrome.
+
+**Live demo**: <https://anota.vercel.app/>
+
+**Repositorios**:
 
 - frontend: <https://github.com/fedeholc/anota-front-react>
 - backend: <https://github.com/fedeholc/anota-back-next>
