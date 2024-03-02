@@ -11,7 +11,7 @@ But with some particular special features. And the best: a browser extension tha
 
 ## Previous versions
 
-Initially the app had a back-end in Node.js/Express with a MySQL database hosted in Koyeb. The code for that version can be accessed at the following link: <https://github.com/fedeholc/anota-back-next>
+Initially the app had a back-end in Node.js/Express with a MySQL database hosted in Koyeb. The code for that version can be accessed at the following link: <https://github.com/fedeholc/anota-back-express>
 
 ## Libraries and resources
 

@@ -14,7 +14,7 @@ con una base de datos Sqlite en Turso, y una extensión para Google Chrome.
 
 ## Versiones previas
 
-Inicialmente la app tenía un back-end en Node.js/Express con una base de datos MySQL alojada en Koyeb. Se puede acceder al código de dicha versión en el siguiente enlace: <https://github.com/fedeholc/anota-back-next>
+Inicialmente la app tenía un back-end en Node.js/Express con una base de datos MySQL alojada en Koyeb. Se puede acceder al código de dicha versión en el siguiente enlace: <https://github.com/fedeholc/anota-back-express>
 
 ## Librerías y recursos
 
