@@ -8,12 +8,16 @@ import { getFormattedDateTime } from "../../utilityFunctions.jsx";
 import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
 import { Note } from "../note/Note.jsx";
+import { LoginContext } from "../../context.jsx";
+import { useContext } from "react";
 
 export default function NewNoteTest() {
   const [newNote, setNewNote] = useState();
   const [showNewNote, setShowNewNote] = useState(false);
   const { dispatch } = useNotes();
   const isOnline = useOnlineStatus();
+
+  const loginInfo = useContext(LoginContext);
 
   function handleNewNote() {
     let note = {
@@ -29,7 +33,7 @@ export default function NewNoteTest() {
       rating: 0,
       created: getFormattedDateTime(),
       modified: getFormattedDateTime(),
-      usuario: "falta obtener",
+      usuario: loginInfo.user.email,
     };
     setNewNote(note);
     dispatch({
