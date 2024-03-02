@@ -8,7 +8,7 @@ import LayoutButton from "./components/toolbar-buttons/LayoutButton";
 import { useState } from "react";
 import CollapseButton from "./components/toolbar-buttons/CollapseButton";
 import { useEffect } from "react";
-import NewNoteTest from "./components/toolbar-buttons/NewNoteButton2";
+import NewNote from "./components/toolbar-buttons/NewNoteButton";
 
 import { Login } from "./components/login/login";
 import { LoginAuth } from "./components/login/loginAuth";
@@ -42,7 +42,7 @@ function App() {
                     setIsCollapsed={setIsCollapsed}
                   ></CollapseButton>
                   <LayoutButton></LayoutButton>
-                  <NewNoteTest></NewNoteTest>
+                  <NewNote></NewNote>
                 </div>
               </div>
             </div>
