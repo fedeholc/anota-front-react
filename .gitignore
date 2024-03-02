@@ -27,3 +27,8 @@ dist-ssr
 
 anota-front-react.code-workspace
 anotes-front-react.code-workspace
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
