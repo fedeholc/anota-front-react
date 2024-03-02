@@ -2,20 +2,23 @@
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export function dbGetNotes() {
-  //FIXME: ojo que los datos vienen ordenados por PK (id)
-  // habría que reordenar o modificar la consulta
-  //FIXME: ojo, los boolean los convierte a 0 y 1, typeof number
-  let data = fetch(API_URL)
-    .then((res) => res.json())
-    .catch((error) => {
-      console.error(error);
-    });
-  return data;
+export async function dbGetNotes(usuario) {
+  try {
+    let response = await fetch(`${API_URL}/${usuario}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    let data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(
+      "There was a problem with the fetch operation: " + error.message
+    );
+  }
 }
 
 export function dbAddNote(note) {
-  fetch(API_URL, {
+  fetch(`${API_URL}/${note.usuario}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -30,8 +33,8 @@ export function dbAddNote(note) {
     });
 }
 
-export function dbDeleteNote(noteId) {
-  fetch(`${API_URL}/del/${noteId}`, {
+export function dbDeleteNote(id) {
+  fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   })
     .then((res) => {
@@ -50,11 +53,12 @@ export function dbUpdateNote(note) {
 
   // TODO: separar de acá la parte de bd? poner async?
 
-  fetch(API_URL, {
+  fetch(`${API_URL}/${note.usuario}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
+
     body: JSON.stringify(note),
   })
     .then((res) => {

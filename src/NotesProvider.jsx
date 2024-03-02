@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
+import { supabase } from "./supabaseClient";
 
 import {
   NotesContext,
@@ -9,6 +10,8 @@ import {
   SetNotesFilterContext,
   NotesLayoutContext,
   SetNotesLayoutContext,
+  LoginContext,
+  SetLoginContext,
 } from "./context";
 
 export function NotesProvider({ children }) {
@@ -26,9 +29,27 @@ export function NotesProvider({ children }) {
   // el ignore es para ignorar posibles respuestas pendientes
   // que lleguen después
   // como está explicado acá (último ejemplo de data fetching) https://react.dev/learn/you-might-not-need-an-effect
+
+  const [session, setSession] = useState(null);
+
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!session) return;
+
     async function getData(ignore) {
-      let data = await dbGetNotes();
+      let data = await dbGetNotes(session.user.email);
       if (!ignore) {
         dispatch({ type: "get", notes: data });
       }
@@ -38,7 +59,7 @@ export function NotesProvider({ children }) {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [session]);
 
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
@@ -46,7 +67,11 @@ export function NotesProvider({ children }) {
         <SetNotesFilterContext.Provider value={setNotesFilter}>
           <NotesLayoutContext.Provider value={notesLayout}>
             <SetNotesLayoutContext.Provider value={setNotesLayout}>
-              {children}
+              <LoginContext.Provider value={session}>
+                <SetLoginContext.Provider value={setSession}>
+                  {children}
+                </SetLoginContext.Provider>
+              </LoginContext.Provider>
             </SetNotesLayoutContext.Provider>
           </NotesLayoutContext.Provider>
         </SetNotesFilterContext.Provider>

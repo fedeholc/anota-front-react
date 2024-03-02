@@ -1,35 +1,26 @@
 import { useNotes } from "../../useNotes.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Note } from "../note/Note.jsx";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
-import { useOnlineStatus } from "../../useOnlineStatus";
-
+import { useOnlineStatus } from "../../useOnlineStatus.jsx";
+import { getFormattedDateTime } from "../../utilityFunctions.jsx";
+import { dbAddNote } from "../../dbHandler.jsx";
 import "../../App.css";
+import { Note } from "../note/Note.jsx";
+import { LoginContext } from "../../context.jsx";
+import { useContext } from "react";
 
-export default function NewNoteButton() {
+export default function NewNote() {
+  const [newNote, setNewNote] = useState();
   const [showNewNote, setShowNewNote] = useState(false);
-  const [newNote, setNewNote] = useState({
-    id: uuidv4(),
-    noteText: "",
-    noteHTML: "",
-    noteTitle: "",
-    tags: "",
-    category: "",
-    deleted: false,
-    archived: false,
-    reminder: "",
-    rating: 0,
-    created: "",
-    modified: "",
-  });
-
-  const { notes } = useNotes();
+  const { dispatch } = useNotes();
   const isOnline = useOnlineStatus();
 
-  useEffect(() => {
-    setNewNote({
+  const loginInfo = useContext(LoginContext);
+
+  function handleNewNote() {
+    let note = {
       id: uuidv4(),
       noteText: "",
       noteHTML: "",
@@ -40,30 +31,34 @@ export default function NewNoteButton() {
       archived: false,
       reminder: "",
       rating: 0,
-      created: "",
-      modified: "",
+      created: getFormattedDateTime(),
+      modified: getFormattedDateTime(),
+      usuario: loginInfo.user.email,
+    };
+    setNewNote(note);
+    dispatch({
+      type: "added",
+      note: note,
     });
-  }, [notes]);
+    dbAddNote(note);
+    setShowNewNote(true);
+  }
 
   return (
     <div className="toolbar__button-container">
-      {showNewNote && (
+      {showNewNote && newNote && (
         <Note
           note={newNote}
           isNewNote={true}
           setShowNewNote={setShowNewNote}
-          noteOverflow={null}
+          noteOverflow={""}
+          isCollapsed={false}
         ></Note>
       )}
 
       {isOnline && (
         <Tooltip placement="topLeft" title="Nueva nota">
-          <PlusOutlined
-            onClick={() => {
-              setShowNewNote(true);
-            }}
-            className="toolbar__icon"
-          />
+          <PlusOutlined onClick={handleNewNote} className="toolbar__icon" />
         </Tooltip>
       )}
       {!isOnline && (

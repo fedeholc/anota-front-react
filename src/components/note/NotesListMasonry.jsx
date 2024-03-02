@@ -8,6 +8,8 @@ import { NotesFilterContext, NotesLayoutContext } from "../../context.jsx";
 import PropTypes from "prop-types";
 import { Note } from "./Note.jsx";
 
+import { LoginContext } from "../../context";
+
 NotesListMasonry.propTypes = {
   isCollapsed: PropTypes.bool.isRequired,
 };
@@ -21,6 +23,7 @@ export default function NotesListMasonry({ isCollapsed }) {
 
   const notesFilter = useContext(NotesFilterContext);
   const notesLayout = useContext(NotesLayoutContext);
+  const loginInfo = useContext(LoginContext);
 
   function handleSearchFilter(note) {
     let passedTextFilter = true;
@@ -41,12 +44,6 @@ export default function NotesListMasonry({ isCollapsed }) {
       passedTextFilter =
         note.noteTitle.includes(notesFilter.text || "") ||
         note.noteText.includes(notesFilter.text || "");
-      console.log(
-        notesFilter.text,
-        passedTextFilter,
-        note.noteTitle,
-        note.noteText
-      );
     }
 
     return passedTextFilter && passedTagFilter;
@@ -67,7 +64,7 @@ export default function NotesListMasonry({ isCollapsed }) {
 
   return (
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
-      {notes && notesLayout === 0 && (
+      {loginInfo && notes && notesLayout === 0 && (
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
         >
@@ -91,7 +88,7 @@ export default function NotesListMasonry({ isCollapsed }) {
         </ResponsiveMasonry>
       )}
 
-      {notes && notesLayout === 1 && (
+      {loginInfo && notes && notesLayout === 1 && (
         <Masonry
           gutter="1rem"
           columnsCount={1}
@@ -114,7 +111,7 @@ export default function NotesListMasonry({ isCollapsed }) {
           })}
         </Masonry>
       )}
-      {!notes && <p> Cargando...</p>}
+      {loginInfo && !notes && <p> Cargando...</p>}
     </div>
   );
 }

@@ -18,6 +18,7 @@ import { dbUpdateNote, dbDeleteNote } from "../../dbHandler";
 import "./Note.css";
 import NoteTags from "./NoteTags";
 import { createContext, useContext } from "react";
+import { LoginContext } from "../../context";
 
 const NoteContext = createContext();
 
@@ -50,6 +51,8 @@ export function Note({
   const bodyInputRef = useRef(null); // ref para cuando se está creando una nota nueva
   const titleInputRef = useRef(null);
   const [isNew, setIsNew] = useState(isNewNote);
+
+  const loginInfo = useContext(LoginContext);
 
   // useEffects
   useEffect(() => {
@@ -101,6 +104,7 @@ export function Note({
       //FIXME: ojo, esto está porque cuando viene la fecha en formato JSON lo hace así 2023-05-14T14:32:50.000Z en lugar de como la pide para ser guardada. Ver si mejor cambiarla cuando se cargan los datos para que ya quede.
       created: dateTimeJStoDB(editNote.created),
       modified: getFormattedDateTime(),
+      usuario: loginInfo.user.email,
     };
 
     if (!isEditMode) dispatch({ type: "updated", note: note });
@@ -203,8 +207,8 @@ export function Note({
             }
           }}
         >
+          {/* {loginInfo && loginInfo.user.email} */}
           <NoteHeader />
-
           {isShowBody && (
             <ContentEditable
               innerRef={bodyInputRef}
@@ -217,14 +221,12 @@ export function Note({
               }`}
             />
           )}
-
           {isShowBody && !isEditMode && (
             <NoteOverflowIndicator noteOverflow={noteOverflow} />
           )}
           {isShowTags && (
             <NoteTags noteTags={editNote.tags} handleTags={handleTags} />
           )}
-
           <NoteToolbar />
           {children}
         </div>
