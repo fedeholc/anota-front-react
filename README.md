@@ -9,6 +9,9 @@ But with some particular special features. And the best: a browser extension tha
 
 The application has a front-end made in React, a back-end in Next.js with a Sqlite database in Turso, and an extension (Highlighter) for Google Chrome.
 
+**Highlighter extension**:
+Read [here](https://github.com/fedeholc/anota-highlighter/blob/main/README.md) how to install and use Highlighter.
+
 **Repositories**:
 
 - frontend: <https://github.com/fedeholc/anota-front-react>
