@@ -5,9 +5,9 @@
 Así es, otra aplicación más para tomar notas. =)
 Pero con algunas características particulares. Y lo mejor: una extensión para el navegador que permite resaltar y guardar textos y enlaces desde cualquier web.
 
-La aplicación tiene un frontend hecho en React, un back-end en Next.js con una base de datos Sqlite en Turso, y una extensión para Google Chrome.
-
 **Live demo**: <https://anota-demo.vercel.app/>
+
+La aplicación tiene un frontend hecho en React, un back-end en Next.js con una base de datos Sqlite en Turso, y una extensión para Google Chrome.
 
 **Repositorios**:
 
