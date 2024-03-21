@@ -5,7 +5,7 @@
 That's right, yet another note-taking application =)
 But with some particular special features. And the best: a browser extension that allows you to highlight and save texts and links from anyweb.
 
-**Live demo**: <https://anota.vercel.app/>
+**Live demo**: <https://anota-demo.vercel.app/>
 
 **Repositories**:
 
