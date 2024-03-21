@@ -7,7 +7,7 @@ But with some particular special features. And the best: a browser extension tha
 
 **Live demo**: <https://anota-demo.vercel.app/>
 
-The application has a front-end made in React, a back-end in Next.js with a Sqlite database in Turso, and an extension for Google Chrome.
+The application has a front-end made in React, a back-end in Next.js with a Sqlite database in Turso, and an extension (Highlighter) for Google Chrome.
 
 **Repositories**:
 

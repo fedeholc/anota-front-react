@@ -7,7 +7,9 @@ Pero con algunas características particulares. Y lo mejor: una extensión para 
 
 **Live demo**: <https://anota-demo.vercel.app/>
 
-La aplicación tiene un frontend hecho en React, un back-end en Next.js con una base de datos Sqlite en Turso, y una extensión para Google Chrome.
+La aplicación tiene un frontend hecho en React, un back-end en Next.js con una base de datos Sqlite en Turso, y una extensión (Highlighter) para Google Chrome.
+
+Ver [aquí](https://github.com/fedeholc/anota-highlighter/blob/main/README.es.md) cómo instalar y utilizar Highlighter.
 
 **Repositorios**:
 
