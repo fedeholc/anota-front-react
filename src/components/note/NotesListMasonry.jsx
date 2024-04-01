@@ -111,7 +111,9 @@ export default function NotesListMasonry({ isCollapsed }) {
           })}
         </Masonry>
       )}
-      {loginInfo && !notes && <p> Cargando...</p>}
+      {loginInfo && !notes && (
+        <p style={{ color: "white", padding: "1rem" }}> Cargando...</p>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useReducer } from "react";
 import { PropTypes } from "prop-types";
 import { dbGetNotes } from "./dbHandler";
 import { supabase } from "./supabaseClient";
-
+import { notesReducer } from "./notesReducer";
 import {
   NotesContext,
   NotesFilterContext,
@@ -83,31 +83,3 @@ export function NotesProvider({ children }) {
 NotesProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-function notesReducer(notes, action) {
-  switch (action.type) {
-    case "get": {
-      return action.notes;
-    }
-    case "added": {
-      return [action.note, ...notes];
-    }
-
-    case "updated": {
-      let updatedNotes = notes.map((note) => {
-        if (note.id == action.note.id) {
-          return action.note;
-        } else {
-          return note;
-        }
-      });
-      return [...updatedNotes];
-    }
-    case "deleted": {
-      return notes.filter((note) => note.id !== action.deleteId);
-    }
-    default: {
-      throw Error("Unknown action: " + action.type);
-    }
-  }
-}
