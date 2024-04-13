@@ -62,6 +62,22 @@ export default function NotesListMasonry({ isCollapsed }) {
     setNotesOver(overIds);
   }, [notes]);
 
+  const notesList =
+    notes &&
+    notes.filter(handleSearchFilter).map((note) => {
+      return (
+        <div key={`${note.id} ${note.modified}`}>
+          <Note
+            isCollapsed={isCollapsed}
+            note={note}
+            // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
+            noteOverflow={notesOver.some((e) => e === note.id) ? "..." : ""}
+            isNewNote={false}
+          ></Note>
+        </div>
+      );
+    });
+
   return (
     <div ref={ref} style={{ padding: "1rem", margin: "auto" }}>
       {loginInfo && notes && notesLayout === 0 && (
@@ -69,21 +85,7 @@ export default function NotesListMasonry({ isCollapsed }) {
           columnsCountBreakPoints={{ 350: 1, 650: 2, 950: 3, 1200: 4 }}
         >
           <Masonry gutter="1rem" columnsCount={3}>
-            {notes.filter(handleSearchFilter).map((note) => {
-              return (
-                <div key={`${note.id} ${note.modified}`}>
-                  <Note
-                    isCollapsed={isCollapsed}
-                    note={note}
-                    // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
-                    noteOverflow={
-                      notesOver.some((e) => e === note.id) ? "..." : ""
-                    }
-                    isNewNote={false}
-                  ></Note>
-                </div>
-              );
-            })}
+            {notesList}
           </Masonry>
         </ResponsiveMasonry>
       )}
@@ -94,21 +96,7 @@ export default function NotesListMasonry({ isCollapsed }) {
           columnsCount={1}
           className="masonry-list__container"
         >
-          {notes.filter(handleSearchFilter).map((note) => {
-            return (
-              <div key={`${note.id} ${note.modified}`}>
-                <Note
-                  isCollapsed={isCollapsed}
-                  note={note}
-                  // si el id de la nota está en el array de ids que tienen overflow, entonces pone los puntitos
-                  noteOverflow={
-                    notesOver.some((e) => e === note.id) ? "..." : ""
-                  }
-                  isNewNote={false}
-                ></Note>
-              </div>
-            );
-          })}
+          {notesList}
         </Masonry>
       )}
       {loginInfo && !notes && (
